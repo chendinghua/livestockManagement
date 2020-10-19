@@ -1,0 +1,12 @@
+ext{
+
+ android =[
+         compileSdkVersion : 25,
+         buildToolsVersion : '25.0.0',
+         minSdkVersion :17,
+         targetSdkVersion :24,
+         versionCode :1
+ ]
+
+ butterknifeVersion='8.5.1'
+}

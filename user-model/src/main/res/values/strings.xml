@@ -1,0 +1,67 @@
+<resources>
+
+
+    <string name="user_model_About">关于</string>
+    <color name="user_model_btn_save_bg">#FFFFFF</color>
+
+
+
+
+    <string name="user_model_CheckForUpdates">检查更新</string>
+
+
+
+    <string name="user_model_soft_update_no">已经是最新版本</string>
+    <string name="user_model_soft_update_title">软件更新</string>
+    <string name="user_model_soft_update_info">检测到新版本，立即更新吗</string>
+    <string name="user_model_soft_update_updatebtn">更新</string>
+    <string name="user_model_soft_update_later">稍后更新</string>
+    <string name="user_model_soft_updating">正在更新</string>
+    <string name="user_model_soft_update_cancel">取消</string>
+    <string name="user_model_signOut">退出</string>
+
+
+
+
+    <string name="user_model_PleaseEnterUserName">请输入用户名</string>
+    <string name="user_model_PleaseEnterPassword">请输入密码</string>
+    <string name="user_model_PleaseEnterTheAccessAddress">请输入访问地址</string>
+    <string name="user_model_close">关闭</string>
+    <string name="user_model_personalInformation">个人信息</string>
+    <string name="user_model_HandsetParameterSetting">手持机参数设置</string>
+
+
+    <string name="user_model_PleaseEnterTheOriginalPassword">请输入原始密码</string>
+    <string name="user_model_PleaseEnterANewPassword">请输入新密码</string>
+
+    <string name="user_model_PleaseInputAgain">请再输一遍</string>
+
+    <string name="user_model_save">保存</string>
+
+    <string name="user_model_cancel">取消</string>
+
+
+    <string name="user_model_lowFrequency">低频</string>
+    <string name="user_model_intermediateFrequency">中频</string>
+    <string name="user_model_highFrequency">高频</string>
+
+
+    <string name="user_model_current_printer_device_name">当前打印机设备名</string>
+
+    <string name="user_model_pda_note">注：选择RFID读取的是ERP数据，
+        选择条形码则读取的是序列号。</string>
+
+    <color name="user_model_login_button_color">#ff4661f5</color>
+    <string name="user_model_AreYouSureToChangeThePassword">是否确定修改密码</string>
+
+
+    <string name="user_model_PasswordLengthCannotBeLessThan">密码长度不能少于6</string>
+    <string name="user_model_TwoDifferentPasswordEntries">两次密码输入不同</string>
+
+    <string name="user_model_OldPasswordAndNewPasswordCannotBeTheSame">旧密码和新密码不能相同</string>
+
+    <string name="user_model_PasswordModifiedSuccessfully">密码修改成功</string>
+    <string name="user_model_PasswordModificationFailed">密码修改失败</string>
+
+    <string name="user_model_ChangePassword">修改密码</string>
+</resources>

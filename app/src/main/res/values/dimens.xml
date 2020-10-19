@@ -1,0 +1,37 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">60dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="login_layout_left_right">50dp</dimen>
+
+    <dimen name="login_layout_bottom">95dp</dimen>
+    <dimen name="login_layout_top">90dp</dimen>
+
+    <dimen name="login_layout_padding_left_right">40dp</dimen>
+
+    <dimen name="login_layout_padding_top">0dp</dimen>
+    <dimen name="login_layout_padding_bottom">40dp</dimen>
+
+
+    <dimen name="login_layout_corners">8dp</dimen>
+
+    <dimen name="login_button_corners">20dp</dimen>
+    <dimen name="login_edit_corners">15dp</dimen>
+
+    <dimen name="login_layout_padding">20dp</dimen>
+    <dimen name="editText_left_padding">10dp</dimen>
+
+    <dimen name="btn_width_size">284dp</dimen>
+    <dimen name="btn_height_size">45dp</dimen>
+    <dimen name="login_text_size">17sp</dimen>
+
+    <dimen name="login_option_size">14sp</dimen>
+    <dimen name="login_left_size">15.5sp</dimen>
+    <dimen name="login_right_size">12dp</dimen>
+
+    <dimen name="input_text_size">15sp</dimen>
+</resources>

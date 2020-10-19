@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    >
+    <ImageView
+        android:id="@+id/tv_action_url_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:layout_marginStart="7.5dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/tv_login_system_name"
+        android:textSize="14sp"
+        android:text="@string/system_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue"
+        android:ellipsize="none"
+        android:layout_alignTop="@+id/tv_action_url_logo"
+        android:layout_toEndOf="@+id/tv_action_url_logo"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="5.5dp"
+        />
+
+
+    <com.kymjs.app.base_res.utils.ui.clearEdit.ClearEditText
+
+        android:id="@+id/et_input_action_url"
+        android:layout_width="@dimen/btn_width_size"
+        android:layout_height="@dimen/btn_height_size"
+        android:layout_marginTop="148dp"
+        android:paddingRight="@dimen/login_right_size"
+        android:paddingLeft="@dimen/login_left_size"
+        android:background="@color/login_input_color"
+        android:hint="@string/PleaseEnterTheAccessAddress"
+        android:textSize="@dimen/input_text_size"
+        android:layout_below="@+id/tv_login_system_name"
+        android:layout_centerHorizontal="true" />
+
+
+
+
+
+
+    <com.kymjs.app.base_res.utils.ui.clearEdit.ClearEditText
+
+        android:id="@+id/et_input_update_url"
+        android:layout_width="@dimen/btn_width_size"
+        android:layout_height="@dimen/btn_height_size"
+        android:layout_marginTop="17dp"
+        android:paddingRight="@dimen/login_right_size"
+        android:paddingLeft="@dimen/login_left_size"
+        android:background="@color/login_input_color"
+        android:hint="@string/PleaseEnterTheAccessAddress"
+        android:textSize="@dimen/input_text_size"
+        android:layout_below="@+id/et_input_action_url"
+        android:layout_centerHorizontal="true"/>
+
+
+
+
+
+    <Button
+        android:layout_marginTop="56dp"
+        android:layout_width="@dimen/btn_width_size"
+        android:layout_height="@dimen/btn_height_size"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textSize="@dimen/login_text_size"
+        android:id="@+id/btn_save_action_url"
+        android:background="@drawable/login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_input_update_url"
+        android:textColor="@color/btn_save_bg"
+        android:layout_alignStart="@+id/et_input_update_url" />
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="user_model_color">#4560F5</color>
+
+    <color name="user_model_item_color">#333333</color>
+
+
+    <color name="user_model_change_password_back_bg">#4561F5</color>
+
+
+    <color name="user_model_user_setting_hint_color">#CBCBCB</color>
+
+
+
+    <color name="user_model_select_text_title_color">#999999</color>
+
+    <color name="user_model_user_title_color">#4560F5</color>
+</resources>

@@ -1,0 +1,1 @@
+include ':app', ':home'/*主程序*/, ':explorer', ':router'/*页面控制model*/, ':memory-box', ':base-res'/*通用工具*/, ':apt', 'devicelib', 'user-model',':home'//, ':userinfoconfig'

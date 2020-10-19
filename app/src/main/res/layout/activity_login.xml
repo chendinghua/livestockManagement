@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_home_background"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/login_layout_bottom"
+        android:layout_marginLeft="@dimen/login_layout_left_right"
+        android:layout_marginRight="@dimen/login_layout_left_right"
+        android:layout_marginTop="@dimen/login_layout_top"
+        android:background="@drawable/login_shape"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/bg_home_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.8"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/login_layout_padding"
+
+            >
+
+            <com.kymjs.app.base_res.utils.ui.clearEdit.ClearEditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1.5"
+                android:background="@drawable/login_edit_shape"
+                android:paddingLeft="@dimen/editText_left_padding"
+                android:textColorHint="@color/login_text_color"
+                android:hint="@string/accountNumber"
+                android:id="@+id/et_accountNumber"
+                />
+
+            <com.kymjs.app.base_res.utils.ui.clearEdit.ClearEditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1.5"
+                android:background="@drawable/login_edit_shape"
+                android:paddingLeft="@dimen/editText_left_padding"
+                android:textColorHint="@color/login_text_color"
+                android:hint="@string/password"
+                android:id="@+id/et_password"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/system_setting"
+                    android:textColor="@color/login_text_color"
+                    android:id="@+id/tv_system_setting"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="top|right"
+                    android:text="@string/forget_password" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    android:background="@drawable/login_button_shape"
+                    android:id="@+id/btn_login"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

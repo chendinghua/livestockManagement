@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+
+def configInfo = rootProject.ext.android
+
+android {
+    compileSdkVersion configInfo.compileSdkVersion
+    buildToolsVersion configInfo.buildToolsVersion
+    defaultConfig {
+        applicationId "com.kymjs.app"
+        minSdkVersion configInfo.minSdkVersion
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        if (isDebug.toBoolean()) {
+            buildConfigField 'boolean', 'ISAPP', 'false'
+        } else {
+            buildConfigField 'boolean', 'ISAPP', 'true'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+
+
+
+    testCompile 'junit:junit:4.12'
+    if (!isDebug.toBoolean()) {
+        compile project(':explorer')
+        compile project(':memory-box')
+    } else {
+        compile project(':router')
+    }
+        compile project(':home')
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7

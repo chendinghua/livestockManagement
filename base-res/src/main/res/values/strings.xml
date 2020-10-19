@@ -1,0 +1,11 @@
+<resources>
+    <string name="baseres_double_click_exit">再次点击返回键切换到桌面</string>
+    <string name="baseres_close">关闭</string>
+    <string name="baseres_RequestTimeout">请求超时</string>
+
+
+    <string name="baseres_SystemPrompt">系统提示</string>
+
+    <string name="baseres_cancel">取消</string>
+    <string name="baseres_ok">确定</string>
+</resources>

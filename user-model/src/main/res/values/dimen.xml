@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="user_model_login_text_size">17sp</dimen>
+
+
+    <dimen name="user_model_user_info_name">16sp</dimen>
+
+
+    <dimen name="user_model_user_info_item_width_size">343dp</dimen>
+    <dimen name="user_model_user_info_item_height_size">50dp</dimen>
+    <dimen name="user_model_user_info_item_left_size">15dp</dimen>
+    <dimen name="user_model_user_info_item_top_size">16dp</dimen>
+
+
+
+    <dimen name="user_model_user_info_item_padding_top">15dp</dimen>
+    <dimen name="user_model_user_info_item_image_text_padding_left">9.5dp</dimen>
+
+
+    <dimen name="user_model_input_text_size">15sp</dimen>
+</resources>
