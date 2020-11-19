@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -90,20 +91,33 @@ public class BecomeDevice implements Device{
     }
     //扫描物理按键触发
     @Override
-    public void onKeyDown(int keyCode, KeyEvent event,int status) {
+    public void onKeyDown(int keyCode, KeyEvent event,int status,boolean isSingle) {
         if(keyCode==280 && status==1){
-            responseHandler.handleTriggerPress(loopFlag);
-            if(!loopFlag){
-                if (mReader.startInventoryTag(0,0)) {
-                    startRead();
-                }else {
+            //判断是否读取当个RFID数据
+            if(isSingle){
+                String strUII = mReader.inventorySingleTag();
+                if (!TextUtils.isEmpty(strUII)) {
+                    String strResult = "";
+                    //这里是用来生成编码的
+                    final String strEPC = mReader.convertUiiToEPC(strUII);
+                   responseHandler.handleTagdata(strEPC);
+
+                } else {
+                }
+            }else {
+                responseHandler.handleTriggerPress(loopFlag);
+                if (!loopFlag) {
+                    if (mReader.startInventoryTag(0, 0)) {
+                        startRead();
+                    } else {
+                        //用户点击停止识别则暂停上面扫描的线程
+                        mReader.stopInventory();
+                    }
+                } else {
                     //用户点击停止识别则暂停上面扫描的线程
                     mReader.stopInventory();
+                    stopRead();
                 }
-            }else{
-                //用户点击停止识别则暂停上面扫描的线程
-                mReader.stopInventory();
-                stopRead();
             }
         }else if(keyCode==280 && status==2){
             Log.i("readTag","外部 "+barcode2DWithSoft);

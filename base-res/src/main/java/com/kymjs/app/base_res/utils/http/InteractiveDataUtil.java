@@ -35,12 +35,12 @@ public class InteractiveDataUtil {
      * @param method    调用接口名
      * @param interactiveType   调用接口方式 POST、GET
      */
-    public static void interactiveMessage(final Activity activity , final HashMap<String,Object> params, final Handler handler, final String method, final String interactiveType ){
+    public static void interactiveMessage(final Activity activity , final HashMap<String,Object> params, final HandlerUtils handler, final String method, final String interactiveType ){
         final PopupWindow popupWindow = new PopupWindow();
 
         SharedPreferences sp = activity.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
         final String path = sp.getString("actionUrl","http://192.168.1.94:5006/api");
-
+        handler.setContext(activity);
      final Runnable startRunnable = new Runnable() {
           @Override
           public void run() {
@@ -72,19 +72,21 @@ public class InteractiveDataUtil {
                     if (interactiveType.equals(InteractiveEnum.GET)) {
                         int index = -1;
                         StringBuffer paths = new StringBuffer(path + method);
-                        for (Map.Entry<String, Object> entry : params.entrySet()) {
-                            if (index == -1) {
-                                paths.append("?" + entry.getKey() + "=" + entry.getValue());
-                                index = 1;
-                            } else {
-                                paths.append("&" + entry.getKey() + "=" + entry.getValue());
+                        if(params!=null) {
+                            for (Map.Entry<String, Object> entry : params.entrySet()) {
+                                if (index == -1) {
+                                    paths.append("?" + entry.getKey() + "=" + entry.getValue());
+                                    index = 1;
+                                } else {
+                                    paths.append("&" + entry.getKey() + "=" + entry.getValue());
+                                }
                             }
                         }
-                        result = httpUtils.getData(paths.toString()).body().string();
+                        result = httpUtils.getData(activity,paths.toString()).body().string();
                     } else if (interactiveType.equals(InteractiveEnum.POST)) {
                        String json =  JSON.toJSONString(params);
                         Log.d("JSON", "run: "+json);
-                        result = httpUtils.postJson(path + method, json);
+                        result = httpUtils.postJson(activity,path + method, json);
 
                     } else if (interactiveType.equals(InteractiveEnum.UPLOAD)) {
                       //  result = httpUtils.uploadImage((Context) activity, params, method);
@@ -178,9 +180,9 @@ public class InteractiveDataUtil {
                                 paths.append("&" + entry.getKey() + "=" + entry.getValue());
                             }
                         }
-                        result = httpUtils.getData(paths.toString()).body().string();
+                        result = httpUtils.getData(activity,paths.toString()).body().string();
                     } else if (interactiveType.equals(InteractiveEnum.POST)) {
-                        result = httpUtils.postJson(path + method, JSON.toJSONString(params));
+                        result = httpUtils.postJson(activity,path + method, JSON.toJSONString(params));
 
                     } else if (interactiveType.equals(InteractiveEnum.UPLOAD)) {
                         //  result = httpUtils.uploadImage((Context) activity, params, method);

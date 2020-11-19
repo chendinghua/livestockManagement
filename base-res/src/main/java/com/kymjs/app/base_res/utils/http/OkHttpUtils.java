@@ -1,5 +1,8 @@
 package com.kymjs.app.base_res.utils.http;
+import android.content.Context;
 import android.util.Log;
+
+import com.kymjs.app.base_res.utils.utils.SPUtils;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -84,10 +87,20 @@ public class OkHttpUtils {
      * @param url
      * @return
      */
-    public Response getData(String url) {
+    public Response getData(Context context ,String url) {
+        Log.d("url", "getData: "+url);
         //1 构造Request
         Request.Builder builder = new Request.Builder();
-        Request request = builder.get().url(url).build();
+        Request request = builder.get().url(url)
+                .addHeader("content-type", "application/json;charset:utf-8")
+                .addHeader("UserID",new Integer(SPUtils.getSharedIntData(context,"UserID")).toString())
+                .addHeader("DeptID",new Integer(SPUtils.getSharedIntData(context,"DeptID")).toString())
+                .addHeader("AdressProvince",SPUtils.getSharedStringData(context,"AdressProvince"))
+                .addHeader("AdressCity",SPUtils.getSharedStringData(context,"AdressCity"))
+                .addHeader("AdressCounty",SPUtils.getSharedStringData(context,"AdressCounty"))
+                .addHeader("Type",new Integer(SPUtils.getSharedIntData(context,"Type")).toString())
+                .addHeader("DeptType",new Integer(SPUtils.getSharedIntData(context,"DeptType")).toString())
+                .build();
         //2 将Request封装为Call
         Call call = mOkHttpClient.newCall(request);
         //3 执行Call，得到response
@@ -222,12 +235,26 @@ public class OkHttpUtils {
         return ssfFactory;
     }
 
-    public String postJson(String url, String json) throws IOException {
+    public String postJson(Context context, String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
+        Log.d("JSONUrl", "postJson: "+url);
+        Log.d("JSON", "postJson: "+json);
+        /*  .addHeader("UserID",new Integer(SPUtils.getSharedIntData(context,"UserID")).toString())
+                .addHeader("DeptID",new Integer(SPUtils.getSharedIntData(context,"DeptID")).toString())*/
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("content-type", "application/json;charset:utf-8")
+             //   .addHeader("Host","<calculated when request is sent>")
+                .addHeader("UserID",new Integer(SPUtils.getSharedIntData(context,"UserID")).toString())
+                .addHeader("DeptID",new Integer(SPUtils.getSharedIntData(context,"DeptID")).toString())
+                .addHeader("AdressProvince",SPUtils.getSharedStringData(context,"AdressProvince"))
+                .addHeader("AdressCity",SPUtils.getSharedStringData(context,"AdressCity"))
+                .addHeader("AdressCounty",SPUtils.getSharedStringData(context,"AdressCounty"))
+                .addHeader("Type",new Integer(SPUtils.getSharedIntData(context,"DeptType")).toString())
                 .post(body)
                 .build();
+
+
         Response response = mOkHttpClient.newCall(request).execute();
         if (response.isSuccessful()) {
             return response.body().string();

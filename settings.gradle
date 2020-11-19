@@ -1,1 +1,19 @@
-include ':app', ':home'/*主程序*/, ':explorer', ':router'/*页面控制model*/, ':memory-box', ':base-res'/*通用工具*/, ':apt', 'devicelib', 'user-model',':home'//, ':userinfoconfig'
+include ':app',
+        ':home',/*主菜单模块*/
+        ':distribute' ,/*分发模块*/
+        ':explorer',
+        ':router',/*页面控制model*/
+        ':memory-box',
+        ':base-res',/*通用工具*/
+        ':apt',
+        'devicelib',/*手持机设备模块*/
+        'user-model',/*用户模块*/
+        ':home', //':userinfoconfig'
+        ':prevention',/*,育苗模块*/
+        ':StorageInfo',/* 库存管理*/
+        ':FieldManagement', /* 库位管理*/
+        ':InStock',/*入库管理*/
+        ':paginationlib',/*分页布局*/
+        ':MedicalRecords',/*就诊管理*/
+        ':destroyManagement',/*销毁管理*/
+        ':StockManagement'/*库位管理*/

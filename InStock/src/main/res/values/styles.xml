@@ -1,0 +1,18 @@
+<resources>
+
+    <style name="instock_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">true</item>
+        <item name="android:windowNoTitle">false</item>
+
+        <item name="colorPrimaryDark">#cc0986ff</item>
+        <item name="colorPrimary">#ff0c84e8</item>
+        <item name="android:textColorPrimary">#fdfff2</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:editTextColor">@android:color/background_dark</item>
+        <item name="android:textColor">@android:color/background_dark</item>
+        <item name="colorControlNormal">@android:color/background_dark</item>
+        <item name="colorControlActivated">#ff0043c5</item>
+        <item name="colorControlHighlight">#ffcb6345</item>
+    </style>
+
+</resources>

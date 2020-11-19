@@ -1,5 +1,6 @@
 package com.kymjs.app.base_res.utils.base;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,12 +8,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import devicelib.dao.Device;
+import devicelib.dao.ResponseHandlerInterface;
+import devicelib.factory.DeviceFactory;
 
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends Activity> extends  Fragment {
     protected View rootView;
 
     private Unbinder mUnbinder;
@@ -20,18 +25,43 @@ public abstract class BaseFragment extends Fragment {
     private boolean isFragmentVisible;
     //是否是第一次开启网络加载
     public boolean isFirst;
+    protected T activity;
+
+
+    /**
+     * rootView是否初始化标志，防止回调函数在rootView为空的时候触发
+     */
+    private boolean hasCreateView;
+
+    /**
+     * 当前Fragment是否处于可见状态标志，防止因ViewPager的缓存机制而导致回调函数的触发
+     *//*
+    private boolean isFragmentVisible;
+
+    *//**
+     * onCreateView()里返回的view，修饰为protected,所以子类继承该类时，在onCreateView里必须对该变量进行初始化
+     *//*
+    protected View rootView;*/
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null)
             rootView = inflater.inflate(getLayoutResource(), container, false);
+
+        activity = (T)getActivity();
         mUnbinder = ButterKnife.bind(this, rootView);
-        initView();
+
         //可见，但是并没有加载过
         if (isFragmentVisible && !isFirst) {
             onFragmentVisibleChange(true);
         }
+
+        if(isLoad()){
+            initView();
+        }
+
         return rootView;
     }
 
@@ -42,6 +72,8 @@ public abstract class BaseFragment extends Fragment {
     //初始化view
     protected abstract void initView();
 
+
+    protected  abstract boolean isLoad();
 
     /**
      * 通过Class跳转界面
@@ -104,7 +136,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -120,7 +151,9 @@ public abstract class BaseFragment extends Fragment {
      *                  false 可见  -> 不可见
      */
     protected void onFragmentVisibleChange(boolean isVisible) {
-
+        if(isVisible){
+            initView();
+        }
     }
 
 

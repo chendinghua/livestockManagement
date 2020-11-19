@@ -19,8 +19,9 @@ public interface Device {
      * @param keyCode 按键值
      * @param event 按键对象
      * @param status 扫描类型 1、RFID 2、条码
+     * @param isSingle 表示是否读取单个数据  true 只触发一次  false 读取多条数据
      */
-    public void onKeyDown(int keyCode, KeyEvent event,int status);
+    public void onKeyDown(int keyCode, KeyEvent event,int status,boolean isSingle);
 
     public void destroy();
 

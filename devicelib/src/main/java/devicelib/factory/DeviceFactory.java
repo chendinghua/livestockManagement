@@ -27,7 +27,7 @@ public class DeviceFactory {
         Log.d("currentName", "deviceType:  "+deviceType);
         Device device=null;
         //成为
-        if("C72".equals(deviceType) || "handheld".equals(deviceType)){
+     //   if("C72".equals(deviceType) || "handheld".equals(deviceType)){
             device = new BecomeDevice(context,responseHandler);
         /*//斑马
         } else if("MC33".equals(deviceType)){
@@ -39,7 +39,7 @@ public class DeviceFactory {
          //   device = new CommonDevice(context,responseHandler);
         }else if("AUTOID9N".equals(deviceType)){
             device = new A9Device(context,responseHandler);*/
-        }
+    //    }
 
         return device;
     }

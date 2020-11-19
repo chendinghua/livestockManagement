@@ -3,13 +3,21 @@
 
     <application
         android:allowBackup="true"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
 
-        <activity android:name=".activity.AboutInfoActivity"></activity>
-        <activity android:name=".activity.PdaParamSettingActivity">
+        >
+
+        <activity android:name=".activity.AboutInfoActivity"
+            android:theme="@style/user_mode_CustomTheme"
+            ></activity>
+        <activity android:name=".activity.PdaParamSettingActivity"
+            android:theme="@style/user_mode_CustomTheme"
+            >
         </activity>
 
-        <activity android:name=".activity.UserInfoSettingActivity"></activity>
+        <activity android:name=".activity.UserInfoSettingActivity"
+            android:theme="@style/user_mode_CustomTheme"
+            ></activity>
     </application>
 
 </manifest>

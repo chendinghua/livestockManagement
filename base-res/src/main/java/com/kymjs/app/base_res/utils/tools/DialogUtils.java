@@ -32,7 +32,8 @@ public class DialogUtils {
         if(keyListener!=null){
             builder.setOnKeyListener(keyListener);
         }
-
+       // bu.setCanceledOnTouchOutside(false);//点击屏幕 dialog不消失
+        builder.setCancelable(false);//点击屏幕或返回按钮 dialog不消失
         builder.show();
         return builder;
     }

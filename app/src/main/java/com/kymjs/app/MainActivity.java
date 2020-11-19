@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.distribute_activity_main);
         mContext = this;
         Toolbar toolbar = getToolbar();
         setSupportActionBar(toolbar);

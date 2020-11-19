@@ -8,4 +8,20 @@
 
     <string name="baseres_cancel">取消</string>
     <string name="baseres_ok">确定</string>
+
+
+    <string name="baseres_datepicker_cancel">Cancel</string>
+    <string name="baseres_datepicker_decide">Decide</string>
+    <string name="baseres_datepicker_hour">H</string>
+    <string name="baseres_datepicker_minute">m</string>
+
+
+    <string name="baseres_lowFrequency">低频</string>
+    <string name="baseres_intermediateFrequency">中频</string>
+    <string name="baseres_highFrequency">高频</string>
+
+
+    <string name="baseres_uhf_msg_set_power_fail">设置功率失败</string>
+    <string name="baseres_uhf_msg_set_power_succ">设置功率成功</string>
+
 </resources>

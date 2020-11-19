@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.neenbedankt.android-apt'
 def configInfo = rootProject.ext.android
 
 android {
@@ -20,6 +21,14 @@ android {
         }
     }
 }
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -28,6 +37,11 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.0'
+
+
+    //butterknife 空引用
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     compile project(':base-res')
 

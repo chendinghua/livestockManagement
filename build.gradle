@@ -3,13 +3,24 @@ apply  from :'config.gradle'
 
 
 buildscript {
-    repositories {
-      /*  jcenter()
-        mavenCentral()*/
+   /* repositories {
+      *//*  jcenter()
+        mavenCentral()*//*
         maven { url 'http://repo1.maven.org/maven2' }
         maven { url 'https://jitpack.io' }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    }*/
+
+    System.properties['com.android.build.gradle.overrideVersionCheck'] = 'true'
+    repositories {
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/jcenter"
+        }
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
 
@@ -29,9 +40,18 @@ allprojects {
 
      /*   jcenter()
         mavenCentral()*/
-        maven { url 'http://repo1.maven.org/maven2' }
+       /* maven { url 'http://repo1.maven.org/maven2' }
         maven { url 'https://jitpack.io' }
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }*/
+
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/jcenter"
+        }
+
+        maven { url 'https://jitpack.io' }
     }
 }
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.kymjs.app.base_res.utils.DatePicker.date.Baseres_DatePicker
+        android:id="@+id/dayPicker_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.kymjs.app.base_res.utils.DatePicker.date.Baseres_DatePicker>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:padding="16dp"
+            android:id="@+id/btn_dialog_date_cancel"
+            android:background="#f7f7f7"
+            android:text="@string/baseres_datepicker_cancel"
+            android:textColor="@color/baseres_datepicker_selectedTextColor"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:background="@color/baseres_datepicker_divider"
+            android:layout_width="1px"
+            android:layout_height="match_parent" />
+        <Button
+            android:padding="16dp"
+            android:id="@+id/btn_dialog_date_decide"
+            android:background="#f7f7f7"
+            android:text="@string/baseres_datepicker_decide"
+            android:textColor="@color/baseres_datepicker_selectedTextColor"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

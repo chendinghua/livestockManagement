@@ -11,77 +11,35 @@ public class MethodEnum {
     public static String LOGINSIGNOUT="/login/signout";
     //修改密码
     public static String RESETPWD="/user/resetpwd";
-    //心跳监控接口
-    public static final String HEARTBEAT="/common/heartbeat";
-    //异常信息记录
-    public static final String ADDERRORINFO="/common/AddErrorInfo";
     //获取字典信息
     public static final String GETDICBYGROUPNAME="/common/getdiclistbygroupname";
+    //获取养殖场信息
+    public static final String FARMERSALLLISTBYID="/Basics/DeptAllListById";
+    //获取畜种信息
+    public static final String PRODCTINFO="/Product/ProductInfo";
+    //校验库位RFID数据是否有效
+    public static final String GETISSTOCKBYRFID="/Animal/GetIsStockByRFID";
+    //栏位新增and修改
+    public static final String POSTADDSTOCK="/Animal/PostAddStock";
+    //根据条件查询 部门库存
+    public static final String GETSTORAGEINFOBYDEPTID="/Storage/GetStorageinfoByDeptID";
+    //获取栏位信息 可以根据RFID 或者序列号
+    public static final String GETSTOCKINFOBYDEPTID="/Animal/GetStockInfoByDeptID";
+    //部门出库检查
+    public static final String GETSTORAGEINFOBYOUT="/Storage/GetStorageinfoByOut";
+    //提交分发耳标（栏位，畜种）
+    public static final String POSTADDDISTRIBUTE="/Animal/PostAddDistribute";
+    //添加入栏数据
+    public static final String POSTPDAINSTOCK="/Animal/PostPDAInStock";
+    //添加移栏数据
+    public static final String POSTMOVESTOCK="/Animal/PostMoveStock";
+    //查询ID就诊记录列表
+    public static final String GETMEDICALILLNESSLIST="/MedicalRecords/GetMedicalIllnessList";
+    //查询当前栏位列表
+    public static final String GETSTOCKINFOBYDEPT="/Animal/GetStockInfoByDept";
+    //查询疾病信息
+    public static final String GETMEDICALRLIST="/MedicalRecords/GetMedicalRList";
+    //提交就诊信息
+    public static final String POSTMEDICAL="/MedicalRecords/PostMedical";
 
-    //任务列表
-    public static final String GETTASKLIST="/task/gettasklist";
-
-    //根据rfid获取产品信息
-    public static final String GETPRODUCTINFOBYRFIDNO="/storage/GetStorageInfoByRfidNo";
-
-    //获取报废列表信息
-    public static final String GETSCRAPLIST="/scrap/getscraplist";
-
-
-
-    //报废信息详细
-    public static final String GETSCRAPINFO="/scrap/getscrapinfo";
-
-    //报废申请
-    public static final String ADDSCRAPINFO = "/scrap/addscrapinfo";
-
-    //编辑报废任务
-    public static final String EDITSCRAPINFO="/scrap/EditScrapInfo";
-
-    //取消报废申请
-    public static final String UPDATESTATUS ="/scrap/updatestatus";
-
-    //根据库存的RFID获取库存详细信息(包含库存的库位信息)
-    public static final String GETSTORAGEINFOBYRFIDNO="/Storage/GetStorageInfoByRfidNo";
-
-    //根据库存的JOB号获取库存详细信息
-    public static final String GETSTORAGEINFOBYCODE="/storage/getstorageinfobycode";
-
-
-
-    //获取盘点信息
-    public static final String GETINVENTORYLIST = "/inventory/GetInventoryList";
-
-    //记录盘点信息
-    public static final String ADDINVENTORYINFO ="/inventory/addinventoryinfo";
-
-    //获取包装列表的信息
-    public static final String GETPACKAGELIST="/pack/GetPackageList";
-    public static final String COMMITCHECK="/check/commitcheck";
-
-
-    //入库单号
-    public static final String GETORDERNO="/Instock/GetOrderNo";
-
-    //获取供应商信息
-    public static final String GETSUPPLIERLIST="/User/GetSupplierList_LName";
-    //根据序列号查询
-    public static final String GETSTORAGEINFOBYSERIALNO="/Storage/GetStorageInfoBySerialNo";
-    //出库提交接口
-    public static final String POSADDTOUTSTOCK="/Storage/PosAddtOutStock";
-    //根据类型查询产品名
-    public static final String PDASELECTPRODUCTLIST="/ProduceInfo/PDASelectProductList";
-    //综合查询
-    public static final String POSTSTORAGEINFOLIST="/Storage/PostStorageInfoList";
-    //获取用户信息集合
-    public static final String GETUSERLIST="/User/GetUserList";
-    //根据产品名称查询PN信息
-    public static final String PDASELECTPRODUCTLISTBYNAME="/ProduceInfo/PDASelectProductListByName";
-    //根据PN查询规格等信息
-    public static final String PDASELECTPRODUCTLISYBYPN="/ProduceInfo/PDASelectProductListByPN";
-
-    //添加采购清单
-    public static final String POSTADDINSTOCK="/Storage/PosAddtInStock";
-
-    public static final String PDAQELLNSTOCKINFOLIST="/Storage/PDAQelInStockInfoList";
 }

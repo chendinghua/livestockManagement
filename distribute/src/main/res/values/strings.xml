@@ -1,0 +1,7 @@
+<resources>
+    <array name="distribute_array">
+       <item>养殖户信息</item>
+        <item>核对标签</item>
+    </array>
+
+</resources>

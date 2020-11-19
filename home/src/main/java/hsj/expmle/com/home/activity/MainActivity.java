@@ -1,6 +1,7 @@
 package hsj.expmle.com.home.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -10,12 +11,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.utils.AnimationUtil;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity
      List<RightInfo> rightInfos;
     DrawerLayout drawer;
 
-    String currentFragment;
+    String currentFragment="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +77,6 @@ public class MainActivity extends AppCompatActivity
             if(rightInfos.get(i).getParentID()!=0) {
                 //设置标题
                 navigationView.getMenu().add(rightInfos.get(i).getName())
-                        //设置导航栏每一列的小图标
-                        //     .setIcon(getActivity().getDrawable(getBitmapIdByName(mainActivity,rightInfos.get(i).getActionBtn())))
-                        //.setTitleCondensed(rightInfos.get(i).getActionForm());
                         //传入每一列的选中时的下标
                         .setTitleCondensed("" + i);
             }
@@ -92,56 +92,28 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.content_main,
                         FragmentRouter.getFragment(RouterList.MEMORY_FRAG_MAIN))
                 .commit();
+
+
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-*/
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-       /* if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(MenuItem item) {
       RightInfo rightInfo = rightInfos.get( Integer.parseInt(  item.getTitleCondensed().toString()));
 
-        // Handle navigation view item clicks here.
-      /*  int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-            ActivityRouter.startActivity(this, RouterList.EXPLORER_ATY_MAIN);
-        } else if (id == R.id.nav_share) {
-            ActivityRouter.startActivity(this, RouterList.MEMORY_ATY_MAIN);
-        } else if (id == R.id.nav_send) {
-            throw new RuntimeException("throw exception");
-        }*/
-      String actionUrl = rightInfo.getActionUrl();
-        if(!"".equals(actionUrl) && "".equals(currentFragment)){
-            FragmentRouter.replaceFragment(this,R.id.content_main,actionUrl);
+      String actionForm = rightInfo.getActionForm();
+        getToolbar().setTitle(rightInfo.getName());
+        SPUtils.setSharedStringData(mContext,"actionUrl",rightInfo.getActionUrl());
+        Log.d("MainActivity", "onNavigationItemSelected:  "+actionForm );
+        if(!"".equals(actionForm) && !currentFragment.equals(actionForm)){
 
 
+
+            FragmentRouter.replaceFragment(this,R.id.content_main,actionForm);
+            currentFragment = actionForm;
         }
 
 
@@ -163,6 +135,31 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+    //第一次点击事件发生的时间
+    private long mExitTime;
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+           /* if (mDrawer.isMenuVisible()) {
+                //隐藏导航栏
+                mDrawer.closeMenu();
+            }else {*/
+                if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                    Object mHelperUtils;
+                    Toast.makeText(this,R.string.exitSystem, Toast.LENGTH_SHORT).show();
+                    mExitTime = System.currentTimeMillis();
+                } else {
+                    Intent home = new Intent(Intent.ACTION_MAIN);
+                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    home.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(home);
+                }
+          //  }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 
    /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

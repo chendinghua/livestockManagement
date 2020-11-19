@@ -26,6 +26,10 @@ public class HandlerUtils extends Handler {
         this.errorCallback=errorCallback;
     }
 
+    public void setContext(Context context){
+        this.context = context;
+    }
+
     @Override
     public void handleMessage(Message msg) {
 
@@ -38,6 +42,7 @@ public class HandlerUtils extends Handler {
                      errorCallback.handlerErrorFunction(msg);
                         Log.d("JSON", "HandlerUtilsErrorCallback: ");
                     }else {
+                        Log.d("JSON", "handleMessage: "+JSON.parseObject(msg.getData().getString("result")).getString("Message")+"     context   "+context);
                         if(context!=null)
                       //  UIHelper.ToastMessage(context, "数据异常");
                             UIHelper.ToastMessage(context,JSON.parseObject(msg.getData().getString("result")).getString("Message"));

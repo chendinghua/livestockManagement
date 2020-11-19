@@ -49,10 +49,10 @@ public class UserInfoSettingActivity extends Activity implements View.OnClickLis
         mContext=this;
         ActionBar actionBar = getActionBar();
 
-        actionBar.setTitle(R.string.user_model_ChangePassword);
+        /*actionBar.setTitle(R.string.user_model_ChangePassword);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.user_model_user_title_color,null)));
-
+*/
         //初始化UI控件
         initUI();
         //初始化控件点击事件

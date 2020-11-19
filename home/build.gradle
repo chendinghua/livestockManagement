@@ -34,5 +34,11 @@ dependencies {
 
     compile project(':router')
     compile project(':user-model')
+    compile project(':distribute')
+    compile project(':StorageInfo')
+    compile project(':InStock')
+    compile project(':MedicalRecords')
+    compile project(':StockManagement')
+
   //  compile project(':user-model')
 }

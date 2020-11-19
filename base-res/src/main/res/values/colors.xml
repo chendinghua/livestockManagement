@@ -12,4 +12,28 @@
     <color name="baseres_swiperefresh_color3">#ffff4444</color>
     <color name="baseres_swiperefresh_color4">#ffaa66cc</color>
     <color name="baseres_colorPrimary1">#5D9CEC</color>
+
+
+    <color name="baseres_datepicker_selectedTextColor">#33aaff</color>
+    <color name="baseres_datepicker_divider">#cccccc</color>
+
+
+    <color name="baseres_default_circle_color">#b3bdc2</color>
+    <color name="baseres_default_primary_color">#00b47c</color>
+    <color name="baseres_default_line_color">#b3bdc2</color>
+    <color name="baseres_default_text_color">#000</color>
+
+    <color name="baseres_item_color">#333333</color>
+
+
+    <color name="baseres_home_title_bg">#ff4661f5</color>
+
+    <color name="baseres_btn_save_bg">#FFFFFF</color>
+
+    <color name="baseres_red">#FF0000</color>
+
+    <color name="baseres_green">#008000</color>
+
+    <color name="baseres_yellow">#FFFF00</color>
+    <color name="baseres_gray1">#dbdbdb</color>
 </resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="#f7f7f7"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.kymjs.app.base_res.utils.DatePicker.date.Baseres_YearPicker
+        android:id="@+id/yearPicker_layout_date"
+        app:baseres_halfVisibleItemCount="2"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+    <com.kymjs.app.base_res.utils.DatePicker.date.Baseres_MonthPicker
+        android:id="@+id/monthPicker_layout_date"
+        app:baseres_halfVisibleItemCount="2"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+    <com.kymjs.app.base_res.utils.DatePicker.date.DayPicker
+        android:id="@+id/dayPicker_layout_date"
+        app:baseres_halfVisibleItemCount="2"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import hsj.expmle.com.R;
+import hsj.expmle.com.R2;
 import hsj.expmle.com.entry.DicInfo;
 
 /**
@@ -76,11 +77,11 @@ public class PdaParamSettingActivity extends Activity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_model_activity_pda_param_setting);
-        android.app.ActionBar actionBar = getActionBar();
-        actionBar.setTitle(R.string.user_model_ChangePassword);
+       /* android.app.ActionBar actionBar = getActionBar();
+        actionBar.setTitle(R2.string.user_model_ChangePassword);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.user_model_user_title_color,null)));
-
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R2.color.user_model_user_title_color,null)));
+*/
         //初始化UI控件
         initUI();
         testData();

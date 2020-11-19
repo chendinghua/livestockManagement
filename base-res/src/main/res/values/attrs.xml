@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <attr name="baseres_halfVisibleItemCount" format="integer"/>
+    <attr name="baseres_itemTextSize" format="dimension"/>
+    <attr name="baseres_itemMaximumWidthText" format="string"/>
+    <attr name="baseres_itemTextColor" format="color"/>
+    <attr name="baseres_textGradual" format="boolean"/>
+    <attr name="baseres_selectedTextColor" format="color"/>
+    <attr name="baseres_selectedTextSize" format="dimension"/>
+    <attr name="baseres_currentItemPosition" format="integer"/>
+    <attr name="baseres_itemWidthSpace" format="dimension"/>
+    <attr name="baseres_itemHeightSpace" format="dimension"/>
+    <attr name="baseres_zoomInSelectedItem" format="boolean"/>
+    <attr name="baseres_wheelCyclic" format="boolean"/>
+    <attr name="baseres_wheelCurtain" format="boolean"/>
+    <attr name="baseres_wheelCurtainColor" format="color"/>
+    <attr name="baseres_wheelCurtainBorder" format="boolean"/>
+    <attr name="baseres_wheelCurtainBorderColor" format="color"/>
+    <attr name="baseres_indicatorText" format="string"/>
+    <attr name="baseres_indicatorTextSize" format="dimension"/>
+    <attr name="baseres_indicatorTextColor" format="color"/>
+    <declare-styleable name="Baseres_WheelPicker">
+        <attr name="baseres_halfVisibleItemCount"/>
+        <attr name="baseres_itemTextSize"/>
+        <attr name="baseres_itemMaximumWidthText"/>
+        <attr name="baseres_itemTextColor"/>
+        <attr name="baseres_textGradual"/>
+        <attr name="baseres_selectedTextColor"/>
+        <attr name="baseres_selectedTextSize"/>
+        <attr name="baseres_currentItemPosition"/>
+        <attr name="baseres_itemWidthSpace"/>
+        <attr name="baseres_itemHeightSpace"/>
+        <attr name="baseres_zoomInSelectedItem"/>
+        <attr name="baseres_wheelCyclic"/>
+        <attr name="baseres_wheelCurtain"/>
+        <attr name="baseres_wheelCurtainColor"/>
+        <attr name="baseres_wheelCurtainBorder" />
+        <attr name="baseres_wheelCurtainBorderColor"/>
+        <attr name="baseres_indicatorText"/>
+        <attr name="baseres_indicatorTextSize"/>
+        <attr name="baseres_indicatorTextColor"/>
+    </declare-styleable>
+
+    <declare-styleable name="Baseres_YearPicker">
+        <attr name="baseres_startYear" format="integer"/>
+        <attr name="baseres_endYear" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="Baseres_MonthPicker">
+    </declare-styleable>
+
+    <declare-styleable name="Baseres_DatePicker">
+        <attr name="baseres_halfVisibleItemCount"/>
+        <attr name="baseres_itemTextSize"/>
+        <attr name="baseres_itemTextColor"/>
+        <attr name="baseres_textGradual"/>
+        <attr name="baseres_selectedTextColor"/>
+        <attr name="baseres_selectedTextSize"/>
+        <attr name="baseres_itemWidthSpace"/>
+        <attr name="baseres_itemHeightSpace"/>
+        <attr name="baseres_zoomInSelectedItem"/>
+        <attr name="baseres_wheelCyclic"/>
+        <attr name="baseres_wheelCurtain"/>
+        <attr name="baseres_wheelCurtainColor"/>
+        <attr name="baseres_wheelCurtainBorder"/>
+        <attr name="baseres_wheelCurtainBorderColor"/>
+    </declare-styleable>
+
+    <declare-styleable name="Baseres_HourAndMinutePicker">
+        <attr name="baseres_halfVisibleItemCount"/>
+        <attr name="baseres_itemTextSize"/>
+        <attr name="baseres_itemTextColor"/>
+        <attr name="baseres_textGradual"/>
+        <attr name="baseres_selectedTextColor"/>
+        <attr name="baseres_selectedTextSize"/>
+        <attr name="baseres_itemWidthSpace"/>
+        <attr name="baseres_itemHeightSpace"/>
+        <attr name="baseres_zoomInSelectedItem"/>
+        <attr name="baseres_wheelCyclic"/>
+        <attr name="baseres_wheelCurtain"/>
+        <attr name="baseres_wheelCurtainColor"/>
+        <attr name="baseres_wheelCurtainBorder"/>
+        <attr name="baseres_wheelCurtainBorderColor"/>
+    </declare-styleable>
+
+
+
+
+    <declare-styleable name="StepperIndicator" tools:ignore="ResourceName">
+        <attr name="baseres_stepCount" format="integer"/>
+        <attr name="baseres_animDuration" format="integer"/>
+
+        <attr name="baseres_circleColor" format="color"/>
+        <attr name="baseres_circleRadius" format="dimension"/>
+        <attr name="baseres_circleStrokeWidth" format="dimension"/>
+
+        <attr name="baseres_indicatorColor" format="color"/>
+        <attr name="baseres_indicatorRadius" format="dimension"/>
+
+        <attr name="baseres_lineColor" format="color"/>
+        <attr name="baseres_lineDoneColor" format="color"/>
+        <attr name="baseres_lineStrokeWidth" format="dimension"/>
+        <attr name="baseres_lineMargin" format="dimension"/>
+
+        <attr name="baseres_showDoneIcon" format="boolean"/>
+        <attr name="baseres_showStepNumberInstead" format="boolean"/>
+        <attr name="baseres_doneIconDrawable" format="reference"/>
+
+        <attr name="baseres_useBottomIndicator" format="boolean"/>
+        <attr name="baseres_useBottomIndicatorWithStepColors" format="boolean"/>
+        <attr name="baseres_bottomIndicatorHeight" format="dimension"/>
+        <attr name="baseres_bottomIndicatorWidth" format="dimension"/>
+        <attr name="baseres_bottomIndicatorMarginTop" format="dimension"/>
+
+        <attr name="baseres_stepsCircleColors" format="reference"/>
+        <attr name="baseres_stepsIndicatorColors" format="reference"/>
+
+        <attr name="baseres_labels" format="reference"/>
+        <attr name="baseres_showLabels" format="boolean"/>
+        <attr name="baseres_labelMarginTop" format="dimension"/>
+        <attr name="baseres_labelSize" format="dimension"/>
+        <attr name="baseres_labelColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="Baseres_AddAndSubView">
+        <attr name="baseres_textColor" format="color"/>
+        <attr name="baseres_initValue" format="integer"/>
+        <attr name="baseres_maxValue" format="integer"/>
+        <attr name="baseres_minValue" format="integer"/>
+        <attr name="baseres_textSize" format="dimension"/>
+        <attr name="baseres_textFrameBackground" format="reference|color"/>
+        <attr name="baseres_addBackground" format="reference|color"/>
+        <attr name="baseres_subBackground" format="reference|color"/>
+        <attr name="baseres_textFrameWidth" format="dimension"/>
+        <attr name="baseres_addWidth" format="dimension"/>
+        <attr name="baseres_subWidth" format="dimension"/>
+        <attr name="baseres_addText" format="string"/>
+        <attr name="baseres_subText" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="Baseres_FolderTextView">
+        <attr name="baseres_foldline" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="Baseres_PowerSettingView">
+        <attr name="baseres_power_index" format="integer"></attr>
+    </declare-styleable>
+
+</resources>

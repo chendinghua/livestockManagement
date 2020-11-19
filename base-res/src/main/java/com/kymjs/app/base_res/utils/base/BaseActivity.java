@@ -1,11 +1,15 @@
 package com.kymjs.app.base_res.utils.base;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.SupportActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -13,6 +17,8 @@ import com.kymjs.app.base_res.R;
 import com.kymjs.app.base_res.utils.app.AppManager;
 import com.kymjs.app.base_res.utils.utils.StatusBarSetting;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import devicelib.dao.Device;
 import devicelib.dao.ResponseHandlerInterface;
 import devicelib.factory.DeviceFactory;
@@ -21,34 +27,24 @@ import devicelib.factory.DeviceFactory;
  * 基类
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements ResponseHandlerInterface {
+public abstract class BaseActivity extends FragmentActivity {
 
     public Context mContext;
-  //  private Unbinder mUnbinder;
+    private Unbinder mUnbinder;
     private int count;//记录开启进度条的情况 只能开一个
 
-    protected Device device;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         doBeforeSetcontentView();
         setContentView(getLayoutId());
         // 默认着色状态栏
         SetStatusBarColor();
-    //    mUnbinder = ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);
 
-        if(isOpenUHFModel()){
-            DeviceFactory factory = new DeviceFactory(this,this);
 
-            device = factory.getDevice();
-            if(device!=null){
-                device.initUHF();
-
-            }else{
-                Toast.makeText(mContext,"获取RFID模块失败",Toast.LENGTH_SHORT).show();
-            }
-        }
         mContext = this;
         this.initPresenter();
         this.initView();
@@ -67,8 +63,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
-    //判断是否打开
-    public abstract  boolean isOpenUHFModel();
+
+
+
+
 
     /*********************
      * 子类实现
@@ -160,7 +158,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     @Override
     protected void onDestroy() {
         super.onDestroy();
-      //  mUnbinder.unbind();
+
+        mUnbinder.unbind();
         AppManager.getAppManager().finishActivity(this);
     }
 }

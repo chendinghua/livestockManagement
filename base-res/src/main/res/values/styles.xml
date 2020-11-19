@@ -19,5 +19,47 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="baseres_DatePickerBottomDialog" parent="android:Theme.Light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="baseres_DatePickerDialogAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/baseres_datepicker_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/baseres_datepicker_dialog_out</item>
+    </style>
+    <style name="baseres_ProgressDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+    <style name="baseres_ProgressDialogStyle" parent="@style/baseres_ProgressDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
+    <style name="baseres_Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+    <!-- 将自定义的style取名为CustomTheme，父类为Theme.Holo.Light，也就是说默认背景是白底黑字（如果是Theme.Holo，则默认是黑底白字） -->
+    <style name="baseres_CustomTheme" parent="android:style/Theme.Holo.Light">
+        <!-- 这是item的背景修改，不按时透明，按时显示绿色  -->
+        <!-- <item name="android:selectableItemBackground">@color/white1</item>  -->
+        <!-- <item name="android:actionDropDownStyle">@style/MyDropDownNav</item>
+        <item name="android:dropDownListViewStyle">@style/MyDropDownListView</item>
+        <item name="android:actionBarTabStyle">@style/MyActionBarTabStyle</item> -->
+        <item name="android:actionBarStyle">@style/baseres_MyActionBarStyle</item>
+        <item name="android:homeAsUpIndicator">@drawable/baseres_actionbar_back</item>
+    </style>
+    <style name="baseres_MyActionBarStyle" parent="@android:style/Widget.Holo.ActionBar">
+        <!-- <item name="android:background">@color/white</item>
+        <item name="android:titleTextStyle">@style/MainActivityActionBarTitleTextStyle</item> -->
+
+    </style>
 </resources>

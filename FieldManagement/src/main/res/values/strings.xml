@@ -1,0 +1,7 @@
+<resources>
+    <array name="field_management_array">
+        <item>扫描栏位标签</item>
+        <item>确认栏位信息</item>
+    </array>
+
+</resources>
