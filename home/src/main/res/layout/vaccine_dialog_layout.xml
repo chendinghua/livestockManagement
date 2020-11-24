@@ -5,7 +5,7 @@
     android:clickable="true"
     android:orientation="vertical"
     android:paddingTop="120dp"
-    android:paddingBottom="120dp" >
+    android:paddingBottom="80dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,115 +22,58 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
-                <TextView
-                android:id="@+id/message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:lineSpacingMultiplier="1.5"
-                android:minHeight="50dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="提示信息在这里"/>
+
+            <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="提示信息在这里" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="200dp"
+                android:orientation="vertical"
 
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    >
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:text="处理数量"
                     android:gravity="center"
-                    android:text="栏位名称"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_in_stock_stock_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="平方米"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_in_stock_MaxArea"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="栏位最大数量"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_in_stock_MaxNum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-
                     />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="疫苗名称"
+                        android:gravity="center"
+                        />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="序列号"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_in_stock_serialNo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="状态"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_in_stock_status"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-
-                    />
-
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="畜种" />
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/lv_vaccine_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7"
+                    ></ListView>
 
             </LinearLayout>
 

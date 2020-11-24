@@ -41,5 +41,6 @@ public class MethodEnum {
     public static final String GETMEDICALRLIST="/MedicalRecords/GetMedicalRList";
     //提交就诊信息
     public static final String POSTMEDICAL="/MedicalRecords/PostMedical";
-
+    //查询疫苗列表
+    public static final String POSTVACCINELIST="/Vaccine/PostVaccineList";
 }

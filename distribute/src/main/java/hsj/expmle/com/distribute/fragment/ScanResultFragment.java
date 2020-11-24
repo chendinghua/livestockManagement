@@ -189,22 +189,10 @@ public class ScanResultFragment extends BaseFragment<DistributeActivity> impleme
                 break;
         }
     }
-
-
     public void scanCode(String code) {
         //判断当前标签有效 并且RFID不存在列表中
         if (checkLabelRule(code) &&  isExtenData(code)==null) {
             HashMap<String, Object> map = new HashMap<>();
-         /*   //判断当前是分发耳标
-            if(activity.farmersProductTypeId==1) {
-
-                map.put("RFID", code);
-                InteractiveDataUtil.interactiveMessage(activity, map, handlerUtils, MethodEnum.GETSTORAGEINFOBYOUT, InteractiveEnum.GET);
-            //判断当前分发栏位标签
-            }else{
-                map.put("RFIDNo",code);
-                InteractiveDataUtil.interactiveMessage(activity,map,handlerUtils,MethodEnum.GETSTOCKINFOBYDEPTID,InteractiveEnum.GET);
-            }*/
             map.put("RFID", code);
             InteractiveDataUtil.interactiveMessage(activity, map, handlerUtils, MethodEnum.GETSTORAGEINFOBYOUT, InteractiveEnum.GET);
 

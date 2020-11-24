@@ -1,32 +1,18 @@
 package com.kymjs.app.base_res.utils.base;
-
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.SupportActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.Window;
-import android.widget.Toast;
-
 import com.kymjs.app.base_res.R;
 import com.kymjs.app.base_res.utils.app.AppManager;
 import com.kymjs.app.base_res.utils.utils.StatusBarSetting;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import devicelib.dao.Device;
-import devicelib.dao.ResponseHandlerInterface;
-import devicelib.factory.DeviceFactory;
-
 /**
  * 基类
  */
-
 public abstract class BaseActivity extends FragmentActivity {
 
     public Context mContext;

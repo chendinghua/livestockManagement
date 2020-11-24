@@ -1,19 +1,18 @@
 package hsj.stock.com.fragment;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-
+import android.widget.LinearLayout;
 import com.alibaba.fastjson.JSON;
+import com.kymjs.app.base_res.R2;
+import com.kymjs.app.base_res.R;
 import com.kymjs.app.base_res.utils.Rule.LabelRule;
-import com.kymjs.app.base_res.utils.base.BaseFragment;
 import com.kymjs.app.base_res.utils.base.entry.ScanResult;
 import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
+import com.kymjs.app.base_res.utils.fragment.BaseresTaskFragment;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsErrorCallback;
@@ -29,12 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import devicelib.dao.Device;
-import hsj.stock.com.R;
-import hsj.stock.com.R2;
 import hsj.stock.com.dialog.StockOperationDialog;
 import hsj.stock.com.entry.StockInfoList;
 
@@ -42,9 +36,8 @@ import hsj.stock.com.entry.StockInfoList;
  * 栏位管理
  * Created by 16486 on 2020/11/13.
  */
-public class StockInfoFragment extends BaseFragment {
-    @BindView(R2.id.lv_info)
-    PaginationListView lvInfo;
+public class StockInfoFragment extends BaseresTaskFragment {
+
 
     PaginationListView.Adapter<StockInfo> adapter;
 
@@ -56,9 +49,13 @@ public class StockInfoFragment extends BaseFragment {
     StockOperationDialog mDialog;
 
     StockOperationDialog.Builder builder;
-    @BindView(R2.id.btn_stock_add)
+
+    @BindView(R2.id.layout_task_auto_title)
+    LinearLayout layoutTaskAutoTitle;
+    @BindView(R2.id.lv_task_info)
+    PaginationListView lvInfo;
+    @BindView(R2.id.btn_task_add)
     Button btnStockAdd;
-    Unbinder unbinder;
 
     private int status;
 
@@ -69,11 +66,19 @@ public class StockInfoFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.stock_info_fragment;
+        return R.layout.baseres_task_fragment;
+    }
+
+
+
+    @Override
+    public  LinearLayout getLinearLayout() {
+        return layoutTaskAutoTitle;
     }
 
     @Override
-    protected void initView() {
+    public  void initFragmentActivityView() {
+        btnStockAdd.setText("新增栏位");
         builder = new StockOperationDialog.Builder(activity);
 
         adapter = new PaginationListView.Adapter(20, activity, -1, "Name", "SerialNo", "MaxNum", "OpTime", "ProductName");
@@ -141,18 +146,18 @@ public class StockInfoFragment extends BaseFragment {
                     }
                     //查询在库栏位数据
                 }else if(MethodEnum.GETSTOCKINFOBYDEPT.equals(msg.getData().getString("method"))) {
-                        StockInfoList stockInfoList = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), StockInfoList.class);
-                        if (stockInfoList != null) {
-                            Log.d("JSONResult", "handlerExecutionFunction: " + msg.getData().getString("result") + "     " + stockInfoList.getResult());
-                            if (isLoad) {
-                                isLoad = false;
-                                adapter.setDataTotalCount(stockInfoList.getRowsCount());
-                            }
-                            adapter.setDatas(Integer.parseInt(msg.getData().getString("bindDate")), stockInfoList.getResult());
-                            lvInfo.setState(PaginationListView.SUCCESS);
-                            //     adapter.notifyDataSetChanged();
-
+                    StockInfoList stockInfoList = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), StockInfoList.class);
+                    if (stockInfoList != null) {
+                        Log.d("JSONResult", "handlerExecutionFunction: " + msg.getData().getString("result") + "     " + stockInfoList.getResult());
+                        if (isLoad) {
+                            isLoad = false;
+                            adapter.setDataTotalCount(stockInfoList.getRowsCount());
                         }
+                        adapter.setDatas(Integer.parseInt(msg.getData().getString("bindDate")), stockInfoList.getResult());
+                        lvInfo.setState(PaginationListView.SUCCESS);
+                        //     adapter.notifyDataSetChanged();
+
+                    }
                 }else if(MethodEnum.GETSTORAGEINFOBYOUT.equals(msg.getData().getString("method"))) {
                     ScanResult scanResult = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
                     if (scanResult.getIsEnabled() == 2) {
@@ -209,13 +214,13 @@ public class StockInfoFragment extends BaseFragment {
                     }
 
                 }else if(MethodEnum.GETSTOCKINFOBYDEPT.equals(ms.getData().getString("method"))) {
-                        if (isLoad) {
-                            isLoad = false;
-                            adapter.setDataTotalCount(0);
-                        }
-                       // adapter.setDatas(Integer.parseInt(msg.getData().getString("bindDate")), stockInfoList.getResult());
-                        lvInfo.setState(PaginationListView.SUCCESS);
-                        //     adapter.notifyDataSetChanged();
+                    if (isLoad) {
+                        isLoad = false;
+                        adapter.setDataTotalCount(0);
+                    }
+                    // adapter.setDatas(Integer.parseInt(msg.getData().getString("bindDate")), stockInfoList.getResult());
+                    lvInfo.setState(PaginationListView.SUCCESS);
+                    //     adapter.notifyDataSetChanged();
 
 
                 }else if(MethodEnum.POSTADDSTOCK.equals(ms.getData().getString("method"))){
@@ -251,9 +256,11 @@ public class StockInfoFragment extends BaseFragment {
     }
 
     @Override
-    protected boolean isLoad() {
-        return true;
+    public String[] getArrayTitle() {
+        return new String[]{"栏位名称","序列号","栏位最大数","创建时间"};
     }
+
+
 
 
 

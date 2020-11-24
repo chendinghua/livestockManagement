@@ -40,6 +40,7 @@ import hsj.storageInfo.com.entry.StorageInfoList;
  * 库存查询页面
  */
 public class StorageInfoFragment extends BaseFragment {
+
     @BindView(R2.id.layout_comprehensive_query)
     LinearLayout layoutComprehensiveQuery;
     @BindView(R2.id.sp_storage_info_status)
@@ -75,6 +76,7 @@ public class StorageInfoFragment extends BaseFragment {
     }
     @Override
     protected void initView() {
+
         initExpend();
         adapter = new PaginationListView.Adapter(20,activity,-1,"SerialNo","BirthTime","StorageStatusName","IsEnabledName","ProductName");
         lvStorageInfo.setAdapter(adapter);
@@ -139,6 +141,7 @@ public class StorageInfoFragment extends BaseFragment {
     }
 
     private void initSpinnerInfo() {
+
         HashMap<String, Object> storageInfoEnableStatusMap = new HashMap<>();
         storageInfoEnableStatusMap.put("groupName", "StorageIsEnabled");
         SpinnerTools.change(activity, spStorageInfoEnableStatus,

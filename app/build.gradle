@@ -7,6 +7,8 @@ android {
     compileSdkVersion configInfo.compileSdkVersion
     buildToolsVersion configInfo.buildToolsVersion
     defaultConfig {
+
+        multiDexEnabled  true
         applicationId "com.kymjs.app"
         minSdkVersion configInfo.minSdkVersion
         targetSdkVersion 27
@@ -44,6 +46,7 @@ dependencies {
     })
 
 
+    compile 'com.android.support:multidex:1.0.0'
 
 
     testCompile 'junit:junit:4.12'

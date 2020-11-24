@@ -54,6 +54,9 @@ dependencies {
       compile 'com.github.bumptech.glide:glide:3.7.0' //图片加载
        compile 'com.youth.banner:banner:1.4.9'
 
+    compile 'com.jakewharton:butterknife:8.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.0'
+
     //butterknife 空引用
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'

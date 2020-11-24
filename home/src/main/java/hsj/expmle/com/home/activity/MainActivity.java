@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,19 +17,28 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.utils.AnimationUtil;
+import com.kymjs.app.base_res.utils.base.entry.vaccine.VaccineInfo;
+import com.kymjs.app.base_res.utils.http.HandlerUtils;
+import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
+import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
+import com.kymjs.app.base_res.utils.http.InteractiveEnum;
+import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.router.FragmentRouter;
 import com.kymjs.router.RouterList;
 
+import java.util.HashMap;
 import java.util.List;
 
 import hsj.expmle.com.home.R;
+import hsj.expmle.com.home.dialog.VaccineDialog;
 import hsj.expmle.com.home.entry.RightInfo;
 
 
@@ -41,11 +51,18 @@ public class MainActivity extends AppCompatActivity
 
     String currentFragment="";
 
+    VaccineDialog mDialog;
+
+    VaccineDialog.Builder builder;
+
+    HandlerUtils handlerUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
+        builder = new VaccineDialog.Builder(mContext);
         Toolbar toolbar = getToolbar();
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -83,7 +100,39 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+        handlerUtils = new HandlerUtils(mContext, new HandlerUtilsCallback() {
+            @Override
+            public void handlerExecutionFunction(Message msg) {
+                //显示
+                if(MethodEnum.POSTVACCINELIST.equals(msg.getData().getString("method"))){
+                 List<VaccineInfo> vaccineInfoList =   JSON.parseArray( JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data")).getString("Result") ,VaccineInfo.class);
+                    Log.d("vaccineInfoList", "handlerExecutionFunction: "+vaccineInfoList.size());
 
+                    /*疫苗列表信息大于0*/
+                    if(vaccineInfoList.size()>0){
+                        mDialog = builder.setMessage("请确认选择").
+                                initVaccine(vaccineInfoList).
+                                initOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    }
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+                                    }
+                                }).setSingleButton("隐藏", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        }).createSingleButtonDialog();
+                        mDialog.show();
+
+                    }
+
+
+                }
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -93,6 +142,12 @@ public class MainActivity extends AppCompatActivity
                         FragmentRouter.getFragment(RouterList.MEMORY_FRAG_MAIN))
                 .commit();
 
+        HashMap<String,Object> vaccineMap = new HashMap<>();
+        vaccineMap.put("DeptID",SPUtils.getSharedIntData(mContext,"DeptID"));
+        vaccineMap.put("Day",SPUtils.getSharedIntData(mContext,"Day"));
+        vaccineMap.put("pageIndex",1);
+        vaccineMap.put("pageSize",50);
+        InteractiveDataUtil.interactiveMessage(this,vaccineMap,handlerUtils, MethodEnum.POSTVACCINELIST, InteractiveEnum.GET);
 
     }
 

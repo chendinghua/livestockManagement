@@ -9,7 +9,7 @@ include ':app',
         'devicelib',/*手持机设备模块*/
         'user-model',/*用户模块*/
         ':home', //':userinfoconfig'
-        ':prevention',/*,育苗模块*/
+        ':prevention',/*,疫苗模块*/
         ':StorageInfo',/* 库存管理*/
         ':FieldManagement', /* 库位管理*/
         ':InStock',/*入库管理*/

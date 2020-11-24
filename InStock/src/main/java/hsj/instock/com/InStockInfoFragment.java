@@ -3,12 +3,15 @@ package hsj.instock.com;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSON;
+import com.kymjs.app.base_res.R2;
 import com.kymjs.app.base_res.utils.Rule.LabelRule;
-import com.kymjs.app.base_res.utils.base.BaseFragment;
 import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
 import com.kymjs.app.base_res.utils.dialog.stockDialog.StockDialog;
+import com.kymjs.app.base_res.utils.fragment.BaseresTaskFragment;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
@@ -28,11 +31,9 @@ import hsj.instock.com.activity.ScanInOrMoveStockActivity;
  * Created by 16486 on 2020/11/6.
  */
 
-public class InStockInfoFragment extends BaseFragment {
+public class InStockInfoFragment extends BaseresTaskFragment {
 
-    //入库列表
-    @BindView(R2.id.lv_in_stock_info)
-    PaginationListView lvInStock;
+
 
 
     HandlerUtils handlerUtils;
@@ -43,13 +44,26 @@ public class InStockInfoFragment extends BaseFragment {
 
     Device device;
 
+    @BindView(R2.id.layout_task_auto_title)
+    LinearLayout layoutTaskAutoTitle;
+    @BindView(R2.id.lv_task_info)
+    PaginationListView lvTaskInfo;
+    @BindView(R2.id.btn_task_add)
+    Button btnTaskAdd;
+
     @Override
     protected int getLayoutResource() {
-        return R.layout.instock_info_fragment;
+        return R.layout.baseres_task_fragment;
+    }
+
+
+    @Override
+    public LinearLayout getLinearLayout() {
+        return layoutTaskAutoTitle;
     }
 
     @Override
-    protected void initView() {
+    public void initFragmentActivityView() {
         builder = new StockDialog.Builder(activity);
 
         handlerUtils = new HandlerUtils(activity, new HandlerUtilsCallback() {
@@ -88,20 +102,22 @@ public class InStockInfoFragment extends BaseFragment {
                 }
             }
         });
-
     }
 
     @Override
-    protected boolean isLoad() {
-        return true;
+    public String[] getArrayTitle() {
+        return new String[]{"id","名称"};
     }
 
 
-    @OnClick({R2.id.btn_add_in_stock})
+
+
+
+    @OnClick({R2.id.btn_task_add})
     public void onViewClicked(View view) {
-        RCaster rcaster = new RCaster(R.class,R2.class);
+        RCaster rcaster = new RCaster(R.class, R2.class);
         switch (rcaster.cast(view.getId())){
-            case R2.id.btn_add_in_stock:
+            case R2.id.btn_task_add:
                 //显示扫描栏位
                 device =  ScanRfidDialog.showScanRfid(activity,
                         "请扫描栏位标签",LabelRule.stockRule,"栏位标签数据异常", MethodEnum.GETSTOCKINFOBYDEPTID,"RFIDNo",handlerUtils);
