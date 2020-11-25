@@ -7,8 +7,7 @@ import android.widget.LinearLayout;
  */
 
 public interface FragmentActivityBaseDao {
-    //获取当前标题layout
-     LinearLayout getLinearLayout();
+
     //初始化页面数据
      void initFragmentActivityView();
     //初始化列表信息

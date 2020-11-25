@@ -3,11 +3,7 @@ package hsj.instock.com;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-
 import com.alibaba.fastjson.JSON;
-import com.kymjs.app.base_res.R2;
 import com.kymjs.app.base_res.utils.Rule.LabelRule;
 import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
 import com.kymjs.app.base_res.utils.dialog.stockDialog.StockDialog;
@@ -15,15 +11,10 @@ import com.kymjs.app.base_res.utils.fragment.BaseresTaskFragment;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
-import com.kymjs.app.base_res.utils.tools.RCaster;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
 import com.kymjs.app.base_res.utils.view.ScanRfidDialog;
-import com.lwy.paginationlib.PaginationListView;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import devicelib.dao.Device;
 import hsj.instock.com.activity.ScanInOrMoveStockActivity;
 
@@ -31,7 +22,7 @@ import hsj.instock.com.activity.ScanInOrMoveStockActivity;
  * Created by 16486 on 2020/11/6.
  */
 
-public class InStockInfoFragment extends BaseresTaskFragment {
+public class InStockInfoFragment extends BaseresTaskFragment implements View.OnClickListener {
 
 
 
@@ -44,12 +35,12 @@ public class InStockInfoFragment extends BaseresTaskFragment {
 
     Device device;
 
-    @BindView(R2.id.layout_task_auto_title)
+   /* @BindView(R2.id.layout_task_auto_title)
     LinearLayout layoutTaskAutoTitle;
     @BindView(R2.id.lv_task_info)
     PaginationListView lvTaskInfo;
     @BindView(R2.id.btn_task_add)
-    Button btnTaskAdd;
+    Button btnTaskAdd;*/
 
     @Override
     protected int getLayoutResource() {
@@ -57,10 +48,6 @@ public class InStockInfoFragment extends BaseresTaskFragment {
     }
 
 
-    @Override
-    public LinearLayout getLinearLayout() {
-        return layoutTaskAutoTitle;
-    }
 
     @Override
     public void initFragmentActivityView() {
@@ -102,6 +89,8 @@ public class InStockInfoFragment extends BaseresTaskFragment {
                 }
             }
         });
+        btnTaskAdd.setOnClickListener(this);
+
     }
 
     @Override
@@ -113,18 +102,13 @@ public class InStockInfoFragment extends BaseresTaskFragment {
 
 
 
-    @OnClick({R2.id.btn_task_add})
-    public void onViewClicked(View view) {
-        RCaster rcaster = new RCaster(R.class, R2.class);
-        switch (rcaster.cast(view.getId())){
-            case R2.id.btn_task_add:
-                //显示扫描栏位
-                device =  ScanRfidDialog.showScanRfid(activity,
-                        "请扫描栏位标签",LabelRule.stockRule,"栏位标签数据异常", MethodEnum.GETSTOCKINFOBYDEPTID,"RFIDNo",handlerUtils);
-                break;
-
-        }
-
+    @Override
+    public void onClick(View view) {
+       if(view.getId() == btnTaskAdd.getId()) {
+           //显示扫描栏位
+           device = ScanRfidDialog.showScanRfid(activity,
+                   "请扫描栏位标签", LabelRule.stockRule, "栏位标签数据异常", MethodEnum.GETSTOCKINFOBYDEPTID, "RFIDNo", handlerUtils);
+       }
     }
 
 }

@@ -21,6 +21,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/tv_scan_result_total_count"
+            android:gravity="center"
             />
         <TextView
             android:layout_width="0dp"
@@ -34,6 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/tv_scan_result_current_count"
+            android:gravity="center"
             />
         <TextView
             android:layout_width="0dp"
@@ -47,6 +49,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/tv_scan_result_error_count"
+            android:gravity="center"
             />
     </LinearLayout>
     <LinearLayout
@@ -61,7 +64,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"
-        ></LinearLayout>
+        >
+        <com.kymjs.app.base_res.utils.view.slide.SlideCutListView
+            android:id="@+id/lv_scan_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.kymjs.app.base_res.utils.view.slide.SlideCutListView>
+
+    </LinearLayout>
     <com.kymjs.app.base_res.utils.view.powerView.Baseres_PowerSettingView
         android:id="@+id/psv_scan_result"
         android:layout_width="match_parent"

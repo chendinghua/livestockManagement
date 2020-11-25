@@ -1,13 +1,9 @@
 package hsj.stock.com.fragment;
-
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import com.alibaba.fastjson.JSON;
-import com.kymjs.app.base_res.R2;
 import com.kymjs.app.base_res.R;
 import com.kymjs.app.base_res.utils.Rule.LabelRule;
 import com.kymjs.app.base_res.utils.base.entry.ScanResult;
@@ -23,75 +19,42 @@ import com.kymjs.app.base_res.utils.tools.UIHelper;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.view.ScanRfidDialog;
 import com.lwy.paginationlib.PaginationListView;
-
 import java.util.HashMap;
 import java.util.List;
-
-import butterknife.BindView;
 import devicelib.dao.Device;
 import hsj.stock.com.dialog.StockOperationDialog;
 import hsj.stock.com.entry.StockInfoList;
-
 /**
  * 栏位管理
  * Created by 16486 on 2020/11/13.
  */
 public class StockInfoFragment extends BaseresTaskFragment {
-
-
     PaginationListView.Adapter<StockInfo> adapter;
-
     HandlerUtils handlerUtils;
-
-
     Device device;
-
     StockOperationDialog mDialog;
-
     StockOperationDialog.Builder builder;
-
-    @BindView(R2.id.layout_task_auto_title)
-    LinearLayout layoutTaskAutoTitle;
-    @BindView(R2.id.lv_task_info)
-    PaginationListView lvInfo;
-    @BindView(R2.id.btn_task_add)
-    Button btnStockAdd;
-
     private int status;
-
     private int stockId;
-
-
     private boolean isLoad=true;
-
     @Override
     protected int getLayoutResource() {
         return R.layout.baseres_task_fragment;
     }
-
-
-
-    @Override
-    public  LinearLayout getLinearLayout() {
-        return layoutTaskAutoTitle;
-    }
-
     @Override
     public  void initFragmentActivityView() {
-        btnStockAdd.setText("新增栏位");
+        btnTaskAdd.setText("新增栏位");
         builder = new StockOperationDialog.Builder(activity);
 
         adapter = new PaginationListView.Adapter(20, activity, -1, "Name", "SerialNo", "MaxNum", "OpTime", "ProductName");
-        lvInfo.setAdapter(adapter);
-        lvInfo.setListener(new PaginationListView.Listener() {
+        lvTaskInfo.setAdapter(adapter);
+        lvTaskInfo.setListener(new PaginationListView.Listener() {
             @Override
             public void loadMore(int currentPagePosition, int nextPagePosition, int perPageCount, int dataTotalCount) {
                 loadData(currentPagePosition + 1, perPageCount);
             }
-
             @Override
             public void onPerPageCountChanged(int perPageCount) {
-
             }
         });
         handlerUtils = new HandlerUtils(activity, new HandlerUtilsCallback() {
@@ -138,10 +101,7 @@ public class StockInfoFragment extends BaseresTaskFragment {
                                 })
                                 .createTwoButtonDialog();
                         mDialog.show();
-
-
                     } else {
-
                         UIHelper.ToastMessage(activity, "当前栏位无法进行操作");
                     }
                     //查询在库栏位数据
@@ -154,9 +114,7 @@ public class StockInfoFragment extends BaseresTaskFragment {
                             adapter.setDataTotalCount(stockInfoList.getRowsCount());
                         }
                         adapter.setDatas(Integer.parseInt(msg.getData().getString("bindDate")), stockInfoList.getResult());
-                        lvInfo.setState(PaginationListView.SUCCESS);
-                        //     adapter.notifyDataSetChanged();
-
+                        lvTaskInfo.setState(PaginationListView.SUCCESS);
                     }
                 }else if(MethodEnum.GETSTORAGEINFOBYOUT.equals(msg.getData().getString("method"))) {
                     ScanResult scanResult = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
@@ -218,11 +176,7 @@ public class StockInfoFragment extends BaseresTaskFragment {
                         isLoad = false;
                         adapter.setDataTotalCount(0);
                     }
-                    // adapter.setDatas(Integer.parseInt(msg.getData().getString("bindDate")), stockInfoList.getResult());
-                    lvInfo.setState(PaginationListView.SUCCESS);
-                    //     adapter.notifyDataSetChanged();
-
-
+                    lvTaskInfo.setState(PaginationListView.SUCCESS);
                 }else if(MethodEnum.POSTADDSTOCK.equals(ms.getData().getString("method"))){
                     UIHelper.ToastMessage(activity,"数据提交失败");
                 }
@@ -237,14 +191,12 @@ public class StockInfoFragment extends BaseresTaskFragment {
                 stockMap.put("RFIDNo", stockInfo.getRFIDNo());
                 InteractiveDataUtil.interactiveMessage(activity, stockMap, handlerUtils, MethodEnum.GETSTOCKINFOBYDEPTID, InteractiveEnum.GET);
             }
-
             @Override
             public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
                 return false;
             }
         });
-
-        btnStockAdd.setOnClickListener(new View.OnClickListener() {
+        btnTaskAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 status = 1;
@@ -254,16 +206,10 @@ public class StockInfoFragment extends BaseresTaskFragment {
             }
         });
     }
-
     @Override
     public String[] getArrayTitle() {
         return new String[]{"栏位名称","序列号","栏位最大数","创建时间"};
     }
-
-
-
-
-
     private void loadData(int pageIndex, int pageSize){
         HashMap<String,Object> map = new HashMap<>();
         map.put("StorkName","");    //栏位名称
@@ -271,8 +217,5 @@ public class StockInfoFragment extends BaseresTaskFragment {
         map.put("pageIndex", pageIndex);
         map.put("pageSize", pageSize);
         InteractiveDataUtil.interactiveMessage(activity,map,handlerUtils,MethodEnum.GETSTOCKINFOBYDEPT,InteractiveEnum.GET,"" + pageIndex);
-
     }
-
-
 }

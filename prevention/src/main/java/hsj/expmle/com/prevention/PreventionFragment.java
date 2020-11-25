@@ -1,5 +1,7 @@
 package hsj.expmle.com.prevention;
+import android.os.Bundle;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -12,9 +14,14 @@ import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
+import com.kymjs.app.base_res.utils.tools.UIHelper;
+import com.kymjs.app.base_res.utils.tools.ViewUtils;
+import com.kymjs.app.base_res.utils.utils.Utils;
 import com.lwy.paginationlib.PaginationListView;
 import java.util.HashMap;
 import butterknife.BindView;
+import hsj.expmle.com.prevention.activity.PreventionActivity;
+
 import com.kymjs.app.base_res.R;
 import com.kymjs.app.base_res.R2;
 
@@ -32,13 +39,13 @@ public class PreventionFragment extends BaseresTaskFragment {
     @BindView(R2.id.tv_put_out_end_time)
     TextView tvEndTime;*/
 
-    @BindView(R2.id.layout_task_auto_title)
+   /* @BindView(R2.id.layout_task_auto_title)
     LinearLayout layoutTaskAutoTitle;
     @BindView(R2.id.lv_task_info)
     PaginationListView lvTaskInfo;
     @BindView(R2.id.btn_task_add)
     Button btnTaskAdd;
-
+*/
     PaginationListView.Adapter<VaccineInfo> adapter;
 
     HandlerUtils handlerUtils;
@@ -58,13 +65,8 @@ public class PreventionFragment extends BaseresTaskFragment {
     }*/
 
     @Override
-    protected LinearLayout getLinearLayout() {
-        return layoutTaskAutoTitle;
-    }
-
-    @Override
-    protected void initFragmentView() {
-        adapter = new PaginationListView.Adapter(20, activity, -1, "StorageCount","VaccineName","ProductName");
+    public void initFragmentActivityView() {
+        adapter = new PaginationListView.Adapter(0, activity, -1, "StorageCount","VaccineName","ProductName");
         lvTaskInfo.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -96,13 +98,35 @@ public class PreventionFragment extends BaseresTaskFragment {
                 }
             }
         });
+
+        adapter.setOnItemClickListener(new PaginationListView.Adapter.OnItemClickListener<VaccineInfo>() {
+            @Override
+            public void onItemClick(View view, VaccineInfo vaccineInfo, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("VaccineID",vaccineInfo.getVaccineID());
+                Utils.gotoActivity(activity, PreventionActivity.class,bundle,null);
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+
         btnTaskAdd.setVisibility(View.GONE);
+
+        btnTaskAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.gotoActivity(activity, PreventionActivity.class,null,null);
+            }
+        });
     }
 
 
 
     @Override
-    protected String[] getTitle() {
+    public String[] getArrayTitle() {
         return new String[]{"处理数量","疫苗名称","畜种"};
     }
 
