@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kymjs.app.base_res.R;
+import com.kymjs.app.base_res.utils.base.entry.ScanResult;
 import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
 
 /**
@@ -41,13 +42,13 @@ public class StorageDialog extends Dialog {
         private StorageDialog dialog;
 
 
-        private StockInfo stockInfo;
+        private ScanResult scanResult;
 
         public Builder(Context context) {
             //这里传入自定义的style，直接影响此Dialog的显示效果。style具体实现见style.xml
             dialog = new StorageDialog(context, R.style.baseres_Dialog);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.baseres_dialog_layout, null);
+            layout = inflater.inflate(R.layout.baseres_dialog_storage_layout, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
@@ -97,8 +98,8 @@ public class StorageDialog extends Dialog {
             return dialog;
         }
 
-        public StorageDialog.Builder initStockInfo(StockInfo stockInfo) {
-            this.stockInfo = stockInfo;
+        public StorageDialog.Builder initScanResult(ScanResult scanResult) {
+            this.scanResult = scanResult;
             return this;
         }
 
@@ -143,18 +144,19 @@ public class StorageDialog extends Dialog {
                 ((LinearLayout) layout.findViewById(R.id.content))
                         .addView(contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             }
-            if (stockInfo != null) {
-                ((TextView) layout.findViewById(R.id.tv_in_stock_stock_name)).setText(stockInfo.getName());
+            if (scanResult != null) {
+                ((TextView) layout.findViewById(R.id.tv_in_storage_serialNo)).setText(scanResult.getSerialNo());
 
-                ((TextView) layout.findViewById(R.id.tv_in_stock_MaxArea)).setText(stockInfo.getMaxArea() + "");
+                ((TextView) layout.findViewById(R.id.tv_in_storage_rfid)).setText(scanResult.getRfidNo());
 
 
-                ((TextView) layout.findViewById(R.id.tv_in_stock_MaxNum)).setText(stockInfo.getMaxNum() + "");
+                ((TextView) layout.findViewById(R.id.tv_in_storage_status_name)).setText(scanResult.getStorageStatusName());
 
-                ((TextView) layout.findViewById(R.id.tv_in_stock_serialNo)).setText(stockInfo.getSerialNo());
+                ((TextView) layout.findViewById(R.id.tv_in_storage_is_enabled_name)).setText(scanResult.getIsEnabledName());
 
-                ((TextView) layout.findViewById(R.id.tv_in_stock_status)).setText(stockInfo.getStatusName());
+                ((TextView) layout.findViewById(R.id.tv_in_storage_product_name)).setText(scanResult.getProductName());
 
+                ((TextView) layout.findViewById(R.id.tv_in_storage_stock_name)).setText(scanResult.getStockSerialNo());
 
             }
 

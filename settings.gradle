@@ -16,4 +16,6 @@ include ':app',
         ':paginationlib',/*分页布局*/
         ':MedicalRecords',/*就诊管理*/
         ':destroyManagement',/*销毁管理*/
-        ':StockManagement'/*库位管理*/
+        ':StockManagement',/*库位管理*/
+        ':openCVLibrary330'/*opencv架包*/
+       // ':OutStockManagement'/*出库管理*/

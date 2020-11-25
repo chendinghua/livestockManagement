@@ -39,7 +39,18 @@ public class ScanResult {
     //库位id
     private Integer StockID;
 
-    public ScanResult(String rfidNo, String serialNo,String isEnabledName, String isFocus) {
+    private String StockSerialNo;
+
+
+    public String getStockSerialNo() {
+        return StockSerialNo;
+    }
+
+    public void setStockSerialNo(String stockSerialNo) {
+        StockSerialNo = stockSerialNo;
+    }
+
+    public ScanResult(String rfidNo, String serialNo, String isEnabledName, String isFocus) {
         RfidNo = rfidNo;
         SerialNo = serialNo;
         IsEnabledName=isEnabledName;
