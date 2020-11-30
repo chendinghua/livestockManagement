@@ -23,13 +23,14 @@ public abstract class BaseresTaskFragment extends BaseFragment implements Fragme
 
      //标题列表
     LinearLayout layoutTaskAutoTitle;
-    @BindView(R2.id.lv_task_info)
     protected PaginationListView lvTaskInfo;
-    @BindView(R2.id.btn_task_add)
+
     protected   Button btnTaskAdd;
     @Override
     protected void initView() {
-        layoutTaskAutoTitle = activity.findViewById(R.id.layout_task_auto_title);
+        layoutTaskAutoTitle = rootView.findViewById(R.id.layout_task_auto_title);
+        lvTaskInfo = rootView.findViewById(R.id.lv_task_info);
+        btnTaskAdd =  rootView.findViewById(R.id.btn_task_add);
         layoutTaskAutoTitle.removeAllViews();
         String [] titles = getArrayTitle();
         if(titles.length>0) {

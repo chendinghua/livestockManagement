@@ -41,38 +41,42 @@ public class ScanRfidDialog {
      */
 
     public static Device showScanRfid(final Activity activity, final String title, final String rule ,
-                                      final  String errorRule,final String method,final String paramName, final HandlerUtils handlerUtils){
+                                      final  String errorRule, final String method, final String paramName, final HandlerUtils handlerUtils, final boolean isOpenUHF){
 
         LinearLayout layout = new LinearLayout(activity);
         layout.setOrientation(LinearLayout.VERTICAL);
 
         final EditText editText = new EditText(activity);
-        editText.setEnabled(false);
+
         layout.addView(editText);
-        final  Device device  = new DeviceFactory(activity, new ResponseHandlerInterface() {
-            @Override
-            public void handleTagdata(String rfid) {
-                if(rfid.startsWith(rule)){
-                    editText.setText(rfid);
-                }else{
-                    editText.setText("");
-                    UIHelper.ToastMessage(activity,errorRule+rfid);
+
+
+            final Device device = new DeviceFactory(activity, new ResponseHandlerInterface() {
+                @Override
+                public void handleTagdata(String rfid) {
+                    if (rfid.startsWith(rule)) {
+                        editText.setText(rfid);
+                    } else {
+                        editText.setText("");
+                        UIHelper.ToastMessage(activity, errorRule + rfid);
+                    }
                 }
-            }
 
-            @Override
-            public void handleTriggerPress(boolean pressed) {
+                @Override
+                public void handleTriggerPress(boolean pressed) {
 
-            }
+                }
 
-            @Override
-            public void scanCode(String code) {
+                @Override
+                public void scanCode(String code) {
 
-            }
-        }).getDevice();
-        device.initUHF();
-        device.setPower(5);
-
+                }
+            }).getDevice();
+        if(isOpenUHF) {
+            editText.setEnabled(false);
+            device.initUHF();
+            device.setPower(5);
+        }
         DialogUtils.showAlertDialog(activity, new AlertDialogCallBack() {
             @Override
             public void alertDialogFunction() {
@@ -82,7 +86,7 @@ public class ScanRfidDialog {
                     InteractiveDataUtil.interactiveMessage(activity, stockMap, handlerUtils,method, InteractiveEnum.GET);
                 }else{
                     UIHelper.ToastMessage(activity,"RFID数据不能为空");
-                    if(device!=null){
+                    if(device!=null && isOpenUHF){
                         device.destroy();
                     }
                 }
@@ -90,19 +94,51 @@ public class ScanRfidDialog {
         }, new AlertDialogNegativeCallBack() {
             @Override
             public void alertDialogFunction() {
-                if(device!=null){
+                if(device!=null  && isOpenUHF){
                     device.destroy();
                 }
             }
         }, title, new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                device.onKeyDown(keyCode, event, 1, true);
-
+                if(device!=null  && isOpenUHF) {
+                    device.onKeyDown(keyCode, event, 1, true);
+                }
                 return false;
             }
         }, layout);
 
         return device;
     }
+
+
+   /* public static Device showScanRfid(final Activity activity, final String title, final String rule ,
+                                      final  String errorRule, final String method, final String paramName, final HandlerUtils handlerUtils, final boolean isOpenUHF){
+
+        LinearLayout layout = new LinearLayout(activity);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        final EditText editText = new EditText(activity);
+
+        layout.addView(editText);
+
+   DialogUtils.showAlertDialog(activity, new AlertDialogCallBack() {
+            @Override
+            public void alertDialogFunction() {
+                if (!"".equals(editText.getText().toString())) {
+                    HashMap<String, Object> stockMap = new HashMap<String, Object>();
+                    stockMap.put(paramName, editText.getText().toString());
+                    InteractiveDataUtil.interactiveMessage(activity, stockMap, handlerUtils,method, InteractiveEnum.GET);
+                }else{
+                    UIHelper.ToastMessage(activity,"RFID数据不能为空");
+                }
+            }
+        }, new AlertDialogNegativeCallBack() {
+            @Override
+            public void alertDialogFunction() {
+            }
+        }, title, null, layout);
+
+        return device;
+    }*/
 }

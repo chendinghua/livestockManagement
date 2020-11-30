@@ -197,7 +197,7 @@ public class MedicalRecordsFragment extends BaseFragment {
                 break;
             case R2.id.btn_medicalRecords_add:
               //显示提示扫描就诊耳标
-            device = ScanRfidDialog.showScanRfid(activity,"请扫描耳标标签", LabelRule.earmMarkRule,"耳标标签数据异常",MethodEnum.GETSTORAGEINFOBYOUT,"RFID",handlerUtils);
+            device = ScanRfidDialog.showScanRfid(activity,"请扫描耳标标签", LabelRule.earmMarkRule,"耳标标签数据异常",MethodEnum.GETSTORAGEINFOBYOUT,"RFID",handlerUtils,true);
                 break;
             case R2.id.tv_storage_info_startTime:
                 SelectDateTime.selectDate(tvStorageInfoStartTime,activity);

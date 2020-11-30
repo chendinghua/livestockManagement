@@ -1,0 +1,98 @@
+
+{
+	"buildFiles" : 
+	[
+		"E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/CMakeLists.txt",
+		"E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/CMakeLists.txt"
+	],
+	"cleanCommands" : 
+	[
+		"D:\\AndroidSdk\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\android_project\\test_project\\ModeTest\\Modularity\\Modular\\OutStockManagement\\.externalNativeBuild\\cmake\\release\\mips --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"hyper_lpr-Release-mips" : 
+		{
+			"abi" : "mips",
+			"artifactName" : "hyper_lpr",
+			"buildCommand" : "D:\\AndroidSdk\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\android_project\\test_project\\ModeTest\\Modularity\\Modular\\OutStockManagement\\.externalNativeBuild\\cmake\\release\\mips --target hyper_lpr",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/PlateDetection.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				},
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/FineMapping.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				},
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/FastDeskew.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				},
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/PlateSegmentation.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				},
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/Recognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				},
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/CNNRecognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				},
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/Pipeline.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				},
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/PlateRecognition.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				},
+				
+				{
+					"flags" : "  --target=mipsel-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/SegmentationFreeRecognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/mips"
+				}
+			],
+			"output" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/build/intermediates/cmake/release/obj/mips/libhyper_lpr.so",
+			"toolchain" : "2685758383"
+		},
+		"lib_opencv-Release-mips" : 
+		{
+			"abi" : "mips",
+			"artifactName" : "lib_opencv",
+			"buildType" : "release",
+			"output" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/../jniLibs/mips/libopencv_java3.so",
+			"toolchain" : "2685758383"
+		}
+	},
+	"toolchains" : 
+	{
+		"2685758383" : 
+		{
+			"cCompilerExecutable" : "D:/AndroidSdk/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "D:/AndroidSdk/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

@@ -47,4 +47,6 @@ public class MethodEnum {
     public static final String POSTVACCINELISTS="/Vaccine/PostVaccineLists";
     //耳标销毁
     public static final String POSTSCRAPSTORAGE="/Storage/PostScrapStorage";
+    //提交出库信息
+    public static final String POSTPDAOUTSTOCK="/Animal/PostPDAOutStock";
 }

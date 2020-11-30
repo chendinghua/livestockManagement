@@ -17,8 +17,8 @@ public class MainApplication extends MultiDexApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        //配置分包
-        MultiDex.install(this);
+        /*//配置分包
+        MultiDex.install(this);*/
         LogUtils.mLogEnable = BuildConfig.DEBUG;
         CustomActivityOnCrash.install(App.INSTANCE);
     }

@@ -44,7 +44,7 @@ public class VaccineDialog extends Dialog {
         private View.OnClickListener negativeButtonClickListener;
         private View.OnClickListener singleButtonClickListener;
 
-        private AdapterView.OnItemSelectedListener onItemSelectedListener;
+        private AdapterView.OnItemClickListener onItemClickListener;
 
         private View layout;
         private VaccineDialog dialog;
@@ -117,8 +117,8 @@ public class VaccineDialog extends Dialog {
             return this;
         }
 
-        public VaccineDialog.Builder initOnItemSelectedListener(AdapterView.OnItemSelectedListener onItemSelectedListener ){
-            this.onItemSelectedListener = onItemSelectedListener;
+        public VaccineDialog.Builder initOnItemSelectedListener(AdapterView.OnItemClickListener onItemClickListener ){
+            this.onItemClickListener = onItemClickListener;
             return this;
         }
 
@@ -177,8 +177,8 @@ public class VaccineDialog extends Dialog {
                 lvVaccineList.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
-            if(onItemSelectedListener!=null)
-            lvVaccineList.setOnItemSelectedListener(onItemSelectedListener);
+            if(onItemClickListener!=null)
+            lvVaccineList.setOnItemClickListener(onItemClickListener);
 
 
             dialog.setContentView(layout);

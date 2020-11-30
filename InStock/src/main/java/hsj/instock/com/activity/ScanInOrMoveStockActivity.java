@@ -177,7 +177,11 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
                     }
                       updateCommitStatus();
                 }else if(MethodEnum.POSTMOVESTOCK.equals(msg.getData().getString("method"))){
-
+                    if(device!=null){
+                        device.destroy();
+                    }
+                    UIHelper.ToastMessage(mContext,"数据提交成功" );
+                    finish();
                 }else if(MethodEnum.POSTPDAINSTOCK.equals(msg.getData().getString("method"))){
                     if(device!=null){
                         device.destroy();
@@ -202,6 +206,8 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
                 }else if(MethodEnum.POSTPDAINSTOCK.equals(ms.getData().getString("method"))){
                     UIHelper.ToastMessage(mContext,"数据提交失败" );
 
+                }else if(MethodEnum.POSTMOVESTOCK.equals(ms.getData().getString("method"))){
+                    UIHelper.ToastMessage(mContext,"数据提交失败" );
                 }
             }
         });

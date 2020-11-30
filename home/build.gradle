@@ -42,5 +42,7 @@ dependencies {
     compile project(':MedicalRecords')
     compile project(':StockManagement')
     compile project(':prevention')
-  //  compile project(':user-model')
+    compile project(':OutStockManagement')
+    compile project(':destroyManagement')
+//    compile project(':license')
 }

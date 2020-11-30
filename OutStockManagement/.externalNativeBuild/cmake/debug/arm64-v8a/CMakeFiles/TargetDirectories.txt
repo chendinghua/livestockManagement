@@ -1,0 +1,5 @@
+E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/edit_cache.dir
+E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/rebuild_cache.dir
+E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a/src/main/cpp/CMakeFiles/hyper_lpr.dir
+E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a/src/main/cpp/CMakeFiles/edit_cache.dir
+E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a/src/main/cpp/CMakeFiles/rebuild_cache.dir

@@ -31,6 +31,8 @@ import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
+import com.kymjs.app.base_res.utils.utils.Utils;
+import com.kymjs.router.ActivityRouter;
 import com.kymjs.router.FragmentRouter;
 import com.kymjs.router.RouterList;
 
@@ -40,6 +42,7 @@ import java.util.List;
 import hsj.expmle.com.home.R;
 import hsj.expmle.com.home.dialog.VaccineDialog;
 import hsj.expmle.com.home.entry.RightInfo;
+import hsj.expmle.com.prevention.activity.PreventionActivity;
 
 
 public class MainActivity extends AppCompatActivity
@@ -98,26 +101,24 @@ public class MainActivity extends AppCompatActivity
                         .setTitleCondensed("" + i);
             }
         }
-
-
         handlerUtils = new HandlerUtils(mContext, new HandlerUtilsCallback() {
             @Override
             public void handlerExecutionFunction(Message msg) {
                 //显示
                 if(MethodEnum.POSTVACCINELIST.equals(msg.getData().getString("method"))){
-                 List<VaccineInfo> vaccineInfoList =   JSON.parseArray( JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data")).getString("Result") ,VaccineInfo.class);
+                final  List<VaccineInfo> vaccineInfoList =   JSON.parseArray( JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data")).getString("Result") ,VaccineInfo.class);
                     Log.d("vaccineInfoList", "handlerExecutionFunction: "+vaccineInfoList.size());
-
                     /*疫苗列表信息大于0*/
                     if(vaccineInfoList.size()>0){
-                        mDialog = builder.setMessage("请确认选择").
+                        mDialog = builder.setMessage("请确认选择处理疫苗信息").
                                 initVaccine(vaccineInfoList).
-                                initOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                initOnItemSelectedListener(new AdapterView.OnItemClickListener() {
                                     @Override
-                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    }
-                                    @Override
-                                    public void onNothingSelected(AdapterView<?> parent) {
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putInt("VaccineID",vaccineInfoList.get(position).getVaccineID());
+                                        Utils.gotoActivity(MainActivity.this, PreventionActivity.class,bundle,null);
+                                        mDialog.dismiss();
                                     }
                                 }).setSingleButton("隐藏", new View.OnClickListener() {
                             @Override

@@ -1,0 +1,98 @@
+
+{
+	"buildFiles" : 
+	[
+		"E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/CMakeLists.txt",
+		"E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/CMakeLists.txt"
+	],
+	"cleanCommands" : 
+	[
+		"D:\\AndroidSdk\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\android_project\\test_project\\ModeTest\\Modularity\\Modular\\OutStockManagement\\.externalNativeBuild\\cmake\\debug\\arm64-v8a --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"hyper_lpr-Debug-arm64-v8a" : 
+		{
+			"abi" : "arm64-v8a",
+			"artifactName" : "hyper_lpr",
+			"buildCommand" : "D:\\AndroidSdk\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\android_project\\test_project\\ModeTest\\Modularity\\Modular\\OutStockManagement\\.externalNativeBuild\\cmake\\debug\\arm64-v8a --target hyper_lpr",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/PlateDetection.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				},
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/FineMapping.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				},
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/FastDeskew.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				},
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/PlateSegmentation.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				},
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/Recognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				},
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/CNNRecognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				},
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/Pipeline.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				},
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/PlateRecognition.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				},
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\arm64-v8a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/aarch64-linux-android -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/SegmentationFreeRecognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/debug/arm64-v8a"
+				}
+			],
+			"output" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/build/intermediates/cmake/debug/obj/arm64-v8a/libhyper_lpr.so",
+			"toolchain" : "2685758383"
+		},
+		"lib_opencv-Debug-arm64-v8a" : 
+		{
+			"abi" : "arm64-v8a",
+			"artifactName" : "lib_opencv",
+			"buildType" : "debug",
+			"output" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/../jniLibs/arm64-v8a/libopencv_java3.so",
+			"toolchain" : "2685758383"
+		}
+	},
+	"toolchains" : 
+	{
+		"2685758383" : 
+		{
+			"cCompilerExecutable" : "D:/AndroidSdk/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "D:/AndroidSdk/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

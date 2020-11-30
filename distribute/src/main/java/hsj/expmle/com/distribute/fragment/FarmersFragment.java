@@ -41,6 +41,10 @@ public class FarmersFragment extends BaseFragment {
     @BindView(R2.id.sp_distribute_farmers_Product_type)
     Spinner spFarmersProductType;
 
+    @BindView(R2.id.sp_distribute_farmers_dept_name)
+    Spinner spFarmersDeptName;
+
+
     @BindView(R2.id.asv_receive_single_number)
     Baseres_AddAndSubView asvReceiveSingleNumber;
     @BindView(R2.id.tv_distribute_name)
@@ -67,28 +71,39 @@ public class FarmersFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        //初始化养殖户信息
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("DeptType",3);
-        map.put("AdressProvince", SPUtils.getSharedStringData(activity,"AdressProvince"));
-        map.put("AdressCity",SPUtils.getSharedStringData(activity,"AdressCity"));
-        map.put("AdressCounty",SPUtils.getSharedStringData(activity,"AdressCounty"));
-        SpinnerTools.change(activity, spFarmersName, map, MethodEnum.FARMERSALLLISTBYID, Farmers.class, "Name", "ID", new SpinnerPorts<Farmers>() {
-            //显示养殖户基本信息
+        //初始化部门类型
+        HashMap<String,Object> deptMap = new HashMap<>();
+        deptMap.put("groupName","DeptType");
+        SpinnerTools.change(activity, spFarmersDeptName, deptMap, MethodEnum.GETDICBYGROUPNAME, DicInfo.class, "Name", "Value", new SpinnerPorts<DicInfo>() {
             @Override
-            public void selectChangeData(Farmers data) {
-                if (data != null) {
-                    tvDistributeName.setText(data.getName());
-                    tvDistributePhone.setText(data.getPhone());
-                    tvDistributeEmail.setText(data.getEmail());
-                    tvDistributeOpTime.setText(data.getOpTime());
-                    tvDistributeAdressProvinceName.setText(data.getAdressProvinceName());
-                    tvDistributeAdressCityName.setText(data.getAdressCityName());
-                    tvDistributeAdressCountyName.setText(data.getAdressCountyName());
-                    tvDistributeAddressInfo.setText(data.getAddressInfo());
-                }
+            public void selectChangeData(DicInfo data) {
+                //初始化养殖户信息
+                HashMap<String,Object> map = new HashMap<>();
+                map.put("DeptType",data.getValue());
+                map.put("AdressProvince", SPUtils.getSharedStringData(activity,"AdressProvince"));
+                map.put("AdressCity",SPUtils.getSharedStringData(activity,"AdressCity"));
+                map.put("AdressCounty",SPUtils.getSharedStringData(activity,"AdressCounty"));
+                SpinnerTools.change(activity, spFarmersName, map, MethodEnum.FARMERSALLLISTBYID, Farmers.class, "Name", "ID", new SpinnerPorts<Farmers>() {
+                    //显示养殖户基本信息
+                    @Override
+                    public void selectChangeData(Farmers data) {
+                        if (data != null) {
+                            tvDistributeName.setText(data.getName());
+                            tvDistributePhone.setText(data.getPhone());
+                            tvDistributeEmail.setText(data.getEmail());
+                            tvDistributeOpTime.setText(data.getOpTime());
+                            tvDistributeAdressProvinceName.setText(data.getAdressProvinceName());
+                            tvDistributeAdressCityName.setText(data.getAdressCityName());
+                            tvDistributeAdressCountyName.setText(data.getAdressCountyName());
+                            tvDistributeAddressInfo.setText(data.getAddressInfo());
+                        }
+                    }
+                });
             }
         });
+
+
+
         //初始化畜种信息
         SpinnerTools.change(activity, spFarmersProduct, null, MethodEnum.PRODCTINFO, ProductInfo.class, "Name", "ID", null);
 

@@ -35,7 +35,7 @@ public class ScanResult {
     private String ProductName;
     private String DeptName;
     //背景颜色控制字段
-    private String IsFocus;
+    private String IsFocus="false";
     //库位id
     private Integer StockID;
 

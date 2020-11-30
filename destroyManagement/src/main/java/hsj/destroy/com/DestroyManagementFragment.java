@@ -42,16 +42,14 @@ public class DestroyManagementFragment extends BaseresTaskFragment implements Vi
             public void handlerExecutionFunction(Message msg) {
                 if(MethodEnum.GETSTORAGEINFOBYOUT.equals(msg.getData().getString("method"))){
                     final ScanResult scanResult = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
-                    if(scanResult!=null && scanResult.getIsEnabled()==1 && scanResult.getStatus()==1) {
+                    //判断需要销毁的标签状态为非未删除  并且健康状态不是死亡和销毁
+                    if(scanResult!=null && scanResult.getStatus()!=-9 ) {
                         mDialog = builder.setMessage("请确认销毁耳标信息").
                                 initScanResult(scanResult).
                                 setPositiveButton("销毁", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         mDialog.dismiss();
-                                        if (device != null) {
-                                            device.destroy();
-                                        }
                                         HashMap<String, Object> destoryMap = new HashMap<>();
                                         destoryMap.put("RFIDNo", scanResult.getRfidNo());
 
@@ -61,12 +59,13 @@ public class DestroyManagementFragment extends BaseresTaskFragment implements Vi
                             @Override
                             public void onClick(View v) {
                                 mDialog.dismiss();
-                                if (device != null) {
-                                    device.destroy();
-                                }
+
                             }
                         }).createTwoButtonDialog();
-                        mDialog.create();
+                        mDialog.show();
+                        if (device != null) {
+                            device.destroy();
+                        }
                     }else{
                         if(scanResult!=null && scanResult.getStatus()!=1){
                             UIHelper.ToastMessage(activity,"耳标标签不在库");
@@ -105,7 +104,7 @@ public class DestroyManagementFragment extends BaseresTaskFragment implements Vi
     public void onClick(View v) {
         //新增销毁
         if(v.getId()==btnTaskAdd.getId()){
-            device = ScanRfidDialog.showScanRfid(activity,"请扫描耳标标签", LabelRule.earmMarkRule,"耳标标签数据异常", MethodEnum.GETSTORAGEINFOBYOUT,"RFID",handlerUtils);
+            device = ScanRfidDialog.showScanRfid(activity,"请扫描耳标标签", LabelRule.earmMarkRule,"耳标标签数据异常", MethodEnum.GETSTORAGEINFOBYOUT,"RFID",handlerUtils,true);
         }
     }
 }

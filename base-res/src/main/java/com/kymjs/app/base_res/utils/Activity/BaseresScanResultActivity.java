@@ -81,7 +81,7 @@ public abstract  class BaseresScanResultActivity extends BaseActivity implements
 
 
                 Button btn = viewLists.get(i).getT();
-
+                btn.setTag(i);
 
                 btn.setText(viewLists.get(i).getTitle());
 

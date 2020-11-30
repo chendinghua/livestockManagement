@@ -15,12 +15,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import com.kymjs.app.base_res.R;
+import com.kymjs.app.base_res.utils.dialog.ProgressDialog;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.AlertDialogCallBack;
+import com.kymjs.app.base_res.utils.tools.AlertDialogNegativeCallBack;
 import com.kymjs.app.base_res.utils.tools.DialogUtils;
 
 import devicelib.dao.Device;
@@ -101,6 +103,9 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
         HashMap<String,Object> map = new HashMap<>();
         map.put("VaccineID",vaccineID);
         InteractiveDataUtil.interactiveMessage(this,map,handlerUtils, MethodEnum.POSTVACCINELISTS, InteractiveEnum.GET);
+
+        powerSettingView.setListener(device, ProgressDialog.createDialog(mContext),2);
+
     }
 
 
@@ -171,11 +176,21 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
      */
     @Override
     public void onClick(View v) {
-        if(v.getId()== btnCommit.getId()){
+        if(Integer.parseInt(v.getTag().toString()) ==1){
+            DialogUtils.showAlertDialog(mContext, new AlertDialogCallBack() {
+                @Override
+                public void alertDialogFunction() {
+
+                }
+            }, new AlertDialogNegativeCallBack() {
+                @Override
+                public void alertDialogFunction() {
+
+                }
+            },"请问是否忽略未注射畜种数量",null,null);
 
 
-
-        }else if(v.getId() == btnBack.getId()){
+        }else if(Integer.parseInt(v.getTag().toString()) ==0){
             onbackDialog();
         }
     }

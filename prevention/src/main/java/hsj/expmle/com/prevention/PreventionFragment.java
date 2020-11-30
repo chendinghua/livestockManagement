@@ -16,6 +16,7 @@ import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
 import com.kymjs.app.base_res.utils.tools.ViewUtils;
+import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.lwy.paginationlib.PaginationListView;
 import java.util.HashMap;
@@ -66,19 +67,15 @@ public class PreventionFragment extends BaseresTaskFragment {
 
     @Override
     public void initFragmentActivityView() {
-        adapter = new PaginationListView.Adapter(0, activity, -1, "StorageCount","VaccineName","ProductName");
+        adapter = new PaginationListView.Adapter(20, activity, -1, "StorageCount","VaccineName","ProductName");
         lvTaskInfo.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
         lvTaskInfo.setListener(new PaginationListView.Listener() {
             @Override
             public void loadMore(int currentPagePosition, int nextPagePosition, int perPageCount, int dataTotalCount) {
                 loadData(currentPagePosition + 1, perPageCount);
             }
-
             @Override
             public void onPerPageCountChanged(int perPageCount) {
-
             }
         });
         handlerUtils = new HandlerUtils(activity, new HandlerUtilsCallback() {
@@ -132,10 +129,11 @@ public class PreventionFragment extends BaseresTaskFragment {
 
     private void loadData(int pageIndex, int pageSize){
         HashMap<String,Object> map = new HashMap<>();
-        map.put("StorkName","");    //栏位名称
-        map.put("Status",1);        //栏位状态
+        map.put("DeptID", SPUtils.getSharedIntData(activity,"DeptID"));
+        map.put("Day",SPUtils.getSharedIntData(activity,"Day"));
         map.put("pageIndex", pageIndex);
         map.put("pageSize", pageSize);
+
         InteractiveDataUtil.interactiveMessage(activity,map,handlerUtils, MethodEnum.POSTVACCINELIST, InteractiveEnum.GET,"" + pageIndex);
 
     }

@@ -1,0 +1,98 @@
+
+{
+	"buildFiles" : 
+	[
+		"E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/CMakeLists.txt",
+		"E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/CMakeLists.txt"
+	],
+	"cleanCommands" : 
+	[
+		"D:\\AndroidSdk\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\android_project\\test_project\\ModeTest\\Modularity\\Modular\\OutStockManagement\\.externalNativeBuild\\cmake\\release\\armeabi-v7a --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"hyper_lpr-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "hyper_lpr",
+			"buildCommand" : "D:\\AndroidSdk\\Sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\android_project\\test_project\\ModeTest\\Modularity\\Modular\\OutStockManagement\\.externalNativeBuild\\cmake\\release\\armeabi-v7a --target hyper_lpr",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/PlateDetection.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/FineMapping.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/FastDeskew.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/PlateSegmentation.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/Recognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/CNNRecognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/Pipeline.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/PlateRecognition.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=D:/AndroidSdk/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=D:/AndroidSdk/Sdk/ndk-bundle/sysroot  -Dhyper_lpr_EXPORTS -I..\\..\\..\\..\\src\\main\\cpp\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi-v7a\\include -isystem D:\\AndroidSdk\\Sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem D:/AndroidSdk/Sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=22 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -std=c++11 -Os -DNDEBUG  -fPIC    -c ",
+					"src" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/src/SegmentationFreeRecognizer.cpp",
+					"workingDirectory" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/build/intermediates/cmake/release/obj/armeabi-v7a/libhyper_lpr.so",
+			"toolchain" : "2685758383"
+		},
+		"lib_opencv-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "lib_opencv",
+			"buildType" : "release",
+			"output" : "E:/android_project/test_project/ModeTest/Modularity/Modular/OutStockManagement/src/main/cpp/../jniLibs/armeabi-v7a/libopencv_java3.so",
+			"toolchain" : "2685758383"
+		}
+	},
+	"toolchains" : 
+	{
+		"2685758383" : 
+		{
+			"cCompilerExecutable" : "D:/AndroidSdk/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "D:/AndroidSdk/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

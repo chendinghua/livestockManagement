@@ -107,7 +107,7 @@ public class InStockInfoFragment extends BaseresTaskFragment implements View.OnC
        if(view.getId() == btnTaskAdd.getId()) {
            //显示扫描栏位
            device = ScanRfidDialog.showScanRfid(activity,
-                   "请扫描栏位标签", LabelRule.stockRule, "栏位标签数据异常", MethodEnum.GETSTOCKINFOBYDEPTID, "RFIDNo", handlerUtils);
+                   "请扫描栏位标签", LabelRule.stockRule, "栏位标签数据异常", MethodEnum.GETSTOCKINFOBYDEPTID, "RFIDNo", handlerUtils,true);
        }
     }
 

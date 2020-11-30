@@ -1,0 +1,14 @@
+Executable : D:\AndroidSdk\Sdk\cmake\3.6.4111459\bin\cmake.exe
+arguments : 
+-HE:\android_project\test_project\ModeTest\Modularity\Modular\OutStockManagement
+-BE:\android_project\test_project\ModeTest\Modularity\Modular\OutStockManagement\.externalNativeBuild\cmake\debug\arm64-v8a
+-GAndroid Gradle - Ninja
+-DANDROID_ABI=arm64-v8a
+-DANDROID_NDK=D:\AndroidSdk\Sdk\ndk-bundle
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\android_project\test_project\ModeTest\Modularity\Modular\OutStockManagement\build\intermediates\cmake\debug\obj\arm64-v8a
+-DCMAKE_BUILD_TYPE=Debug
+-DCMAKE_MAKE_PROGRAM=D:\AndroidSdk\Sdk\cmake\3.6.4111459\bin\ninja.exe
+-DCMAKE_TOOLCHAIN_FILE=D:\AndroidSdk\Sdk\ndk-bundle\build\cmake\android.toolchain.cmake
+-DANDROID_PLATFORM=android-22
+jvmArgs : 
+

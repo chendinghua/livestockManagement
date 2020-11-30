@@ -202,7 +202,7 @@ public class StockInfoFragment extends BaseresTaskFragment {
                 status = 1;
                 stockId = -1;
                 device = ScanRfidDialog.showScanRfid(activity, "请扫描激活栏位标签", LabelRule.stockRule,
-                        "扫描栏位标签有误", MethodEnum.GETSTORAGEINFOBYOUT, "RFID", handlerUtils);
+                        "扫描栏位标签有误", MethodEnum.GETSTORAGEINFOBYOUT, "RFID", handlerUtils,true);
             }
         });
     }
