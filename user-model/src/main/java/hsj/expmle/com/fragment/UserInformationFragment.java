@@ -123,6 +123,9 @@ public class UserInformationFragment extends Fragment{
             //退出返回登录页面
             case R2.id.btn_user_exit:
 
+                activity.finish();
+
+
             /*    HashMap<String,Object> userExitMap = new HashMap<>();
                 userExitMap.put("UserName",activity.userName);
                 userExitMap.put("Token",activity.token);

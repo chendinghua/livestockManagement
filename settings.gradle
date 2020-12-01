@@ -1,5 +1,5 @@
 include ':app',
-        ':home',/*主菜单模块*/
+      /*  ':home',*//*主菜单模块*/
         ':distribute' ,/*分发模块*/
         ':explorer',
         ':router',/*页面控制model*/
@@ -18,4 +18,5 @@ include ':app',
         ':destroyManagement',/*销毁管理*/
         ':StockManagement',/*库位管理*/
         ':openCVLibrary330',/*opencv架包*/
-        ':OutStockManagement'/*出库管理*/
+        ':OutStockManagement'/*,出库管理*/
+       /* ':LabelManagementFragment'*//*耳标管理*/

@@ -48,6 +48,8 @@ dependencies {
 
     compile 'com.android.support:multidex:1.0.0'
 
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
 
     testCompile 'junit:junit:4.12'
     if (!isDebug.toBoolean()) {
@@ -56,9 +58,27 @@ dependencies {
     } else {
         compile project(':router')
     }
-        compile project(':home')
+    //    compile project(':home')
 
     compile project(':paginationlib')
+
+
+
+
+    compile project(':base-res')
+
+    compile project(':router')
+    compile project(':user-model')
+    compile project(':distribute')
+    compile project(':StorageInfo')
+    compile project(':InStock')
+    compile project(':MedicalRecords')
+    compile project(':StockManagement')
+    compile project(':prevention')
+    compile project(':OutStockManagement')
+    compile project(':destroyManagement')
+
+
 
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'

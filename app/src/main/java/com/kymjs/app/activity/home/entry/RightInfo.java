@@ -1,4 +1,4 @@
-package hsj.expmle.com.home.entry;
+package com.kymjs.app.activity.home.entry;
 
 /**
  * Created by Administrator on 2019/2/27/027.

@@ -1,4 +1,4 @@
-package hsj.expmle.com.home.dialog;
+package com.kymjs.app.activity.home.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,13 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.kymjs.app.R;
 import com.kymjs.app.base_res.utils.adapter.AutoAdapter;
 import com.kymjs.app.base_res.utils.base.entry.vaccine.VaccineInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import hsj.expmle.com.home.R;
 
 /**
  * Created by 16486 on 2020/11/18.

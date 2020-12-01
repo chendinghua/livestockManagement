@@ -39,6 +39,8 @@
             android:label="@string/app_name">
 
         </activity>
+
+        <activity android:name=".activity.home.activity.MainActivity"></activity>
         <activity android:name=".activity.login.SettingActionUrlActivity">
 
         </activity>

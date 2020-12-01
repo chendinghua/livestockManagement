@@ -1,4 +1,4 @@
-package hsj.expmle.com.home.activity;
+package com.kymjs.app.activity.home.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.kymjs.app.R;
+import com.kymjs.app.activity.home.dialog.VaccineDialog;
+import com.kymjs.app.activity.home.entry.RightInfo;
 import com.kymjs.app.base_res.utils.AnimationUtil;
 import com.kymjs.app.base_res.utils.base.entry.vaccine.VaccineInfo;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
@@ -32,16 +35,12 @@ import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
-import com.kymjs.router.ActivityRouter;
 import com.kymjs.router.FragmentRouter;
 import com.kymjs.router.RouterList;
 
 import java.util.HashMap;
 import java.util.List;
 
-import hsj.expmle.com.home.R;
-import hsj.expmle.com.home.dialog.VaccineDialog;
-import hsj.expmle.com.home.entry.RightInfo;
 import hsj.expmle.com.prevention.activity.PreventionActivity;
 
 

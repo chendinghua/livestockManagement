@@ -14,15 +14,14 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.kymjs.app.R;
+import com.kymjs.app.activity.home.activity.MainActivity;
 import com.kymjs.app.base_res.utils.base.BaseActivity;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
-import com.kymjs.app.base_res.utils.http.HandlerUtilsErrorCallback;
 import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
-import com.kymjs.app.tools.AnnotateUtil;
 import com.kymjs.app.base_res.utils.tools.MD5;
 import com.kymjs.app.base_res.utils.tools.NetUtil;
 import com.kymjs.app.base_res.utils.ui.clearEdit.ClearEditText;
@@ -32,7 +31,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import butterknife.BindView;
-import hsj.expmle.com.home.activity.MainActivity;
 
 
 /**
