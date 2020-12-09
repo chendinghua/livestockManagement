@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:orientation="horizontal"
             >
             <TextView
                 android:layout_width="0dp"
@@ -69,6 +70,26 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 />
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_medical_list"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:completionThreshold="1"
+                android:hint="输入名称或拼音首字母"
+                android:imeOptions="actionSearch"
+                android:maxLength="12"
+                android:dropDownHeight="200dp"
+                android:dropDownWidth="180dp"
+                android:singleLine="true"
+                android:textColor="#317F6D"
+                android:textColorHint="#317F6D"
+                android:visibility="gone"
+
+                />
+
             <Button
                 android:id="@+id/btn_medicalRecords_Search"
                 android:layout_width="0dp"

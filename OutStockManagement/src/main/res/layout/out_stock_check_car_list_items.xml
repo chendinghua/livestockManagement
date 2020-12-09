@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:hint="请输入"
+        android:gravity="center"
+        android:textSize="@dimen/baseres_et_out_stock_cat_size"
+        android:id="@+id/et_out_stock_check_OPERName"
+        />
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:hint="请输入"
+        android:gravity="center"
+        android:textSize="@dimen/baseres_et_out_stock_cat_size"
+        android:id="@+id/et_out_stock_check_OPERTelphone"
+        />
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:hint="请输入"
+        android:gravity="center"
+        android:textSize="@dimen/baseres_et_out_stock_cat_size"
+        android:id="@+id/et_out_stock_check_Car"
+
+        />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iv_add_car_info"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/main_add_picture" />
+
+        <ImageView
+            android:id="@+id/iv_remove_car_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/image_person_2" />
+    </LinearLayout>
+</LinearLayout>

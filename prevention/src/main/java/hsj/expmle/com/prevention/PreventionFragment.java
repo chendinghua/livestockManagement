@@ -3,8 +3,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.utils.base.entry.vaccine.VaccineInfo;
 import com.kymjs.app.base_res.utils.base.entry.vaccine.VaccineInfoResult;
@@ -14,39 +12,20 @@ import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
-import com.kymjs.app.base_res.utils.tools.UIHelper;
-import com.kymjs.app.base_res.utils.tools.ViewUtils;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.lwy.paginationlib.PaginationListView;
 import java.util.HashMap;
-import butterknife.BindView;
 import hsj.expmle.com.prevention.activity.PreventionActivity;
 
 import com.kymjs.app.base_res.R;
-import com.kymjs.app.base_res.R2;
 
 /** 疫苗模块
  * Created by 16486 on 2020/10/20.
  */
 public class PreventionFragment extends BaseresTaskFragment {
 
-/*    @BindView(R2.id.btn_distribute_add)
-    Button btnDistribute;
 
-    @BindView(R2.id.tv_put_out_start_time)
-    TextView tvStartTime;
-
-    @BindView(R2.id.tv_put_out_end_time)
-    TextView tvEndTime;*/
-
-   /* @BindView(R2.id.layout_task_auto_title)
-    LinearLayout layoutTaskAutoTitle;
-    @BindView(R2.id.lv_task_info)
-    PaginationListView lvTaskInfo;
-    @BindView(R2.id.btn_task_add)
-    Button btnTaskAdd;
-*/
     PaginationListView.Adapter<VaccineInfo> adapter;
 
     HandlerUtils handlerUtils;
@@ -130,12 +109,27 @@ public class PreventionFragment extends BaseresTaskFragment {
     private void loadData(int pageIndex, int pageSize){
         HashMap<String,Object> map = new HashMap<>();
         map.put("DeptID", SPUtils.getSharedIntData(activity,"DeptID"));
-        map.put("Day",SPUtils.getSharedIntData(activity,"Day"));
+        map.put("Day",SPUtils.getSharedIntData(activity,"PreventionDay",3));
         map.put("pageIndex", pageIndex);
         map.put("pageSize", pageSize);
 
         InteractiveDataUtil.interactiveMessage(activity,map,handlerUtils, MethodEnum.POSTVACCINELIST, InteractiveEnum.GET,"" + pageIndex);
 
+    }
+
+    @Override
+    protected String[] getTaskDataList() {
+        return new String[0];
+    }
+
+    @Override
+    protected String setBtnTaskAdd() {
+        return "";
+    }
+
+    @Override
+    protected boolean isShowQueryCriteria() {
+        return false;
     }
 
 

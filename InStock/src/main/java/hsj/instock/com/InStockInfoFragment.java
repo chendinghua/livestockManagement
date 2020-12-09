@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 import com.alibaba.fastjson.JSON;
-import com.kymjs.app.base_res.utils.Rule.LabelRule;
 import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
 import com.kymjs.app.base_res.utils.dialog.stockDialog.StockDialog;
 import com.kymjs.app.base_res.utils.fragment.BaseresTaskFragment;
@@ -12,36 +11,20 @@ import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
+import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.view.ScanRfidDialog;
 
 import java.util.List;
-import devicelib.dao.Device;
 import hsj.instock.com.activity.ScanInOrMoveStockActivity;
 
-/** 入栏管理
+/** 入栏管理、移栏管理
  * Created by 16486 on 2020/11/6.
  */
 
 public class InStockInfoFragment extends BaseresTaskFragment implements View.OnClickListener {
-
-
-
-
     HandlerUtils handlerUtils;
-
-
     private StockDialog.Builder builder;
     private StockDialog mDialog;
-
-    Device device;
-
-   /* @BindView(R2.id.layout_task_auto_title)
-    LinearLayout layoutTaskAutoTitle;
-    @BindView(R2.id.lv_task_info)
-    PaginationListView lvTaskInfo;
-    @BindView(R2.id.btn_task_add)
-    Button btnTaskAdd;*/
-
     @Override
     protected int getLayoutResource() {
         return R.layout.baseres_task_fragment;
@@ -57,9 +40,7 @@ public class InStockInfoFragment extends BaseresTaskFragment implements View.OnC
             @Override
             public void handlerExecutionFunction(Message msg) {
                 if(MethodEnum.GETSTOCKINFOBYDEPTID.equals(msg.getData().getString("method"))){
-                    if(device!=null){
-                        device.destroy();
-                    }
+
                     final List<StockInfo> stockInfos = JSON.parseArray( JSON.parseObject(msg.getData().getString("result")).getString("Data"),StockInfo.class);
 
                     if(stockInfos.size()>0) {
@@ -95,7 +76,7 @@ public class InStockInfoFragment extends BaseresTaskFragment implements View.OnC
 
     @Override
     public String[] getArrayTitle() {
-        return new String[]{"id","名称"};
+        return new String[]{"ID","任务类型","创建时间","数量","操作人"};
     }
 
 
@@ -106,9 +87,24 @@ public class InStockInfoFragment extends BaseresTaskFragment implements View.OnC
     public void onClick(View view) {
        if(view.getId() == btnTaskAdd.getId()) {
            //显示扫描栏位
-           device = ScanRfidDialog.showScanRfid(activity,
-                   "请扫描栏位标签", LabelRule.stockRule, "栏位标签数据异常", MethodEnum.GETSTOCKINFOBYDEPTID, "RFIDNo", handlerUtils,true);
+            ScanRfidDialog.showStockInfoList(activity,
+                   "请扫描栏位标签",
+                   MethodEnum.GETSTOCKINFOBYDEPTID, "StockID", handlerUtils);
        }
     }
 
+    @Override
+    protected String setBtnTaskAdd() {
+        return Integer.parseInt( SPUtils.getSharedStringData(activity,"actionUrl"))==3?"新增入栏":"操作移栏";
+    }
+
+    @Override
+    protected boolean isShowQueryCriteria() {
+        return true;
+    }
+
+    @Override
+    protected String[] getTaskDataList() {
+        return new String[]{"ID","TaskTypeName", "CreatorTime","Num","UserName"};
+    }
 }

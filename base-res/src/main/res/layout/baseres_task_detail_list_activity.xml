@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="任务详细"
+            android:gravity="center"
+            android:textSize="25dp"
+            />
+
+    </LinearLayout>
+    <TableLayout  android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1,2"
+        android:background="#000000"
+        android:layout_margin="2dp"
+        >
+        <TableRow>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="任务id"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+            <TextView
+                android:id="@+id/tv_task_id"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:text=""
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="任务名称"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+            <TextView
+                android:id="@+id/tv_task_name"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:text=""
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="任务描述"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+            <TextView
+                android:id="@+id/tv_task_content"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:text=""
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="创建人"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+            <TextView
+                android:id="@+id/tv_task__creator_name"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:text=""
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="创建时间"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+            <TextView
+                android:id="@+id/tv_task_creator_time"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:text=""
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="状态"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+            <TextView
+                android:id="@+id/tv_task_status"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:text=""
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="备注"
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+            <TextView
+                android:id="@+id/tv_remark"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:text=""
+                android:layout_margin="0.5dp"
+                android:background="#ffffffff"
+                />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_task_info_pick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="ID"
+                />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="PART号" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="序列号" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="畜种类型"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="所属部门名称"
+                />
+        </LinearLayout>
+
+        <ListView
+
+            android:id="@+id/lv_task_pick_info_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"></ListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/btn_task_back"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+
+                android:layout_height="wrap_content"
+                android:text="返回" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="当前数量"
+                />
+            <TextView
+                android:id="@+id/tv_task_detail_list_size"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

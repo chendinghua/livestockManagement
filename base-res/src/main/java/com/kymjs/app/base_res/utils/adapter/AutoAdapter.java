@@ -98,6 +98,8 @@ public class AutoAdapter<T> extends BaseAdapter {
                     // 获取属性类型
                     String type = field[i].getGenericType().toString();
 
+                    Log.d("autoAdapter", "getView: "+name+"      "+type);
+
                     //关键。。。可访问私有变量
                     field[i].setAccessible(true);
                     if(param.get(j).equalsIgnoreCase(name)) {

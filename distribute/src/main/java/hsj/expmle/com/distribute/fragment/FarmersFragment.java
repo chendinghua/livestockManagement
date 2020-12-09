@@ -1,36 +1,31 @@
 package hsj.expmle.com.distribute.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kymjs.app.base_res.utils.base.BaseFragment;
 import com.kymjs.app.base_res.utils.base.entry.DicInfo;
+import com.kymjs.app.base_res.utils.base.entry.Farmer.Farmers;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.selectSpinner.tools.SpinnerPorts;
 import com.kymjs.app.base_res.utils.selectSpinner.tools.SpinnerTools;
+import com.kymjs.app.base_res.utils.tools.NumberUtils;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import hsj.expmle.com.distribute.R;
 import hsj.expmle.com.distribute.R2;
 import hsj.expmle.com.distribute.activity.DistributeActivity;
-import hsj.expmle.com.distribute.entry.Farmers;
 import hsj.expmle.com.distribute.entry.ProductInfo;
 
-/**
+/** 耳标分发输入分发部门信息页面
  * Created by 16486 on 2020/10/23.
  */
-
 public class FarmersFragment extends BaseFragment {
     @BindView(R2.id.sp_distribute_farmers_name)
     Spinner spFarmersName;
@@ -46,7 +41,7 @@ public class FarmersFragment extends BaseFragment {
 
 
     @BindView(R2.id.asv_receive_single_number)
-    Baseres_AddAndSubView asvReceiveSingleNumber;
+    EditText asvReceiveSingleNumber;
     @BindView(R2.id.tv_distribute_name)
     TextView tvDistributeName;
     @BindView(R2.id.tv_distribute_phone)
@@ -98,14 +93,14 @@ public class FarmersFragment extends BaseFragment {
                             tvDistributeAddressInfo.setText(data.getAddressInfo());
                         }
                     }
-                });
+                },false);
             }
-        });
+        },false);
 
 
 
         //初始化畜种信息
-        SpinnerTools.change(activity, spFarmersProduct, null, MethodEnum.PRODCTINFO, ProductInfo.class, "Name", "ID", null);
+        SpinnerTools.change(activity, spFarmersProduct, null, MethodEnum.PRODCTINFO, ProductInfo.class, "Name", "ID", null,false);
 
         HashMap<String,Object> dicMap = new HashMap<>();
         dicMap.put("groupName","storagetype");
@@ -120,7 +115,7 @@ public class FarmersFragment extends BaseFragment {
                             spFarmersProduct.setEnabled(true);
                         }
                     }
-                });
+                },false);
     }
 
     @Override
@@ -135,7 +130,7 @@ public class FarmersFragment extends BaseFragment {
         if(activity instanceof DistributeActivity){
 
             DistributeActivity distributeActivity = (DistributeActivity)activity;
-            distributeActivity.scanCount = asvReceiveSingleNumber.getCurrentCount();
+            distributeActivity.scanCount = NumberUtils.getNumberData( asvReceiveSingleNumber.getText().toString());
             distributeActivity.farmersId = Integer.parseInt( spFarmersName.getTag().toString());
             distributeActivity.farmersProductId = Integer.parseInt(spFarmersProduct.getTag().toString());
             distributeActivity.farmersProductTypeId = Integer.parseInt(spFarmersProductType.getTag().toString());

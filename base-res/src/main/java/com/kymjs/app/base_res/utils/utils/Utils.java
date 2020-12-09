@@ -13,6 +13,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.kymjs.app.base_res.utils.tools.AlertDialogCallBack;
+import com.kymjs.app.base_res.utils.tools.DialogUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,6 +41,25 @@ public class Utils {
 		if(device!=null)
 			device.destroy();
 		poFrom.startActivity(loIntent);
+	}
+
+	public static void activityFinish(Activity poFrom,Device device){
+			if(device!=null){
+				device.destroy();
+			}
+
+				poFrom.finish();
+
+	}
+
+
+	public static void onBackDialog(  final  Activity activity,final  Device device ){
+		DialogUtils.showAlertDialog(activity, new AlertDialogCallBack() {
+			@Override
+			public void alertDialogFunction() {
+				Utils.activityFinish(activity,device);
+			}
+		}, "是否结束当前流程", null, null);
 	}
 
 

@@ -1,13 +1,12 @@
-package hsj.expmle.com.distribute.entry;
+package com.kymjs.app.base_res.utils.base.entry.Farmer;
 
 import com.kymjs.app.base_res.utils.base.BaseEntry;
 
-/** 养殖户信息
- * Created by 16486 on 2020/10/24.
+/**
+ * Created by 16486 on 2020/12/6.
  */
 
-public class Farmers  extends BaseEntry{
-
+public class Farmers extends BaseEntry{
 
     /**
      * Phone : TEST
@@ -35,21 +34,21 @@ public class Farmers  extends BaseEntry{
 
 
 
-     private String AdressProvinceName; //省级
+    private String AdressProvinceName; //省级
     private String AdressCityName;      //市级
     private String AdressCountyName;    //区级
 
 
-   /* public Integer getId(){
-        return  ID;
-    }
-    public String getName(){
-        return Name;
+    /* public Integer getId(){
+         return  ID;
+     }
+     public String getName(){
+         return Name;
 
-    }*/
-   public Integer getID() {
-       return ID;
-   }
+     }*/
+    public Integer getID() {
+        return ID;
+    }
 
     public void setID(Integer ID) {
         this.ID = ID;

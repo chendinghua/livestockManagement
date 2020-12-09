@@ -35,6 +35,14 @@ public class SPUtils {
         return sp.getInt(key, 0);
     }
 
+    public static int getSharedIntData(Context context, String key, int value) {
+        if (sp == null) {
+            init(context);
+        }
+        return sp.getInt(key, value);
+    }
+
+
     public static void setSharedlongData(Context context, String key, long value) {
         if (sp == null) {
             init(context);

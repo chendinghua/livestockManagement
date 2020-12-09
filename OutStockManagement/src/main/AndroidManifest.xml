@@ -8,7 +8,11 @@
 
         <activity android:name=".activity.OutStockActivity">
 
+
         </activity>
+        <activity android:name=".activity.OutStockCheckCarActivity"
+            android:windowSoftInputMode="adjustPan"
+            ></activity>
     </application>
 
 </manifest>

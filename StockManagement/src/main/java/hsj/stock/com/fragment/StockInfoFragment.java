@@ -31,7 +31,6 @@ import hsj.stock.com.entry.StockInfoList;
 public class StockInfoFragment extends BaseresTaskFragment {
     PaginationListView.Adapter<StockInfo> adapter;
     HandlerUtils handlerUtils;
-    Device device;
     StockOperationDialog mDialog;
     StockOperationDialog.Builder builder;
     private int status;
@@ -62,9 +61,7 @@ public class StockInfoFragment extends BaseresTaskFragment {
             public void handlerExecutionFunction(Message msg) {
                 //返回栏位信息
                 if (MethodEnum.GETSTOCKINFOBYDEPTID.equals(msg.getData().getString("method"))) {
-                    if (device != null) {
-                        device.destroy();
-                    }
+                    //修改栏位
                     final List<StockInfo> stockInfos = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), StockInfo.class);
                     //判断当前是修改栏位操作或者新增栏位操作  status=1 新增栏位  status=2修改栏位
                     if (stockInfos!=null && stockInfos.size()>0 && stockInfos.get(0).getStatus()==1 && status ==2 ||
@@ -86,6 +83,7 @@ public class StockInfoFragment extends BaseresTaskFragment {
                                             map.put("RfidNo", stockInfo.getRFIDNo());
                                             map.put("MaxArea", stockInfo.getMaxArea());
                                             map.put("MaxNum", stockInfo.getMaxNum());
+                                            map.put("SerialNo",stockInfo.getSerialNo());
                                             map.put("Type", status);
                                             map.put("IsEnabled",stockInfo.getStatus());
                                             InteractiveDataUtil.interactiveMessage(activity, map, handlerUtils, MethodEnum.POSTADDSTOCK, InteractiveEnum.POST);
@@ -140,6 +138,7 @@ public class StockInfoFragment extends BaseresTaskFragment {
                                             map.put("MaxArea", stockInfo.getMaxArea());
                                             map.put("MaxNum", stockInfo.getMaxNum());
                                             map.put("Type", status);
+                                            map.put("SerialNo",stockInfo.getSerialNo());
                                             map.put("IsEnabled",stockInfo.getStatus());
                                             InteractiveDataUtil.interactiveMessage(activity, map, handlerUtils, MethodEnum.POSTADDSTOCK, InteractiveEnum.POST);
                                         }
@@ -167,9 +166,9 @@ public class StockInfoFragment extends BaseresTaskFragment {
             @Override
             public void handlerErrorFunction(Message ms) {
                 if (MethodEnum.GETSTOCKINFOBYDEPTID.equals(ms.getData().getString("method"))) {
-                    if (device != null) {
-                        device.destroy();
-                    }
+
+
+                    UIHelper.ToastMessage(activity,"栏位信息有误");
 
                 }else if(MethodEnum.GETSTOCKINFOBYDEPT.equals(ms.getData().getString("method"))) {
                     if (isLoad) {
@@ -188,7 +187,7 @@ public class StockInfoFragment extends BaseresTaskFragment {
                 stockId = stockInfo.getID();
                 status = 2;
                 HashMap<String, Object> stockMap = new HashMap<String, Object>();
-                stockMap.put("RFIDNo", stockInfo.getRFIDNo());
+                stockMap.put("StockId", stockInfo.getID());
                 InteractiveDataUtil.interactiveMessage(activity, stockMap, handlerUtils, MethodEnum.GETSTOCKINFOBYDEPTID, InteractiveEnum.GET);
             }
             @Override
@@ -196,13 +195,46 @@ public class StockInfoFragment extends BaseresTaskFragment {
                 return false;
             }
         });
+        //新增栏位
         btnTaskAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 status = 1;
                 stockId = -1;
-                device = ScanRfidDialog.showScanRfid(activity, "请扫描激活栏位标签", LabelRule.stockRule,
-                        "扫描栏位标签有误", MethodEnum.GETSTORAGEINFOBYOUT, "RFID", handlerUtils,true);
+                StockInfo stockInfo = new StockInfo();
+                mDialog = builder.setMessage("请确认栏位信息").
+                        initStockInfo(stockInfo)
+                        .setStatus(status)
+                        .setPositiveButton("确认", new StockOperationDialog.PositiveButtonClickListener() {
+                            @Override
+                            public void onListener(StockInfo stockInfo, int status) {
+                                //提交栏位信息
+                                if (stockInfo != null) {
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    if (status == 2) {
+                                        map.put("ID", stockId);
+                                    }
+                                    map.put("DeptName", SPUtils.getSharedStringData(activity, "DeptName"));
+                                    map.put("Name", stockInfo.getName());
+                                    map.put("RfidNo", stockInfo.getRFIDNo());
+                                    map.put("MaxArea", stockInfo.getMaxArea());
+                                    map.put("MaxNum", stockInfo.getMaxNum());
+                                    map.put("SerialNo",stockInfo.getSerialNo());
+                                    map.put("Type", status);
+                                    map.put("IsEnabled",stockInfo.getStatus());
+                                    InteractiveDataUtil.interactiveMessage(activity, map, handlerUtils, MethodEnum.POSTADDSTOCK, InteractiveEnum.POST);
+                                }
+                                mDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDialog.dismiss();
+                            }
+                        })
+                        .createTwoButtonDialog();
+                mDialog.show();
             }
         });
     }
@@ -217,5 +249,20 @@ public class StockInfoFragment extends BaseresTaskFragment {
         map.put("pageIndex", pageIndex);
         map.put("pageSize", pageSize);
         InteractiveDataUtil.interactiveMessage(activity,map,handlerUtils,MethodEnum.GETSTOCKINFOBYDEPT,InteractiveEnum.GET,"" + pageIndex);
+    }
+
+    @Override
+    protected String[] getTaskDataList() {
+        return new String[0];
+    }
+
+    @Override
+    protected String setBtnTaskAdd() {
+        return "新增栏位";
+    }
+
+    @Override
+    protected boolean isShowQueryCriteria() {
+        return false;
     }
 }

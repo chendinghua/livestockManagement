@@ -27,6 +27,9 @@ import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
+import com.kymjs.app.base_res.utils.utils.SPUtils;
+import com.kymjs.app.base_res.utils.utils.Utils;
+import com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +49,8 @@ public class PdaParamSettingActivity extends Activity implements View.OnClickLis
     private TextView highFrequency;        //高频
     private Button save;                    //返回按钮
     private Button commit;                  //保存按钮
+
+    Baseres_AddAndSubView asvPrevention;
 
     List<DicInfo> dicInfoList;//打印信息集合
 
@@ -110,7 +115,7 @@ public class PdaParamSettingActivity extends Activity implements View.OnClickLis
         commit=(Button)findViewById(R.id.btn_pda_param_commit);
         tvPrinterMatchine =(TextView) findViewById(R.id.tv_print_matchine);
         btnPrintMatchine=(Button)findViewById(R.id.btn_print_matchine);
-
+        asvPrevention = findViewById(R.id.asv_prevention_day);
     }
 
     private void loading() {
@@ -121,6 +126,8 @@ public class PdaParamSettingActivity extends Activity implements View.OnClickLis
 
         SharedPreferences printMatchineConfig=getSharedPreferences("print_matchine_config", Context.MODE_PRIVATE);
         savePrintMatchName = printMatchineConfig.getString("PrintMatchineName","");
+
+       asvPrevention.setInitValue(SPUtils.getSharedIntData(this,"PreventionDay",3));
 
 
         initPrintMatchineData();            //调用获取打印机信息
@@ -155,7 +162,11 @@ public class PdaParamSettingActivity extends Activity implements View.OnClickLis
                 editor.putInt("mediumFrequency", Integer.parseInt(mediumFrequency.getText().toString()));
                 editor.putInt("highFrequency", Integer.parseInt(highFrequency.getText().toString()));
                 editor.apply();
-                UIHelper.ToastMessage(this, "pda频率设置保存成功");
+                SPUtils.setSharedIntData(this,"PreventionDay",asvPrevention.getCurrentCount());
+
+                UIHelper.ToastMessage(this, "设置保存成功");
+
+                Utils.activityFinish(this,null);
             }
              else if(v.getId()== R.id.btn_pda_param_commit){
 

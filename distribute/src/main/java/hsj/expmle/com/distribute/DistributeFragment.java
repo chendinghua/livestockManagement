@@ -1,56 +1,49 @@
 package hsj.expmle.com.distribute;
-
-
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-
-import com.kymjs.app.base_res.utils.base.BaseFragment;
-import com.kymjs.app.base_res.utils.tools.RCaster;
+import com.kymjs.app.base_res.utils.fragment.BaseresTaskFragment;
 import com.kymjs.app.base_res.utils.utils.Utils;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import hsj.expmle.com.distribute.activity.DistributeActivity;
-
 /** 分发模块
  * Created by 16486 on 2020/10/20.
  */
+public class DistributeFragment extends BaseresTaskFragment {
 
-public class DistributeFragment extends BaseFragment {
 
-    @BindView(R2.id.btn_distribute_add)
-    Button btnDistribute;
+
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.distribute_fragment;
+        return R.layout.baseres_task_fragment;
+    }
+    @Override
+    protected String setBtnTaskAdd() {
+        return "新增分发";
     }
 
     @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected boolean isLoad() {
+    protected boolean isShowQueryCriteria() {
         return true;
     }
 
+    @Override
+    protected String[] getTaskDataList() {
+        return new String[]{"ID","TaskTypeName", "CreatorTime","OpDeptName","Num","UserName"};
+    }
 
-    @OnClick({R2.id.btn_distribute_add})
-    public void onClickListener(View v) {
 
-        RCaster rcaster = new RCaster(R.class,R2.class);
+    @Override
+    public void initFragmentActivityView() {
+       btnTaskAdd.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+                   Utils.gotoActivity(getActivity(), DistributeActivity.class, null, null);
+           }
+       });
+    }
 
-        Log.d("fragmentOnClick:", "onClick: "+v.getId() +"    "+rcaster.cast(v.getId())+"           "+R2.id.btn_distribute_add);
-
-        switch (rcaster.cast(v.getId())) {
-            case R2.id.btn_distribute_add:
-                Utils.gotoActivity(getActivity(), DistributeActivity.class,null,null);
-                break;
-        }
-
+    @Override
+    public String[] getArrayTitle() {
+        return new String[]{"ID","任务类型","创建时间","给予分发部门","分发数量","操作人"};
     }
 
 

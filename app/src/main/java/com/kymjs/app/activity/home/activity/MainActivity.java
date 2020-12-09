@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity
         getToolbar().setTitle(rightInfo.getName());
         SPUtils.setSharedStringData(mContext,"actionUrl",rightInfo.getActionUrl());
         Log.d("MainActivity", "onNavigationItemSelected:  "+actionForm );
-        if(!"".equals(actionForm) && !currentFragment.equals(actionForm)){
+        if(!"".equals(actionForm) ){
 
 
 

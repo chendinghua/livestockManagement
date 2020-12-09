@@ -107,4 +107,19 @@ public class DestroyManagementFragment extends BaseresTaskFragment implements Vi
             device = ScanRfidDialog.showScanRfid(activity,"请扫描耳标标签", LabelRule.earmMarkRule,"耳标标签数据异常", MethodEnum.GETSTORAGEINFOBYOUT,"RFID",handlerUtils,true);
         }
     }
+
+    @Override
+    protected String setBtnTaskAdd() {
+        return "新增销毁";
+    }
+
+    @Override
+    protected boolean isShowQueryCriteria() {
+        return false;
+    }
+
+    @Override
+    protected String[] getTaskDataList() {
+        return new String[0];
+    }
 }

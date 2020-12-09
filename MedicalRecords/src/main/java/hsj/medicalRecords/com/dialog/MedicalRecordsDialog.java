@@ -3,19 +3,32 @@ package hsj.medicalRecords.com.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Message;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.utils.base.entry.ScanResult;
+import com.kymjs.app.base_res.utils.http.HandlerUtils;
+import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
+import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
+import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.selectSpinner.tools.SpinnerTools;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import hsj.medicalRecords.com.R;
 import hsj.medicalRecords.com.entry.MedicalRList;
@@ -140,17 +153,13 @@ public class MedicalRecordsDialog extends Dialog {
             return dialog;
         }
         //就诊原因
-        Spinner spMedical;
+        AutoCompleteTextView autoCompleteTextView;
         //病情描述
         EditText etCondition;
 
         public String getMedical(){
-            String medical="";
 
-            if(spMedical!=null){
-                medical = spMedical.getTag().toString();
-            }
-            return medical;
+            return autoCompleteTextView.getText().toString();
         }
 
         public String getCondition(){
@@ -176,7 +185,7 @@ public class MedicalRecordsDialog extends Dialog {
                 ((LinearLayout) layout.findViewById(R.id.content))
                         .addView(contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             }
-            spMedical = layout.findViewById(R.id.sp_medical);
+            autoCompleteTextView = layout.findViewById(R.id.auto_medical_list);
             etCondition = layout.findViewById(R.id.et_medicalrecords_Condition);
 
             if(scanResult!=null){
@@ -186,8 +195,21 @@ public class MedicalRecordsDialog extends Dialog {
 
             }
 
-            SpinnerTools.change((Activity) mContext,spMedical,null, MethodEnum.GETMEDICALRLIST, MedicalRList.class,"Illness","ID",null);
+         //   SpinnerTools.change((Activity) mContext,spMedical,null, MethodEnum.GETMEDICALRLIST, MedicalRList.class,"Illness","ID",null);
+            InteractiveDataUtil.interactiveMessage((Activity) mContext,null,new HandlerUtils(mContext, new HandlerUtilsCallback() {
+                @Override
+                public void handlerExecutionFunction(Message msg) {
+                    List<MedicalRList> medicalRLists =   JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"),MedicalRList.class);
+                    String [] res = new String[medicalRLists.size()];
+                    for(int i =0;i<medicalRLists.size();i++){
+                        res[i]=medicalRLists.get(i).getName();
+                    }
+                    Log.d("arrayDatalist", "handlerExecutionFunction: "+ Arrays.toString(res));
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,android.R.layout.simple_dropdown_item_1line,res);
+                    autoCompleteTextView.setAdapter(adapter);
 
+                }
+            }),MethodEnum.GETMEDICALRLIST, InteractiveEnum.GET);
 
 
             dialog.setContentView(layout);

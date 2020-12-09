@@ -24,16 +24,21 @@ import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.AlertDialogCallBack;
 import com.kymjs.app.base_res.utils.tools.AlertDialogNegativeCallBack;
 import com.kymjs.app.base_res.utils.tools.DialogUtils;
+import com.kymjs.app.base_res.utils.tools.UIHelper;
+import com.kymjs.app.base_res.utils.utils.SPUtils;
+import com.kymjs.app.base_res.utils.utils.Utils;
+import com.kymjs.app.base_res.utils.view.slide.SlideCutListView;
 
 import devicelib.dao.Device;
 import devicelib.dao.ResponseHandlerInterface;
 import devicelib.factory.DeviceFactory;
 import hsj.expmle.com.prevention.entry.Prevention;
+import hsj.expmle.com.prevention.entry.VreCommitData;
 
 /** 疫苗页面
  * Created by 16486 on 2020/10/22.
  */
-public class PreventionActivity extends BaseresScanResultActivity implements ResponseHandlerInterface,View.OnClickListener{
+public class PreventionActivity extends BaseresScanResultActivity implements ResponseHandlerInterface,View.OnClickListener,SlideCutListView.RemoveListener {
 
     Button btnBack;
 
@@ -94,25 +99,29 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
                     tagList.clear();
                     tagList.addAll(JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"),Prevention.class));
                     updateData();
+                }else if(MethodEnum.VACCINEPOSTADD.equals(msg.getData().getString("method"))){
+                    UIHelper.ToastMessage(mContext,"数据提交成功");
+                    Utils.activityFinish(PreventionActivity.this,device);
                 }
             }
         });
         vaccineID = getIntent().getExtras().getInt("VaccineID");
-        autoAdapter = new AutoAdapter<Prevention>(mContext,tagList,"StorageSerialNo","StorageRfidNo","StockSerialNo","VacctionDate");
+        autoAdapter = new AutoAdapter<Prevention>(mContext,tagList,"SerialNo","RfidNo","StockSerialNo","VaccineName");
         lvList.setAdapter(autoAdapter);
         HashMap<String,Object> map = new HashMap<>();
         map.put("VaccineID",vaccineID);
+        map.put("Day", SPUtils.getSharedIntData(mContext,"PreventionDay",3));
         InteractiveDataUtil.interactiveMessage(this,map,handlerUtils, MethodEnum.POSTVACCINELISTS, InteractiveEnum.GET);
 
         powerSettingView.setListener(device, ProgressDialog.createDialog(mContext),2);
-
+        lvList.setRemoveListener(this);
     }
 
 
 
     @Override
     public String[] getArrayTitle() {
-        return new String[]{"库存序列号","库存RFID","库位编号","注射时间"};
+        return new String[]{"库存序列号","库存RFID","库位编号","疫苗名称"};
     }
     private void updateData() {
         tvScanResultTotalCount.setText(""+tagList.size());
@@ -126,8 +135,8 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
             }
         }
         tvScanResultCurrentCount.setText(currentCount+"");
-        tvScanResultErrorCount.setText(currentCount+"");
-
+        tvScanResultErrorCount.setText(errorCount+"");
+        autoAdapter.notifyDataSetChanged();
 
     }
 
@@ -144,6 +153,7 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
                 device.playSound(2);
             }
         }
+        updateData();
     }
 
     @Override
@@ -163,9 +173,7 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
                 index=i;
                 break;
             }
-
         }
-
         return index;
     }
 
@@ -176,10 +184,33 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
      */
     @Override
     public void onClick(View v) {
+        //疫苗提交
         if(Integer.parseInt(v.getTag().toString()) ==1){
+            if(device.isLoop()){
+                UIHelper.ToastMessage(mContext,"请停止扫描");
+                return;
+            }else if(currentCount==0){
+                UIHelper.ToastMessage(mContext,"当前无扫描数据");
+                return;
+            }
+
             DialogUtils.showAlertDialog(mContext, new AlertDialogCallBack() {
+                //确认提交疫苗
                 @Override
                 public void alertDialogFunction() {
+
+                    List<VreCommitData> commitDatas = new ArrayList<VreCommitData>();
+                    for (int i =0;i<tagList.size();i++){
+                        if("true".equals(tagList.get(i).getIsFocus())){
+                            commitDatas.add(new VreCommitData(tagList.get(i).getStorageID(),1));
+                        }
+                    }
+
+                    HashMap<String,Object> preventionMap = new HashMap<String, Object>();
+                    preventionMap.put("VaccineID",vaccineID);
+                    preventionMap.put("Vre",commitDatas);
+
+                    InteractiveDataUtil.interactiveMessage(PreventionActivity.this,preventionMap,handlerUtils,MethodEnum.VACCINEPOSTADD,InteractiveEnum.POST);
 
                 }
             }, new AlertDialogNegativeCallBack() {
@@ -187,7 +218,7 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
                 public void alertDialogFunction() {
 
                 }
-            },"请问是否忽略未注射畜种数量",null,null);
+            },currentCount==tagList.size()?"是否提交数据":"是否忽略未注射疫苗",null,null);
 
 
         }else if(Integer.parseInt(v.getTag().toString()) ==0){
@@ -221,4 +252,12 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
 
     }
 
+    @Override
+    public void removeItem(SlideCutListView.RemoveDirection direction, int position) {
+        if("error".equals(tagList.get(position).getIsFocus())) {
+            tagList.remove(position);
+            autoAdapter.notifyDataSetChanged();
+            updateData();
+        }
+    }
 }

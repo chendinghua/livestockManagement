@@ -33,4 +33,6 @@ public interface Device {
     public boolean setPower(int power);
     //设置扫描条码状态
     public void setSanModelEnabel(boolean flag);
+    //当前读取状态
+    boolean isLoop();
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.utils.base.BaseFragment;
 import com.kymjs.app.base_res.utils.base.entry.DicInfo;
+import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsErrorCallback;
@@ -141,16 +142,18 @@ public class StorageInfoFragment extends BaseFragment {
     }
 
     private void initSpinnerInfo() {
-
+        //启用状态
         HashMap<String, Object> storageInfoEnableStatusMap = new HashMap<>();
         storageInfoEnableStatusMap.put("groupName", "StorageIsEnabled");
         SpinnerTools.change(activity, spStorageInfoEnableStatus,
-                storageInfoEnableStatusMap, MethodEnum.GETDICBYGROUPNAME, DicInfo.class, "Name", "Value", null);
+                storageInfoEnableStatusMap, MethodEnum.GETDICBYGROUPNAME, DicInfo.class, "Name", "Value", null,true);
+        //库存状态
         HashMap<String, Object> storageInfoStatusMap = new HashMap<>();
         storageInfoStatusMap.put("groupName", "StorageStatus");
         SpinnerTools.change(activity, spStorageInfoStatus,
-                storageInfoStatusMap, MethodEnum.GETDICBYGROUPNAME, DicInfo.class, "Name", "Value", null);
-        SpinnerTools.change(activity,spStorageInfoStock,null,MethodEnum.GETSTOCKINFOBYDEPTID, DicInfo.class, "Name", "Value", null);
+                storageInfoStatusMap, MethodEnum.GETDICBYGROUPNAME, DicInfo.class, "Name", "Value", null,true);
+        //栏位列表
+        SpinnerTools.change(activity,spStorageInfoStock,null,MethodEnum.GETSTOCKINFOBYDEPTID, StockInfo.class, "Name", "ID", null,true);
         //分页触发事件
         lvStorageInfo.setListener(new PaginationListView.Listener() {
             @Override

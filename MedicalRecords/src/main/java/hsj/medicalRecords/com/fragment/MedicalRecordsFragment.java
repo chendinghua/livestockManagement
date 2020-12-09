@@ -1,9 +1,12 @@
 package hsj.medicalRecords.com.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,14 +27,18 @@ import com.kymjs.app.base_res.utils.view.ScanRfidDialog;
 import com.kymjs.app.base_res.utils.view.dateTime.SelectDateTime;
 import com.lwy.paginationlib.PaginationListView;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import devicelib.dao.Device;
 import hsj.medicalRecords.com.R;
 import hsj.medicalRecords.com.R2;
+import hsj.medicalRecords.com.adapter.SearchAdapter;
 import hsj.medicalRecords.com.dialog.MedicalRecordsDialog;
+import hsj.medicalRecords.com.entry.MedicalRList;
 import hsj.medicalRecords.com.entry.MedicalRecordsInfo;
 import hsj.medicalRecords.com.entry.MedicalRecordsList;
 
@@ -57,13 +64,15 @@ public class MedicalRecordsFragment extends BaseFragment {
     Button btnMedicalRecordsSearch;
     //更新数量
     boolean loadNumber=true;
-
-
+   /* @BindView(R2.id.auto_medical_list)
+    AutoCompleteTextView  autoCompleteTextView;
+*/
     MedicalRecordsDialog mDialog;
 
     MedicalRecordsDialog.Builder builder;
 
     Device device;
+
 
     @Override
     protected int getLayoutResource() {
@@ -73,6 +82,26 @@ public class MedicalRecordsFragment extends BaseFragment {
     @Override
     protected void initView() {
         builder =new MedicalRecordsDialog.Builder(activity);
+
+
+      /*  InteractiveDataUtil.interactiveMessage(activity,null,new HandlerUtils(activity, new HandlerUtilsCallback() {
+            @Override
+            public void handlerExecutionFunction(Message msg) {
+                List<MedicalRList> medicalRLists =   JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"),MedicalRList.class);
+                String [] res = new String[medicalRLists.size()];
+                for(int i =0;i<medicalRLists.size();i++){
+                    res[i]=medicalRLists.get(i).getName();
+                }
+                Log.d("arrayDatalist", "handlerExecutionFunction: "+ Arrays.toString(res));
+
+            }
+        }),MethodEnum.GETMEDICALRLIST, InteractiveEnum.GET);*/
+   /*   String [] res = new String[]{"复合型新型流行性感冒","流行性感冒","bbb","bbbb"};
+
+         String[] str = {"大大大", "大大小", "大小大", "大小小", "小大大", "小大小", "小大小", "小小小"};
+
+        SearchAdapter<String> autoadapter = new SearchAdapter<String>(activity,android.R.layout.simple_dropdown_item_1line,str,SearchAdapter.ALL);
+        autoCompleteTextView.setAdapter(autoadapter);*/
 
 
         SelectDateTime.initCurrentTime( tvStorageInfoEndTime);
@@ -124,7 +153,8 @@ public class MedicalRecordsFragment extends BaseFragment {
                                    public void onClick(View v) {
                                     //添加就诊信息
                                        HashMap<String,Object> hashMap = new HashMap<>();
-                                       hashMap.put("MedicalRID",builder.getMedical());
+                                       hashMap.put("MedicalRID",0);
+                                       hashMap.put("MedicalRecord",builder.getMedical());
                                        hashMap.put("StorageID",scanResult.getStorageID());
                                        hashMap.put("StockID",scanResult.getStockID());
                                        hashMap.put("Condition",builder.getCondition());

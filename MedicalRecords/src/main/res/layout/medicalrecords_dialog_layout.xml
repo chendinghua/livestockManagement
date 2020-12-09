@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
@@ -72,7 +74,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -83,18 +85,40 @@
                     android:text="就诊病因"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/sp_medical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
+                <AutoCompleteTextView
+                    android:id="@+id/auto_medical_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:completionHint="请输入搜索内容"
+                    android:completionThreshold="1"
+                    android:dropDownHorizontalOffset="5dp"
 
                     />
 
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="观察天数"
+                    android:textStyle="bold" />
+            <com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                app:baseres_minValue="1"
+                app:baseres_initValue="1"
+                ></com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView>
 
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

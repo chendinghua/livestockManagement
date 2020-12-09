@@ -1,5 +1,7 @@
 package hsj.outStock.com.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -34,9 +36,10 @@ import devicelib.factory.DeviceFactory;
 
 import com.kymjs.app.base_res.R;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
+import com.kymjs.app.base_res.utils.utils.Utils;
 import com.kymjs.app.base_res.utils.view.slide.SlideCutListView;
 
-/**
+/** 申请出栏
  * Created by 16486 on 2020/11/26.
  */
 
@@ -57,10 +60,8 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
     Button btnCommit;
 
 
-    String car;
     @Override
     public void initFragmentActivityView() {
-        car =  getIntent().getExtras().getString("Car");
         device = new DeviceFactory(mContext, this).getDevice();
         if (device != null) {
             device.initUHF();
@@ -104,7 +105,7 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
 
                 }else if(MethodEnum.POSTPDAOUTSTOCK.equals(msg.getData().getString("method"))){
                     UIHelper.ToastMessage(mContext,"数据提交成功");
-                    finish();
+                    Utils.activityFinish(OutStockActivity.this,device);
                 }
             }
         }, new HandlerUtilsErrorCallback() {
@@ -237,12 +238,13 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
     public void onClick(View v) {
         //提交
         if (Integer.parseInt(v.getTag().toString())  == 1) {
+            Bundle  bundle = getIntent().getExtras();
+
             HashMap<String,Object> outStock = new HashMap<>();
-            outStock.put("Type",1);
-            outStock.put("Car",car);
-            outStock.put("OPERName","test");
-            outStock.put("OPERTelphone","10086");
-            outStock.put("OutDeptID", SPUtils.getSharedIntData(mContext,"DeptID"));
+            outStock.put("Type",bundle.getString("Type"));
+            outStock.put("OutDeptID", getIntent().getExtras().getString("outDeptID"));
+            outStock.put("Client",bundle.getString("Client"));
+            outStock.put("ClientTelphone",bundle.getString("ClientTelphone"));
             outStock.put("Num",tagList.size());
             outStock.put("Remark","");
             outStock.put("DataInfo",tagList);
@@ -269,11 +271,7 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
         DialogUtils.showAlertDialog(this, new AlertDialogCallBack() {
             @Override
             public void alertDialogFunction() {
-                if (device != null) {
-                    device.destroy();
-                }
-
-                finish();
+                Utils.activityFinish(OutStockActivity.this,device);
             }
         }, "是否结束当前流程", null, null);
 

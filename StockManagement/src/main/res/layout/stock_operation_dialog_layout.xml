@@ -45,7 +45,7 @@
                     android:text="序列号"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_stock_operation_serialNo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -102,6 +102,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/et_stock_operation_MaxArea"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

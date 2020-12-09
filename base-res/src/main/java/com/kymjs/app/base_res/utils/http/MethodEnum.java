@@ -49,4 +49,13 @@ public class MethodEnum {
     public static final String POSTSCRAPSTORAGE="/Storage/PostScrapStorage";
     //提交出库信息
     public static final String POSTPDAOUTSTOCK="/Animal/PostPDAOutStock";
+    //查询任务列表
+    public static final String GETTASKLIST="/task/GetTaskList";
+    //根据任务详情ID查询详细任务内容
+    public static final String GETTASKINFO="/task/GetTaskInfo";
+    //确认耳标出栏
+    public static final String POSTPDAFOROUTSTOCK="/Animal/PostPDAForOutStock";
+    //疫苗接种提交
+    public static final String VACCINEPOSTADD="/Vaccine/PostAdd";
+
 }

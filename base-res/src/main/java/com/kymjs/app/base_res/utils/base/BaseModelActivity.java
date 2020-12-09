@@ -17,6 +17,7 @@ import com.kymjs.app.base_res.utils.app.AppManager;
 import com.kymjs.app.base_res.utils.tools.AlertDialogCallBack;
 import com.kymjs.app.base_res.utils.tools.DialogUtils;
 import com.kymjs.app.base_res.utils.utils.StatusBarSetting;
+import com.kymjs.app.base_res.utils.utils.Utils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -220,8 +221,8 @@ public abstract class BaseModelActivity extends FragmentActivity implements Resp
                     if(device!=null){
                         device.destroy();
                     }
-
-                    finish();
+                    Utils.activityFinish(BaseModelActivity.this,device);
+                 //   finish();
                 }
             },"是否结束当前流程",null,null);
             return false;

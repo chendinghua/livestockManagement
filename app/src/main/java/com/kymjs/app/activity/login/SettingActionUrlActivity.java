@@ -35,9 +35,9 @@ public class  SettingActionUrlActivity extends Activity {
         editor = sp.edit();
         initUI();
         //获取接口路径
-        etInputActionUrl.setText(sp.getString("actionUrl","http://123.207.79.93:9003/api"));
+        etInputActionUrl.setText(sp.getString("actionUrl","http://192.168.1.122/iis/api"));
         //获取版本更新路径
-        etInputUpdateUrl.setText(sp.getString("updateUrl","http://img.rfid-barcode.com/PDA/Drug/upload/version.xml"));
+        etInputUpdateUrl.setText(sp.getString("updateUrl","http://http://img.rfid-barcode.com/PDA/AnimalRFID/upload/version.xml"));
     }
 
     private void initUI() {

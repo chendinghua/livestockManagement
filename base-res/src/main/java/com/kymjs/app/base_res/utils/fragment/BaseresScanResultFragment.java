@@ -85,7 +85,7 @@ public abstract  class BaseresScanResultFragment<T1 extends Activity> extends Ba
 
                 Button btn = viewLists.get(i).getT();
 
-
+                btn.setTag(i);
                 btn.setText(viewLists.get(i).getTitle());
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);

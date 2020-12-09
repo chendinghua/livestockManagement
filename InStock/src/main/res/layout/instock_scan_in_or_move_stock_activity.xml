@@ -83,16 +83,16 @@
             android:layout_weight="2"
             android:gravity="center"
             >
-        <com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView
+        <EditText
             android:gravity="center"
             android:id="@+id/asv_in_or_out_stock_daytime"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            app:baseres_minValue="1"
-            app:baseres_initValue="1"
-            app:baseres_addBackground="@drawable/bg_nextpage"
-            app:baseres_subBackground="@drawable/bg_prepage"
-            ></com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView>
+            android:text="0"
+            android:inputType="number"
+            ></EditText>
+            
+
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -127,6 +127,13 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:text="状态"
+                android:gravity="center"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="所属部门"
                 android:gravity="center"
                 />
         </LinearLayout>

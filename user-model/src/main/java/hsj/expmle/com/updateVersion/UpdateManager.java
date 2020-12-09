@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -112,14 +113,16 @@ public class UpdateManager
 				try {
 			//	String versionUrl =	mContext.getResources().getString(R.string.downloadUpdateNewVersionUrl);
 					SharedPreferences sp =	mContext.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
-					String versionUrl =sp.getString("updateUrl","http://img.rfid-barcode.com/PDA/Drug/upload/version.xml");
+					String versionUrl =sp.getString("updateUrl","http://img.rfid-barcode.com/PDA/AnimalRFID/upload/version.xml");
 					//	URL url = new URL("http://10.10.1.69/HSJ.AutoUpdate/PDA/version.xml");
 					URL url = new URL(versionUrl);
 					 	 inStream =	url.openStream();
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
+
 					e.printStackTrace();
+					Log.d("installLog", "run: "+e.getMessage());
 				}
 				Message msg= new Message();
 				msg.obj = inStream;
@@ -331,6 +334,7 @@ public class UpdateManager
 			} catch (MalformedURLException e)
 			{
 				e.printStackTrace();
+				Log.d("installLog", "run: "+e.getMessage());
 			} catch (IOException e)
 			{
 				e.printStackTrace();

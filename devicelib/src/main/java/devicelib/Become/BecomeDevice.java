@@ -23,28 +23,18 @@ import devicelib.dao.Device;
 import devicelib.dao.ResponseHandlerInterface;
 import devicelib.dao.SoundManager;
 
-/** 成为C72设备
+/** H7设备
  * Created by 16486 on 2020/4/8.
  */
 public class BecomeDevice implements Device{
-
     Context context;
-
     private Handler tagHandler = new Handler();
     private boolean loopFlag = false;
     private  Runnable myRunnable;
-
-
-
-
     public RFIDWithUHF mReader;
-
     ResponseHandlerInterface responseHandler;
-
     public Barcode2DWithSoft barcode2DWithSoft=null; //二维码对象
     HomeKeyEventBroadCastReceiver receiver;
-
-
     /**
      *
      * @param context
@@ -53,41 +43,35 @@ public class BecomeDevice implements Device{
         this.context=context;
         this.responseHandler=responseHandler;
     }
-
-
     /**
      * 初始化RFID模块
      */
     @Override
     public void initUHF() {
-
-
         try {
             mReader = RFIDWithUHF.getInstance();
         } catch (Exception ex) {
-
             toastMessage(ex.getMessage());
             return;
         }
-
         if (mReader != null) {
             new InitTask().execute();
         }
-
-
     }
-
     public void toastMessage(String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
+    public boolean isLoop(){
+        return loopFlag;
+
+    }
     /**
      * 开始读取RFID
      */
     public void startRead() {
         loopFlag=true;
         read();
-
     }
     //扫描物理按键触发
     @Override
@@ -101,7 +85,6 @@ public class BecomeDevice implements Device{
                     //这里是用来生成编码的
                     final String strEPC = mReader.convertUiiToEPC(strUII);
                    responseHandler.handleTagdata(strEPC);
-
                 } else {
                 }
             }else {
@@ -128,7 +111,6 @@ public class BecomeDevice implements Device{
             }
         }
     }
-
     //二维码扫描回调函数
     public Barcode2DWithSoft.ScanCallback  ScanBack1= new Barcode2DWithSoft.ScanCallback(){
         @Override
@@ -140,45 +122,24 @@ public class BecomeDevice implements Device{
                 } else if (length == 0) {
                     Toast.makeText(context,"Scan TimeOut",Toast.LENGTH_SHORT).show();   //inputServer.setText("Scan TimeOut");
                 } else {
-                    //  Log.i(TAG,"Scan fail");
                 }
             }else{
-
-
-
                 SoundManager.getInstance(context).playSound(1);
-
-
                 barcode="";
-
-
-                //  String res = new String(dd,"gb2312");
                 try {
-                    // Log.i("Ascii",seldata);
                     barcode = new String(bytes, 0, length, "ASCII");
                     zt();
                 }
                 catch (UnsupportedEncodingException ex)   {}
-
                 responseHandler.scanCode(barcode);
-
-                // inputServer.setText(barCode);
                 Log.d("ScanCodeEnabled", "扫描到了数据 "+barcode);
-               /*  HashMap<String,Object> scanCodeParam = new HashMap<String, Object>();
-                scanCodeParam.put("jobID",barcode);
-                InteractiveDataUtil.interactiveMessage(scanCodeParam,handler,MethodEnum.GETINSTOCKINFOBYJONID,InteractiveEnum.GET);
-*/
             }
-
         }
     };
-
     void zt() {
-
         Vibrator vibrator = (Vibrator)context.getSystemService(context.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
     }
-
     @Override
     public void destroy(){
         if(mReader!=null){
@@ -190,10 +151,8 @@ public class BecomeDevice implements Device{
             barcode2DWithSoft.close();
         }
     }
-
     @Override
     public String onResume() {
-
         return null;
     }
     @Override
@@ -203,30 +162,23 @@ public class BecomeDevice implements Device{
         context.registerReceiver(receiver, new IntentFilter("com.rscja.android.KEY_DOWN"));
         new InitCodeTask().execute();
     }
-
     @Override
     public boolean setPower(int power) {
         return  mReader.setPower(power);
     }
-
     @Override
     public void setSanModelEnabel(boolean flag) {
-
     }
-
-
     //停止读取RFID
     public void stopRead() {
         loopFlag=false;
         if(myRunnable!=null)
             tagHandler.removeCallbacks(myRunnable);
     }
-
     @Override
     public void playSound(int id) {
         SoundManager.getInstance(context).playSound(id);
     }
-
     /**
      * �豸�ϵ��첽��
      *
@@ -234,25 +186,20 @@ public class BecomeDevice implements Device{
      */
     public class InitTask extends AsyncTask<String, Integer, Boolean> {
         ProgressDialog mypDialog;
-
         @Override
         protected Boolean doInBackground(String... params) {
             // TODO Auto-generated method stub
             return mReader.init();
         }
-
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-
             mypDialog.cancel();
-
             if (!result) {
                 Toast.makeText(context, "init fail",
                         Toast.LENGTH_SHORT).show();
             }
         }
-
         @Override
         protected void onPreExecute() {
             // TODO Auto-generated method stub
@@ -302,7 +249,6 @@ public class BecomeDevice implements Device{
         };
         tagHandler.postDelayed(myRunnable,1);
     }
-
      public  class InitCodeTask extends AsyncTask<String, Integer, Boolean> {
         ProgressDialog mypDialog;
         @Override
@@ -339,7 +285,6 @@ public class BecomeDevice implements Device{
             mypDialog.show();
         }
     }
-
     //监听扫描Code广播数据
     class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
         static final String SYSTEM_REASON = "reason";
@@ -350,7 +295,6 @@ public class BecomeDevice implements Device{
             String action = intent.getAction();
             if (action.equals("com.rscja.android.KEY_DOWN")) {
                 int reason = intent.getIntExtra("Keycode",0);
-                //getStringExtra
                 boolean long1 = intent.getBooleanExtra("Pressed",false);
                 // home key处理点
                 if(reason==280 || reason==66){

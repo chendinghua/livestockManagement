@@ -35,4 +35,9 @@
 
 
     <dimen name="baseres_user_info_name">16sp</dimen>
+
+
+    <dimen name="baseres_et_text_size">18dp</dimen>
+
+    <dimen name="baseres_et_out_stock_cat_size">15dp</dimen>
 </resources>

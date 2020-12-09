@@ -26,6 +26,7 @@ import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.RCaster;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
+import com.kymjs.app.base_res.utils.utils.Utils;
 import com.kymjs.app.base_res.utils.view.powerView.Baseres_PowerSettingView;
 import com.kymjs.app.base_res.utils.view.slide.SlideCutListView;
 
@@ -50,43 +51,31 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     Button btnCommit;
     //返回上一页
     Button btnPrev;
-
-
     AutoAdapter<ScanResult> adapter;
-
-
-
     @BindView(R2.id.lv_scan_result)
     SlideCutListView lvScanResult;
-
-
-
     List<ScanResult> tagList = new ArrayList<>();
-
-
+    List<String> tempList = new ArrayList<>();
     @Override
     protected int getLayoutResource() {
         return R.layout.baseres_scan_result_activity;
     }
-
-
-
     @Override
     protected boolean isLoad() {
         return false;
     }
-
     @Override
     public void onClick(View view) {
-
-            if(view.getId() == btnPrev.getId() ) {
+        //返回上一步
+            if(Integer.parseInt(view.getTag().toString()) == 0 ) {
                 if (activity instanceof DistributeActivity) {
                     tagList.clear();
                     updateCommitStatus();
-                    DistributeActivity distributeActivity = (DistributeActivity) activity;
+                    DistributeActivity distributeActivity =  activity;
                     distributeActivity.pager.setCurrentItem(distributeActivity.pager.getCurrentItem() - 1);
                 }
-            }else if( view.getId() == btnCommit.getId()) {
+                //提交数据
+            }else if( Integer.parseInt(view.getTag().toString()) == 1) {
                 StringBuffer rfidBuffer = new StringBuffer();
                 for (int i = 0; i < tagList.size(); i++) {
                     if (tagList.size() - 1 == i) {
@@ -102,41 +91,45 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                 commitMap.put("RFIDStr", rfidBuffer.toString());
                 commitMap.put("Type", activity.farmersProductTypeId);
                 InteractiveDataUtil.interactiveMessage(activity, commitMap, handlerUtils, MethodEnum.POSTADDDISTRIBUTE, InteractiveEnum.POST);
-
-
             }
     }
     public void scanCode(String code) {
         //判断当前标签有效 并且RFID不存在列表中
-        if (checkLabelRule(code) &&  isExtenData(code)==null) {
+        if (checkLabelRule(code) &&  isExtenData(code)==-1) {
+            tempList.add(code);
             HashMap<String, Object> map = new HashMap<>();
             map.put("RFID", code);
             InteractiveDataUtil.interactiveMessage(activity, map, handlerUtils, MethodEnum.GETSTORAGEINFOBYOUT, InteractiveEnum.GET);
-
         } else {
-            ScanResult result =isExtenData(code);
+          int index =  isExistTagList(code);
             //判断如果标签在列表中 并且是有效数据则提示有效声音 否则提示异常声音
-            if(result!=null && "true".equals(result.getIsFocus()) ) {
-
+            if(index !=-1 && "true".equals(tagList.get(index).getIsFocus()) ) {
                 activity.device.playSound(1);
             }else{
                 activity.device.playSound(2);
             }
         }
     }
-
-    public ScanResult isExtenData(String code){
-        ScanResult scanResult=null;
-        for (int i =0;i<tagList.size();i++){
-            if(code.equals( tagList.get(i).getRfidNo())){
-                scanResult = tagList.get(i);
+    public int isExtenData(String code){
+        int  index=-1;
+        for (int i =0;i<tempList.size();i++){
+            if(code.equals(tempList.get(i))){
+              index=i;
                 break;
             }
         }
-        return scanResult;
+        return index;
     }
-
-
+    public int isExistTagList(String rfid) {
+        int index = -1;
+        for (int i = 0; i < tagList.size(); i++) {
+            if (rfid.equals(tagList.get(i).getRfidNo())) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
     private void updateCommitStatus() {
         currentCount=0;
         errorCount=0;
@@ -155,36 +148,25 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
             btnCommit.setEnabled(false);
         }
         adapter.notifyDataSetChanged();
-
-
     }
-
     private boolean checkLabelRule(String code) {
-
         return activity.farmersProductTypeId == 1 && code.startsWith(LabelRule.earmMarkRule)
                 || activity.farmersProductTypeId == 2 && code.startsWith(LabelRule.stockRule);
     }
-
     //左右滑动ListView删除数据
     @Override
     public void removeItem(SlideCutListView.RemoveDirection direction, int position) {
+        int index =-1;
+        if((index=isExtenData(tagList.get(position).getRfidNo()))!=-1){
+            tempList.remove(index);
+        }
         tagList.remove(position);
         updateCommitStatus();
     }
-
-
-
     @Override
     public void initFragmentActivityView() {
-
-
-
-
         btnPrev.setOnClickListener(this);
         btnCommit.setOnClickListener(this);
-
-
-
         Log.d("loadingLayout", "initView: ");
         handlerUtils = new HandlerUtils(activity, new HandlerUtilsCallback() {
             @Override
@@ -214,7 +196,6 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                         if(stockInfo.getStatus()!=2){
                             scanResult.setIsFocus("false");
                         }
-
                         tagList.add(scanResult);
                         updateCommitStatus();
                     }
@@ -222,7 +203,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
 
                 }else if(MethodEnum.POSTADDDISTRIBUTE.equals(msg.getData().getString("method"))){
                     UIHelper.ToastMessage(activity,"数据提交成功");
-                    activity.finish();
+                    Utils.activityFinish(activity,activity.device);
                 }
             }
         }, new HandlerUtilsErrorCallback() {
@@ -235,7 +216,6 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                         scanResult.setIsFocus("false");
                         tagList.add(0, scanResult);
                         updateCommitStatus();
-
                     }
                     activity.device.playSound(2);
                     //扫描分发栏位 异常数据
@@ -254,7 +234,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                 }
             }
         });
-        adapter = new AutoAdapter<ScanResult>(activity, tagList, "RfidNo", "SerialNo","IsEnabledName");
+        adapter = new AutoAdapter<ScanResult>(activity, tagList, "RfidNo", "SerialNo","IsEnabledName","DeptName");
         lvScanResult.setAdapter(adapter);
 
         lvScanResult.setRemoveListener(this);
@@ -266,7 +246,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     //初始化标题数据
     @Override
     public String[] getArrayTitle() {
-        return new String[]{"RFID","序列号","状态"};
+        return new String[]{"RFID","序列号","状态","部门信息"};
     }
 
     //初始化底部数据

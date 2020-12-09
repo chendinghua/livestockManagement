@@ -23,10 +23,9 @@ import java.util.HashMap;
 import hsj.stock.com.R;
 
 
-/**
+/** 栏位管理弹窗
  * Created by Administrator on 2019/4/13/013.
  */
-
 public class StockOperationDialog extends Dialog {
 
 
@@ -143,6 +142,8 @@ public class StockOperationDialog extends Dialog {
 
         Spinner spStockType;
 
+        EditText etSerialNo;
+
         /**
          * 创建双按钮对话框
          * @return
@@ -159,9 +160,11 @@ public class StockOperationDialog extends Dialog {
                 public void onClick(View v) {
                     if(positiveButtonClickListener!=null && stockInfo!=null)
                      stockInfo.setName(etStockName.getText().toString());
-                     stockInfo.setMaxArea(Integer.parseInt(etMaxArea.getText().toString()));
+                     stockInfo.setMaxArea("".equals( etMaxNum.getText().toString().trim())?0:Integer.parseInt(etMaxNum.getText().toString()));
                     stockInfo.setMaxNum( "".equals( etMaxNum.getText().toString().trim())?"0":etMaxNum.getText().toString());
                     stockInfo.setStatus(Integer.parseInt( spStockType.getTag().toString()));
+                    stockInfo.setSerialNo(etSerialNo.getText().toString());
+
                     positiveButtonClickListener.onListener(stockInfo,status);
                 }
             });
@@ -203,18 +206,20 @@ public class StockOperationDialog extends Dialog {
             etMaxNum.setText("0");
 
 
-
+            //启动状态
             HashMap<String,Object> map = new HashMap<>();
             map.put("GroupName","StorageIsEnabled");
-            SpinnerTools.change((Activity) mContext,spStockType,map, MethodEnum.GETDICBYGROUPNAME, DicInfo.class,"Name","Value",null);
+            SpinnerTools.change((Activity) mContext,spStockType,map, MethodEnum.GETDICBYGROUPNAME, DicInfo.class,"Name","Value",null,false);
+            etSerialNo =  layout.findViewById(R.id.tv_stock_operation_serialNo);
+
             if(stockInfo!=null){
 
 
-                ((TextView)layout.findViewById(R.id.tv_stock_operation_serialNo)).setText(stockInfo.getSerialNo());
-                if(status==2){
+                  if(status==2){
                     etStockName.setText(stockInfo.getName());
                     etMaxNum.setText(stockInfo.getMaxNum());
                     etMaxArea.setText(stockInfo.getMaxArea()+"");
+                      etSerialNo.setText(stockInfo.getSerialNo());
              //       spStockType.setSelection(stockInfo.getStatus()-1);
                 }
 

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
@@ -20,8 +21,10 @@ import com.kymjs.app.base_res.utils.http.HandlerUtilsErrorCallback;
 import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
+import com.kymjs.app.base_res.utils.tools.NumberUtils;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
+import com.kymjs.app.base_res.utils.utils.Utils;
 import com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView;
 import com.kymjs.app.base_res.utils.view.powerView.Baseres_PowerSettingView;
 import com.kymjs.app.base_res.utils.view.slide.SlideCutListView;
@@ -46,7 +49,7 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
     SlideCutListView lvScanResult;
 
     @BindView(R2.id.asv_in_or_out_stock_daytime)
-    Baseres_AddAndSubView asvDayTime;               //出生间隔时间
+    EditText asvDayTime;               //出生间隔时间
 
     AutoAdapter<ScanResult> adapter;
 
@@ -54,8 +57,8 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
     HandlerUtils handlerUtils;
 
 
-    //判断当前操作状态  操作状态为1：则是入库   2：操作状态为移库
-    private Integer operationStatus=1;
+    //判断当前操作状态  操作状态为3：则是入库   -1：操作状态为移库
+    private Integer operationStatus=-1;
     //当前操作的库位id
     private StockInfo stockInfo;
 
@@ -78,15 +81,20 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
     LinearLayout layoutDaTime;              //出生日期布局
 
 
+    List<String> tempList = new ArrayList<>();
+
     @Override
     public void handleTagdata(String rfid) {
-        if(rfid.startsWith(LabelRule.earmMarkRule) && isExtenData(rfid)==null){
+        if(rfid.startsWith(LabelRule.earmMarkRule) && isExtenData(rfid)==-1){
+            tempList.add(rfid);
             HashMap<String,Object> map = new HashMap<>();
             map.put("RFID",rfid);
             InteractiveDataUtil.interactiveMessage(this,map,handlerUtils,MethodEnum.GETSTORAGEINFOBYOUT,InteractiveEnum.GET);
 
         }else{
-            if(isExtenData(rfid)!=null && "true".equals(isExtenData(rfid).getIsFocus())){
+            int index = isExistTagList(rfid);
+
+            if(index!=-1 && "true".equals(tagList.get(index).getIsFocus())){
                 if (device != null) {
                     device.playSound(1);
                 }
@@ -111,7 +119,7 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
 
     @Override
     public String getFragmentTitle() {
-        return  operationStatus==1? "入栏操作":"移栏操作";
+        return  operationStatus==3? "入栏操作":"移栏操作";
     }
 
     @Override
@@ -153,19 +161,16 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
             public void handlerExecutionFunction(Message msg) {
                 if (MethodEnum.GETSTORAGEINFOBYOUT.equals(msg.getData().getString("method"))) {
 
-
-
                     ScanResult scanResult = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
-
-
                     Log.d("urlScanInOrMoveStock", "handlerExecutionFunction:  operationStockID："+stockInfo.getID()+"\n  scanResultStockId："+scanResult.getStockID()
                     +"\n  IsEnabled："+scanResult.getIsEnabled() +"  \n operationStatus："+operationStatus);
 
                     //判断对象不为空  状态为在库 激活状态为未激活 操作状态为1 入库
                     //判断当前对象不为空 状态为在库  激活状态为已激活  库位id和移动的库位id不一样 操作状态为移库
-                    if (scanResult != null  && scanResult.getStatus()==1 && scanResult.getIsEnabled()==2  && operationStatus==1
+                    if (scanResult != null  && scanResult.getStatus()==1 && scanResult.getIsEnabled()==2
+                            && operationStatus==3
                             ||scanResult !=null && scanResult.getStatus()==1 && scanResult.getIsEnabled()==1
-                            && !stockInfo.getID().equals(scanResult.getStockID()) && operationStatus==2 ) {
+                            && !stockInfo.getID().equals(scanResult.getStockID()) && operationStatus==-1 ) {
                         scanResult.setIsFocus("true");
                         tagList.add(scanResult);
 
@@ -177,18 +182,11 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
                     }
                       updateCommitStatus();
                 }else if(MethodEnum.POSTMOVESTOCK.equals(msg.getData().getString("method"))){
-                    if(device!=null){
-                        device.destroy();
-                    }
                     UIHelper.ToastMessage(mContext,"数据提交成功" );
-                    finish();
+                    Utils.activityFinish(ScanInOrMoveStockActivity.this,device);
                 }else if(MethodEnum.POSTPDAINSTOCK.equals(msg.getData().getString("method"))){
-                    if(device!=null){
-                        device.destroy();
-                    }
+                    Utils.activityFinish(ScanInOrMoveStockActivity.this,device);
                     UIHelper.ToastMessage(mContext,"数据提交成功" );
-                    finish();
-
                 }
             }
         }, new HandlerUtilsErrorCallback() {
@@ -199,9 +197,10 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
                     if (scanResult != null) {
                         scanResult.setIsFocus("false");
                         tagList.add(0, scanResult);
-                              updateCommitStatus();
+
 
                     }
+                    updateCommitStatus();
                     device.playSound(2);
                 }else if(MethodEnum.POSTPDAINSTOCK.equals(ms.getData().getString("method"))){
                     UIHelper.ToastMessage(mContext,"数据提交失败" );
@@ -211,7 +210,7 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
                 }
             }
         });
-        adapter = new AutoAdapter<ScanResult>(mContext, tagList, "RfidNo", "SerialNo","IsEnabledName");
+        adapter = new AutoAdapter<ScanResult>(mContext, tagList, "RfidNo", "SerialNo","IsEnabledName","DeptName");
         lvScanResult.setAdapter(adapter);
 
         lvScanResult.setRemoveListener(this);
@@ -221,33 +220,52 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
         operationStatus = Integer.parseInt( SPUtils.getSharedStringData(mContext,"actionUrl"));
 
         if(tvOperationStockName!=null)
-        tvOperationStockName.setText(stockInfo.getSerialNo());
+        tvOperationStockName.setText(stockInfo.getName());
         //判断当前是否为移栏操作
-        if(operationStatus==2){
+        if(operationStatus==-1){
             layoutDaTime.setVisibility(View.GONE);
         }else{
             layoutDaTime.setVisibility(View.VISIBLE);
         }
+        updateCommitStatus();
     }
 
     @Override
     public void removeItem(SlideCutListView.RemoveDirection direction, int position) {
+        int index =-1;
+        if((index=isExtenData(tagList.get(position).getRfidNo()))!=-1){
+            tempList.remove(index);
+        }
         tagList.remove(position);
         updateCommitStatus();
     }
 
 
 
-    public ScanResult isExtenData(String code){
-        ScanResult scanResult=null;
-        for (int i =0;i<tagList.size();i++){
-            if(code.equals( tagList.get(i).getRfidNo())){
-                scanResult = tagList.get(i);
+    public int  isExtenData(String code){
+        int  index=-1;
+        for (int i =0;i<tempList.size();i++){
+            if(code.equals( tempList.get(i))){
+                index=i;
                 break;
             }
         }
-        return scanResult;
+        return index;
     }
+    public int isExistTagList(String rfid) {
+        int index = -1;
+        for (int i = 0; i < tagList.size(); i++) {
+            if (rfid.equals(tagList.get(i).getRfidNo())) {
+                index = i;
+                break;
+            }
+
+        }
+
+        return index;
+    }
+
+
 
     @OnClick({R2.id.btn_scan_in_or_move_stock_commit})
     public void onViewClicked(View view) {
@@ -256,7 +274,7 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
         switch (rcaster.cast(view.getId())) {
         }*/
         //添加入库
-       if(operationStatus==1) {
+       if(operationStatus==3) {
 
            StringBuffer rfidStr = new StringBuffer();
            for (int i = 0; i < tagList.size(); i++) {
@@ -269,16 +287,16 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
 
 
            HashMap<String, Object> commitMap = new HashMap<>();
-           commitMap.put("DayTime", asvDayTime.getCurrentCount());
+           commitMap.put("DayTime", NumberUtils.getNumberData( asvDayTime.getText().toString()));
            commitMap.put("Num", tagList.size());
            commitMap.put("StockID", stockInfo.getID());
            commitMap.put("RFIDStr", rfidStr.toString());
            InteractiveDataUtil.interactiveMessage(this, commitMap, handlerUtils, MethodEnum.POSTPDAINSTOCK, InteractiveEnum.POST);
         //添加移库
-       }else if(operationStatus==2){
+       }else if(operationStatus==-1){
            List<MoveStockInfo> moveStockInfos = new ArrayList<>();
            for (int i=0; i<tagList.size();i++){
-               moveStockInfos.add(new MoveStockInfo(tagList.get(i).getStockID(),0));
+               moveStockInfos.add(new MoveStockInfo(tagList.get(i).getStockID(),tagList.get(i).getStorageID()));
            }
            HashMap<String,Object> moveMap = new HashMap<>();
            moveMap.put("StockID",stockInfo.getID());

@@ -8,7 +8,7 @@ include ':app',
         ':apt',
         'devicelib',/*手持机设备模块*/
         'user-model',/*用户模块*/
-        ':home', //':userinfoconfig'
+      /*  ':home', //':userinfoconfig'*/
         ':prevention',/*,疫苗模块*/
         ':StorageInfo',/* 库存管理*/
         ':FieldManagement', /* 库位管理*/
@@ -18,5 +18,6 @@ include ':app',
         ':destroyManagement',/*销毁管理*/
         ':StockManagement',/*库位管理*/
         ':openCVLibrary330',/*opencv架包*/
-        ':OutStockManagement'/*,出库管理*/
-       /* ':LabelManagementFragment'*//*耳标管理*/
+        ':OutStockManagement',/*出库管理*/
+        ':LabelManagementFragment'/*,耳标管理*/
+      /*  ':slaughterManagement'*//*屠宰管理*/

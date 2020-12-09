@@ -88,6 +88,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal"
+            android:visibility="gone"
             >
             <TextView
                 android:gravity="center"
@@ -107,7 +108,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal"
             >
             <TextView
@@ -119,20 +120,16 @@
                 android:text="数量"
                 />
 
-            <com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView
+            <EditText
                 android:id="@+id/asv_receive_single_number"
                 android:layout_width="0dp"
                 android:layout_weight="1.5"
                 android:layout_gravity="center_vertical"
                 android:layout_height="match_parent"
-                asv:baseres_addBackground="@drawable/bg_nextpage"
-                asv:baseres_minValue="1"
-                asv:baseres_initValue="1"
-                asv:baseres_maxValue="999"
-                asv:baseres_subBackground="@drawable/bg_prepage"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"></com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView>
+                android:gravity="center"
+                android:inputType="number"
+                android:text="0"
+               ></EditText>
 
 
         </LinearLayout>

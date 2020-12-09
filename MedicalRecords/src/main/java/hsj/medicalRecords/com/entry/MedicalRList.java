@@ -16,10 +16,20 @@ public class MedicalRList {
      */
 
     private Integer ID;
+    private String Name;
     private String Illness;
     private Integer Status;
     private String OpUser;
     private String OpTime;
+
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
 
     public Integer getID() {
         return ID;

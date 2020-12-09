@@ -39,7 +39,7 @@ public class InteractiveDataUtil {
         final PopupWindow popupWindow = new PopupWindow();
 
         SharedPreferences sp = activity.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
-        final String path = sp.getString("actionUrl","http://192.168.1.94:5006/api");
+        final String path = sp.getString("actionUrl","http://192.168.1.122/iis/api");
         handler.setContext(activity);
      final Runnable startRunnable = new Runnable() {
           @Override
