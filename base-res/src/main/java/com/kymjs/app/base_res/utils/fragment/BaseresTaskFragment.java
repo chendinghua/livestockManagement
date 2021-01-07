@@ -57,7 +57,7 @@ public abstract class BaseresTaskFragment extends BaseFragment implements Fragme
 
     protected PaginationListView.Adapter<TaskData.TaskDataList> adapter;
 
-    private boolean   isLoadData  = true;
+    public boolean   isLoadData  = true;
     @Override
     protected void initView() {
         layoutTaskAutoTitle = rootView.findViewById(R.id.layout_task_auto_title);
@@ -163,7 +163,7 @@ public abstract class BaseresTaskFragment extends BaseFragment implements Fragme
         btnTaskAdd.setText(setBtnTaskAdd());
         super.onResume();
     }
-
+    //预加载显示数据
     @Override
     protected boolean isLoad() {
         return true;
@@ -177,7 +177,7 @@ public abstract class BaseresTaskFragment extends BaseFragment implements Fragme
     private void loadData(int pageIndex, int pageSize){
         HashMap<String,Object> map = new HashMap<>();
         map.put("taskType", SPUtils.getSharedStringData(activity,"actionUrl"));
-        //   map.put("status",spQueryCriteriaTaskStatus.getTag().toString());
+           map.put("status",spQueryCriteriaTaskStatus.getTag());
         map.put("DeptID",SPUtils.getSharedIntData(activity,"DeptID"));
         map.put("pageIndex", pageIndex);
         map.put("pageSize", pageSize);

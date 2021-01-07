@@ -1,6 +1,4 @@
 package hsj.outStock.com.activity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -8,7 +6,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.utils.Activity.BaseresScanResultActivity;
 import com.kymjs.app.base_res.utils.Rule.LabelRule;
@@ -25,66 +22,46 @@ import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.AlertDialogCallBack;
 import com.kymjs.app.base_res.utils.tools.DialogUtils;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import devicelib.dao.Device;
 import devicelib.dao.ResponseHandlerInterface;
 import devicelib.factory.DeviceFactory;
-
 import com.kymjs.app.base_res.R;
-import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.kymjs.app.base_res.utils.view.slide.SlideCutListView;
-
 /** 申请出栏
  * Created by 16486 on 2020/11/26.
  */
-
 public class OutStockActivity extends BaseresScanResultActivity implements ResponseHandlerInterface,View.OnClickListener {
     Device device;
-
     AutoAdapter<ScanResult> autoAdapter;
-
     List<ScanResult> tagList = new ArrayList<>();
-
     List<String> tempList = new ArrayList<>();
-
-
     HandlerUtils handlerUtils;
-
     Button btnPre;
-
     Button btnCommit;
-
-
     @Override
     public void initFragmentActivityView() {
         device = new DeviceFactory(mContext, this).getDevice();
         if (device != null) {
             device.initUHF();
-
         } else {
             Toast.makeText(mContext, "获取RFID模块失败", Toast.LENGTH_SHORT).show();
         }
         powerSettingView.setListener(device, ProgressDialog.createDialog(mContext), 2);
         autoAdapter = new AutoAdapter<ScanResult>(mContext, tagList, "StorageID", "RfidNo", "SerialNo", "StorageStatusName","StockSerialNo");
         lvList.setAdapter(autoAdapter);
-
-
         lvList.setRemoveListener(new SlideCutListView.RemoveListener() {
             @Override
             public void removeItem(SlideCutListView.RemoveDirection direction, int position) {
                 int index;
-
                 if((index=isExistList(tagList.get(position).getRfidNo()))!=-1){
                     tempList.remove(index);
                 }
                 tagList.remove(position);
                 playSound(-1);
-
             }
         });
         handlerUtils = new HandlerUtils(mContext, new HandlerUtilsCallback() {
@@ -96,13 +73,11 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
                         scanResult.setIsFocus("true");
                         tagList.add(scanResult);
                         playSound(1);
-
                     } else {
                         scanResult.setIsFocus("error");
                         tagList.add(0, scanResult);
                         playSound(2);
                     }
-
                 }else if(MethodEnum.POSTPDAOUTSTOCK.equals(msg.getData().getString("method"))){
                     UIHelper.ToastMessage(mContext,"数据提交成功");
                     Utils.activityFinish(OutStockActivity.this,device);
@@ -121,7 +96,6 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
             }
         });
     }
-
     @Override
     public String[] getArrayTitle() {
         return new String[]{"库存编号", "RFID", "序列号", "库存状态","栏位编号"};
@@ -151,6 +125,10 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
         list.add(new BottomViewList<>(btnCommit, "提交"));
         return list;
     }
+    @Override
+    protected List<View> getLayoutScanResultOperation() {
+        return null;
+    }
 
     @Override
     public void handleTagdata(String rfid) {
@@ -166,23 +144,17 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
             //2: 判断时集合里面有数据并且实际tagList集合里面有数据 显示数据是正常的
             if ( isExistList(rfid) != -1 && isExistTagList(rfid) ==-1 ||  isExistList(rfid) != -1 && (index=isExistTagList(rfid)) !=-1 && "true".equals(tagList.get(index).getIsFocus())) {
                 playSound(1);
-
             } else {
                 playSound(2);
             }
         }
     }
-
     @Override
     public void handleTriggerPress(boolean pressed) {
-
     }
-
     @Override
     public void scanCode(String code) {
-
     }
-
     public int isExistList(String rfid) {
         int index = -1;
         for (int i = 0; i < tempList.size(); i++) {
@@ -190,9 +162,7 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
                 index = i;
                 break;
             }
-
         }
-
         return index;
     }
     public int isExistTagList(String rfid) {
@@ -202,13 +172,9 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
                 index = i;
                 break;
             }
-
         }
-
         return index;
     }
-
-
     public void playSound(int i) {
         if (device != null && i!=-1) {
             device.playSound(i);
@@ -232,14 +198,11 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
         tvScanResultErrorCount.setText("" + errorCount);
         autoAdapter.notifyDataSetChanged();
     }
-
-
     @Override
     public void onClick(View v) {
         //提交
         if (Integer.parseInt(v.getTag().toString())  == 1) {
             Bundle  bundle = getIntent().getExtras();
-
             HashMap<String,Object> outStock = new HashMap<>();
             outStock.put("Type",bundle.getString("Type"));
             outStock.put("OutDeptID", getIntent().getExtras().getString("outDeptID"));
@@ -254,7 +217,6 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
             onBackDialog();
         }
     }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //判断是否打开扫描RFID并且RFID对象已初始化，并且当前的fragment页面是结果页面
@@ -266,7 +228,6 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
         }
         return super.onKeyDown(keyCode, event);
     }
-
     public void onBackDialog() {
         DialogUtils.showAlertDialog(this, new AlertDialogCallBack() {
             @Override
@@ -274,7 +235,5 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
                 Utils.activityFinish(OutStockActivity.this,device);
             }
         }, "是否结束当前流程", null, null);
-
-
     }
 }

@@ -84,7 +84,7 @@ public class DialogUtils {
         if(keyListener!=null){
             builder.setOnKeyListener(keyListener);
         }
-
+        builder.setCancelable(false);
         builder.show();
         return builder;
     }

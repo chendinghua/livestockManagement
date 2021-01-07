@@ -40,47 +40,91 @@ public class TaskInfo extends Task{
 
 
         /**
-         * TaskDetailInfoID : 1
-         * TaskInfoID : 11
+         * TaskDetailID : 46
+         * ProjectName : 猪
+         * StorageID : 31
+         * RfidNo : A20201208111324000000002
+         * SerialNo : SERA20201208111324000002
+         * opDeptID : 江苏省养殖户
+         * StorageName : 畜种耳标分发
+         * TaskTypeName : 畜种耳标分发
          * operater : PDA操作员
-         * ProductName : 猪
-         * Type : 畜种
-         * TaskType : 畜种耳标分发
-         * IsEnabled : 未激活
-         * Status : 在库
-         * RfidNo : A20201203093441000000001
-         * SerialNo : SERA20201203093441000001
-         * Remark : null
-         * DeptName : 大兴区养殖户
+         * StatusName : 在库
          */
 
-        private Integer TaskDetailInfoID;
-        private Integer TaskInfoID;
-        private String operater;
-        private String ProductName;
-        private String Type;
-        private String TaskType;
-        private String IsEnabled;
-        private String Status;
+        private Integer TaskDetailID;
+        private String ProjectName;
+        private Integer StorageID;
         private String RfidNo;
         private String SerialNo;
-        private String Remark;
-        private String DeptName;
+        private String opDeptID;
+        private String StorageName;
+        private String TaskTypeName;
+        private String operater;
+        private String StatusName;
 
-        public Integer getTaskDetailInfoID() {
-            return TaskDetailInfoID;
+        public Integer getTaskDetailID() {
+            return TaskDetailID;
         }
 
-        public void setTaskDetailInfoID(Integer taskDetailInfoID) {
-            TaskDetailInfoID = taskDetailInfoID;
+        public void setTaskDetailID(Integer TaskDetailID) {
+            this.TaskDetailID = TaskDetailID;
         }
 
-        public Integer getTaskInfoID() {
-            return TaskInfoID;
+        public String getProjectName() {
+            return ProjectName;
         }
 
-        public void setTaskInfoID(Integer taskInfoID) {
-            TaskInfoID = taskInfoID;
+        public void setProjectName(String ProjectName) {
+            this.ProjectName = ProjectName;
+        }
+
+        public Integer getStorageID() {
+            return StorageID;
+        }
+
+        public void setStorageID(Integer StorageID) {
+            this.StorageID = StorageID;
+        }
+
+        public String getRfidNo() {
+            return RfidNo;
+        }
+
+        public void setRfidNo(String RfidNo) {
+            this.RfidNo = RfidNo;
+        }
+
+        public String getSerialNo() {
+            return SerialNo;
+        }
+
+        public void setSerialNo(String SerialNo) {
+            this.SerialNo = SerialNo;
+        }
+
+        public String getOpDeptID() {
+            return opDeptID;
+        }
+
+        public void setOpDeptID(String opDeptID) {
+            this.opDeptID = opDeptID;
+        }
+
+        public String getStorageName() {
+            return StorageName;
+        }
+
+        public void setStorageName(String StorageName) {
+            this.StorageName = StorageName;
+        }
+
+        public String getTaskTypeName() {
+            return TaskTypeName;
+        }
+
+        public void setTaskTypeName(String TaskTypeName) {
+            this.TaskTypeName = TaskTypeName;
         }
 
         public String getOperater() {
@@ -91,76 +135,12 @@ public class TaskInfo extends Task{
             this.operater = operater;
         }
 
-        public String getProductName() {
-            return ProductName;
+        public String getStatusName() {
+            return StatusName;
         }
 
-        public void setProductName(String productName) {
-            ProductName = productName;
-        }
-
-        public String getType() {
-            return Type;
-        }
-
-        public void setType(String type) {
-            Type = type;
-        }
-
-        public String getTaskType() {
-            return TaskType;
-        }
-
-        public void setTaskType(String taskType) {
-            TaskType = taskType;
-        }
-
-        public String getIsEnabled() {
-            return IsEnabled;
-        }
-
-        public void setIsEnabled(String isEnabled) {
-            IsEnabled = isEnabled;
-        }
-
-        public String getStatus() {
-            return Status;
-        }
-
-        public void setStatus(String status) {
-            Status = status;
-        }
-
-        public String getRfidNo() {
-            return RfidNo;
-        }
-
-        public void setRfidNo(String rfidNo) {
-            RfidNo = rfidNo;
-        }
-
-        public String getSerialNo() {
-            return SerialNo;
-        }
-
-        public void setSerialNo(String serialNo) {
-            SerialNo = serialNo;
-        }
-
-        public String getRemark() {
-            return Remark;
-        }
-
-        public void setRemark(String remark) {
-            Remark = remark;
-        }
-
-        public String getDeptName() {
-            return DeptName;
-        }
-
-        public void setDeptName(String deptName) {
-            DeptName = deptName;
+        public void setStatusName(String StatusName) {
+            this.StatusName = StatusName;
         }
     }
 }

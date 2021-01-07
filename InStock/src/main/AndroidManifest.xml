@@ -8,6 +8,11 @@
         <activity
             android:theme="@style/instock_AppTheme"
             android:name=".activity.ScanInOrMoveStockActivity"></activity>
+
+        <activity android:name=".activity.MoveStockInfoResultActivity"
+            android:theme="@style/instock_CustomActionBar"
+            >
+        </activity>
     </application>
 
 </manifest>

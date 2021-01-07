@@ -97,8 +97,8 @@ public class TaskDetailListActivity extends BaseActivity {
                         param = new String[]{"TaskDetailInfoID", "RfidNo", "SerialNo", "ProductName", "DeptName"};
                     }else if(taskType==1 || taskType==2 || taskType == 6) {
 
-                        param = new String[]{""};
-                        isShowInventory=true;
+                        param = new String[]{"StorageID","RfidNo","SerialNo","ProjectName","opDeptID"};
+                        isShowInventory=false;
                     }
                     final Task taskInfo = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"),
                             isShowInventory?TaskInventoryInfo.class : TaskInfo.class );
@@ -147,10 +147,33 @@ public class TaskDetailListActivity extends BaseActivity {
             TaskInventoryInfo taskInventoryInfo = (TaskInventoryInfo) task;
 
             if(taskInventoryInfo.getTaskDetailList()!=null) {
-                tagList.addAll(taskInventoryInfo.getTaskDetailList());
+                //判断是否筛选已在库的数据
+             boolean isScreen=false;
+
+                if(taskType==4){
+                if( getIntent().getExtras().getInt("status")==1){
+                    isScreen=true;
+                }
+
+                }
+                if(!isScreen) {
+                    tagList.addAll(taskInventoryInfo.getTaskDetailList());
+                    tvDetailListSize.setText(""+(taskInventoryInfo.getTaskDetailList()!=null ? taskInventoryInfo.getTaskDetailList().size():0));
+
+                }else{
+                      List< TaskInventoryInfo.TaskDetailInfo> itemsList = new ArrayList<>();
+                    for ( TaskInventoryInfo.TaskDetailInfo temp: taskInventoryInfo.getTaskDetailList()){
+                        if(Integer.parseInt(temp.getStatus())==2){
+                            itemsList.add(temp);
+                        }
+
+                    }
+                    tagList.addAll(itemsList);
+                    tvDetailListSize.setText(itemsList.size()+"");
+
+                }
                 adapter.notifyDataSetChanged();
-                tvDetailListSize.setText(""+(taskInventoryInfo.getTaskDetailList()!=null ? taskInventoryInfo.getTaskDetailList().size():0));
-            }
+             }
         }else if(task instanceof  TaskInfo){
             List<  TaskInfo.TaskDetailInfo  > tagList= new ArrayList<>();
             AutoAdapter< TaskInfo.TaskDetailInfo >  adapter = new AutoAdapter<>(mContext, tagList,param);

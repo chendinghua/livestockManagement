@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -77,6 +78,11 @@ public class PreventionActivity extends BaseresScanResultActivity implements Res
         lists.add(new BottomViewList<Button>(btnBack,"返回"));
         lists.add(new BottomViewList<Button>(btnCommit,"提交"));
         return lists;
+    }
+
+    @Override
+    protected List<View> getLayoutScanResultOperation() {
+        return null;
     }
 
     @Override

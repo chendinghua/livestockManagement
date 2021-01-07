@@ -105,9 +105,19 @@ public class BecomeDevice implements Device{
         }else if(keyCode==280 && status==2){
             Log.i("readTag","外部 "+barcode2DWithSoft);
             if (barcode2DWithSoft != null) {
-                Log.i("readTag","ScanBarcode");
-                barcode2DWithSoft.scan();
-                barcode2DWithSoft.setScanCallback(ScanBack1);
+
+                if(!loopFlag) {
+                    loopFlag=true;
+                    Log.i("readTag", "ScanBarcode");
+                    barcode2DWithSoft.scan();
+                    barcode2DWithSoft.setScanCallback(ScanBack1);
+                }else{
+                    loopFlag=false;
+                    barcode2DWithSoft.stopScan();
+
+                }
+
+
             }
         }
     }
@@ -118,8 +128,10 @@ public class BecomeDevice implements Device{
             String barcode;
             if (length < 1) {
                 if (length == -1) {
+                    loopFlag=false;
                     Toast.makeText(context,"Scan cancel",Toast.LENGTH_SHORT).show();// inputServer.setText("Scan cancel");
                 } else if (length == 0) {
+                    loopFlag=false;
                     Toast.makeText(context,"Scan TimeOut",Toast.LENGTH_SHORT).show();   //inputServer.setText("Scan TimeOut");
                 } else {
                 }
@@ -132,6 +144,7 @@ public class BecomeDevice implements Device{
                 }
                 catch (UnsupportedEncodingException ex)   {}
                 responseHandler.scanCode(barcode);
+                loopFlag=false;
                 Log.d("ScanCodeEnabled", "扫描到了数据 "+barcode);
             }
         }

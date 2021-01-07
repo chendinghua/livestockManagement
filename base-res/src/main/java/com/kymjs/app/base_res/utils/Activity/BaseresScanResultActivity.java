@@ -4,6 +4,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.kymjs.app.base_res.R;
@@ -36,11 +37,18 @@ public abstract  class BaseresScanResultActivity extends BaseActivity implements
     protected Baseres_PowerSettingView powerSettingView;
     //标题列表控件
     LinearLayout layoutScanResultTitle;
+    //扫描操作页面布局
+    LinearLayout layoutScanResultOperation;
+
 
     protected SlideCutListView lvList;
 
     protected  int currentCount;
     protected  int errorCount;
+
+    protected RadioButton rbScanCode;
+
+    protected RadioButton rbScanRfid;
 
     @Override
     public void initView() {
@@ -50,6 +58,10 @@ public abstract  class BaseresScanResultActivity extends BaseActivity implements
         tvScanResultErrorCount = findViewById(R.id.tv_scan_result_error_count);
         powerSettingView = findViewById(R.id.psv_scan_result);
         layoutScanResultTitle = findViewById(R.id.layout_scan_result_title);
+        layoutScanResultOperation = findViewById(R.id.layout_scan_result_operation);
+        rbScanCode = findViewById(R.id.rb_scanCode);
+        rbScanRfid = findViewById(R.id.rb_scanRfid);
+
         lvList = findViewById(R.id.lv_scan_result);
 
         //获取标题数据集合
@@ -96,9 +108,22 @@ public abstract  class BaseresScanResultActivity extends BaseActivity implements
         }else{
             layoutBottomOperation.setVisibility(View.GONE);
         }
+        List<View> views=null;
+        if((views=getLayoutScanResultOperation())!=null) {
+            for (int i =0; i<views.size();i++){
+                layoutScanResultOperation.addView(views.get(i));
+            }
+            layoutScanResultOperation.setVisibility(View.VISIBLE);
+        }else{
+            layoutScanResultOperation.setVisibility(View.GONE);
+        }
+
+
         initFragmentActivityView();
     }
     //底部按钮列表显示
     protected abstract List<BottomViewList<Button>> getButtonViewList();
+
+    protected abstract List<View> getLayoutScanResultOperation();
 
 }

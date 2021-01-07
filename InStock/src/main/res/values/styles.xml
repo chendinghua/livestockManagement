@@ -14,5 +14,10 @@
         <item name="colorControlActivated">#ff0043c5</item>
         <item name="colorControlHighlight">#ffcb6345</item>
     </style>
-
+    <style name="instock_CustomActionBar" parent="Base.Widget.AppCompat.ActionBar">
+        <item name="android:titleTextStyle">@color/instock_text_color_bg</item>
+        <item name="android:background">@color/instock_btn_save_bg</item>
+        <item name="android:textColor">@color/instock_text_color_bg</item>
+        <!--       <item name="android:background">@color/user_title_color</item>-->
+    </style>
 </resources>

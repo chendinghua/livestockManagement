@@ -34,15 +34,6 @@ dependencies {
 
     compile project(':base-res')
 
-    compile project(':router')
-    compile project(':user-model')
-    compile project(':distribute')
-    compile project(':StorageInfo')
-    compile project(':InStock')
-    compile project(':MedicalRecords')
-    compile project(':StockManagement')
-    compile project(':prevention')
-    compile project(':OutStockManagement')
-    compile project(':destroyManagement')
+
 //    compile project(':license')
 }

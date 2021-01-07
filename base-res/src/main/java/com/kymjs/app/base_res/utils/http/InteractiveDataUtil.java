@@ -41,7 +41,7 @@ public class InteractiveDataUtil {
         SharedPreferences sp = activity.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
         final String path = sp.getString("actionUrl","http://192.168.1.122/iis/api");
         handler.setContext(activity);
-     final Runnable startRunnable = new Runnable() {
+   /*  final Runnable startRunnable = new Runnable() {
           @Override
           public void run() {
               if(activity instanceof Activity)
@@ -58,12 +58,31 @@ public class InteractiveDataUtil {
                 e.printStackTrace();
             }
         }
-    };
+    };*/
+        final Handler loadHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
 
+                super.handleMessage(msg);
+                if(popupWindow!=null)
+                    popupWindow.dismiss();
+            }
+        };
+
+
+        if(activity instanceof Activity){
+            ShowLoadingDialog.show(popupWindow, activity);
+
+        }
+
+        if(activity instanceof Activity){
+            ShowLoadingDialog.show(popupWindow, activity);
+
+        }
         new Thread(new Runnable() {
             @Override
             public  void run() {
-                new Handler(Looper.getMainLooper()).post(startRunnable);//在子线程中直接去new 一个handler
+          //      new Handler(Looper.getMainLooper()).post(startRunnable);//在子线程中直接去new 一个handler
                 Message msg = new Message();
                 Bundle bundle = new Bundle();
                 try {
@@ -114,19 +133,18 @@ public class InteractiveDataUtil {
                         handler.sendMessage(msg);
 
 
-                }catch (IOException ex){
+                }catch (Exception ex){
                     msg.what=-1;
 
-                bundle.putString("result",    "{\n" +
-                            "    \"Success\": false,\n" +
-                            "    \"Message\": \"系统错误，请联系管理员\"\n" +
-                            "}");
+                bundle.putString("result",    "{\"Success\": false,\n" +
+                        "\"Message\": \"系统错误，请联系管理员\"} ");
                     msg.setData(bundle);
                     if (handler != null)
                         handler.sendMessage(msg);
                     Log.d("errorMessage", "run: "+  ex.getMessage());
                 }finally {
-                    new Handler(Looper.getMainLooper()).post(stopRunnable);//在子线程中直接去new 一个handler
+                  //  new Handler(Looper.getMainLooper()).post(stopRunnable);//在子线程中直接去new 一个handler
+                    loadHandler.sendMessage(new Message());
                 }
 
             }
@@ -146,7 +164,7 @@ public class InteractiveDataUtil {
     public static void interactiveMessage(final Activity activity, final HashMap<String,Object> params, final Handler handler, final String method, final String interactiveType, final String bindDate ){
         final PopupWindow popupWindow = new PopupWindow();
         SharedPreferences sp = activity.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
-        final String path = sp.getString("actionUrl","http://123.207.79.93:9003/api");
+        final String path = sp.getString("actionUrl","http://192.168.1.122/iis/api ");
         final Handler loadHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
@@ -166,55 +184,68 @@ public class InteractiveDataUtil {
         new Thread(new Runnable() {
             @Override
             public  void run() {
-                String result="";
+                Message msg = new Message();
+                Bundle bundle = new Bundle();
                 try {
-                    OkHttpUtils httpUtils = OkHttpUtils.getInstance();
-                    if (interactiveType.equals(InteractiveEnum.GET)) {
-                        int index = -1;
-                        StringBuffer paths = new StringBuffer(path + method);
-                        for (Map.Entry<String, Object> entry : params.entrySet()) {
-                            if (index == -1) {
-                                paths.append("?" + entry.getKey() + "=" + entry.getValue());
-                                index = 1;
+                    String result = "";
+                    try {
+                        OkHttpUtils httpUtils = OkHttpUtils.getInstance();
+                        if (interactiveType.equals(InteractiveEnum.GET)) {
+                            int index = -1;
+                            StringBuffer paths = new StringBuffer(path + method);
+                            for (Map.Entry<String, Object> entry : params.entrySet()) {
+                                if (index == -1) {
+                                    paths.append("?" + entry.getKey() + "=" + entry.getValue());
+                                    index = 1;
+                                } else {
+                                    paths.append("&" + entry.getKey() + "=" + entry.getValue());
+                                }
+                            }
+                            result = httpUtils.getData(activity, paths.toString()).body().string();
+                        } else if (interactiveType.equals(InteractiveEnum.POST)) {
+                            result = httpUtils.postJson(activity, path + method, JSON.toJSONString(params));
+
+                        } else if (interactiveType.equals(InteractiveEnum.UPLOAD)) {
+                            //  result = httpUtils.uploadImage((Context) activity, params, method);
+                        }
+
+                        Log.d("JSON", "run: " + result);
+                        if (result.trim().equals("")) {
+                            msg.what = -2;
+                        } else {
+                            JSONObject object = JSON.parseObject(result);
+                            if (object.getBoolean("Success")) {
+                                //操作成功
+                                msg.what = 1;
+                                bundle.putString("result", result);
                             } else {
-                                paths.append("&" + entry.getKey() + "=" + entry.getValue());
+                                bundle.putString("result", result);
+                                //操作失败
+                                msg.what = -1;
                             }
                         }
-                        result = httpUtils.getData(activity,paths.toString()).body().string();
-                    } else if (interactiveType.equals(InteractiveEnum.POST)) {
-                        result = httpUtils.postJson(activity,path + method, JSON.toJSONString(params));
+                        bundle.putString("method", method);
+                        bundle.putString("bindDate", bindDate);
+                        msg.setData(bundle);
+                        if (handler != null)
+                            handler.sendMessage(msg);
 
-                    } else if (interactiveType.equals(InteractiveEnum.UPLOAD)) {
-                        //  result = httpUtils.uploadImage((Context) activity, params, method);
-                    }
-                    Message msg = new Message();
-                    Bundle bundle = new Bundle();
-                    Log.d("JSON", "run: " + result);
-                    if (result.trim().equals("")) {
-                        msg.what = -2;
-                    } else {
-                        JSONObject object = JSON.parseObject(result);
-                        if (object.getBoolean("Success")) {
-                            //操作成功
-                            msg.what = 1;
-                            bundle.putString("result", result);
-                        } else {
-                            bundle.putString("result", result);
-                            //操作失败
-                            msg.what = -1;
-                        }
-                    }
-                    bundle.putString("method", method);
-                    bundle.putString("bindDate", bindDate);
-                    msg.setData(bundle);
-                    if (handler != null)
-                        handler.sendMessage(msg);
+                        loadHandler.sendMessage(new Message());
+                    } catch (IOException ex) {
+                        msg.what = -1;
+                        bundle.putString("method", method);
+                        bundle.putString("result","{ \"Success\": false}");
+                        msg.setData(bundle);
+                        if (handler != null)
+                            handler.sendMessage(msg);
 
-                    loadHandler.sendMessage(new Message());
-                }catch (IOException ex){
+                        loadHandler.sendMessage(new Message());
+                    }
+                }catch (Exception e){
 
                 }
-            }
+                }
+
         }).start();
     }
 }

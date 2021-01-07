@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="instock_btn_save_bg">#FFFFFF</color>
+    <color name="instock_text_color_bg">#000</color>
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical"
+        android:id="@+id/layout_inventory_result"
+        android:visibility="gone"
+        >
+        <com.kymjs.app.base_res.utils.view.kyindicator.KyIndicator
+            android:id="@+id/kyIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+        <android.support.v4.view.ViewPager android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

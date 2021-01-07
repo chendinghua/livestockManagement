@@ -57,5 +57,16 @@ public class MethodEnum {
     public static final String POSTPDAFOROUTSTOCK="/Animal/PostPDAForOutStock";
     //疫苗接种提交
     public static final String VACCINEPOSTADD="/Vaccine/PostAdd";
-
+    //提交屠宰数据
+    public static final String POSTPDAINHOUSES="/Animal/PostPDAInHouses";
+    //获取移栏列表
+    public static final String GETMOVESTOCKLIST="/Basics/GetMoveStockLst";
+    //移栏详情
+    public static final String GETMOVESTOCKINFO="/Basics/GetMoveStockInfo";
+    //根据库存ID和任务类型 综合查询
+    public static final String GETRFIDINFORMATION="/Animal/GetRFIDInformation";
+    //添加箱包信息
+    public static final String POSTADDBOXPACKAGE="/Basics/PostAddBoxPackage";
+    //查询箱包记录
+    public static final String GETQELBOXPACKAGE="/Basics/GetQelBoxPackage";
 }

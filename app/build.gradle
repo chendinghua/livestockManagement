@@ -78,7 +78,11 @@ dependencies {
     compile project(':OutStockManagement')
     compile project(':destroyManagement')
 
+    compile project(':slaughterManagement')
 
+    compile project(':queryManagement')
+
+    compile project(':packingFragment')
 
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'

@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.kymjs.app.base_res.utils.Activity.TaskDetailListActivity;
 import com.kymjs.app.base_res.utils.base.entry.DicInfo;
 import com.kymjs.app.base_res.utils.base.entry.Farmer.Farmers;
 import com.kymjs.app.base_res.utils.base.entry.TaskInfo.TaskData;
@@ -142,9 +144,14 @@ public class OutStockFragment extends BaseresTaskFragment {
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId",taskDataList.getID());
                     Utils.gotoActivity(activity,OutStockCheckCarActivity.class,bundle,null);
+                }else{
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("ID",taskDataList.getID());
+                    bundle.putInt("TaskTypeId",taskDataList.getTaskType());
+                    bundle.putInt("status",taskDataList.getStatus());
+                    Utils.gotoActivity(activity, TaskDetailListActivity.class,bundle,null);
                 }
 
-                    UIHelper.ToastMessage(activity,"点击成功");
             }
 
             @Override
