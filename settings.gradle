@@ -20,4 +20,7 @@ include ':app',
         ':LabelManagementFragment',/*耳标管理*/
         ':slaughterManagement',/*屠宰管理*/
         ':queryManagement',/*查询管理*/
-        ':packingFragment'/*箱包管理*/
+        ':packingFragment',/*箱包管理*/
+        ':HomeManagement',/*首页管理*/
+        ':wheelview',/*地区联动lib*/
+        ':pickerview'/*地区联动lib*/

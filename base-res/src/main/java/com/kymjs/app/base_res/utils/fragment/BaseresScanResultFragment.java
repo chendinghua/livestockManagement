@@ -40,7 +40,7 @@ public abstract  class BaseresScanResultFragment<T1 extends Activity> extends Ba
     //设置当前频率控件
     protected  Baseres_PowerSettingView powerSettingView;
     //标题列表控件
-    LinearLayout layoutScanResultTitle;
+    public LinearLayout layoutScanResultTitle;
 
     protected  int currentCount;
     protected  int errorCount;
@@ -52,7 +52,7 @@ public abstract  class BaseresScanResultFragment<T1 extends Activity> extends Ba
         tvScanResultCurrentCount = activity.findViewById(R.id.tv_scan_result_current_count);
         tvScanResultErrorCount = activity.findViewById(R.id.tv_scan_result_error_count);
         powerSettingView = activity.findViewById(R.id.psv_scan_result);
-        layoutScanResultTitle = activity.findViewById(R.id.layout_scan_result_title);
+        layoutScanResultTitle = activity.findViewById(R.id.layout_scan_result_operation);
 
 
         //获取标题数据集合

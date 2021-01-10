@@ -54,6 +54,7 @@ public abstract class BaseModelActivity extends FragmentActivity implements Resp
             device = factory.getDevice();
             if(device!=null){
                 device.initUHF();
+                device.onPause();
 
             }else{
                 Toast.makeText(mContext,"获取RFID模块失败",Toast.LENGTH_SHORT).show();
@@ -218,9 +219,7 @@ public abstract class BaseModelActivity extends FragmentActivity implements Resp
             DialogUtils.showAlertDialog(this, new AlertDialogCallBack() {
                 @Override
                 public void alertDialogFunction() {
-                    if(device!=null){
-                        device.destroy();
-                    }
+
                     Utils.activityFinish(BaseModelActivity.this,device);
                  //   finish();
                 }

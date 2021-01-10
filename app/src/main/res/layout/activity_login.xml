@@ -40,6 +40,7 @@
                 android:textColorHint="@color/login_text_color"
                 android:hint="@string/accountNumber"
                 android:id="@+id/et_accountNumber"
+                android:text="userPDA"
                 />
 
             <com.kymjs.app.base_res.utils.ui.clearEdit.ClearEditText
@@ -52,6 +53,7 @@
                 android:textColorHint="@color/login_text_color"
                 android:hint="@string/password"
                 android:id="@+id/et_password"
+                android:inputType="textPassword"
                 />
 
             <LinearLayout

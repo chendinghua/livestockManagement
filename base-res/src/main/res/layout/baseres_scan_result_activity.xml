@@ -10,34 +10,115 @@
         android:layout_weight="1.5"
         android:id="@+id/layout_scan_result_operation"
         android:orientation="horizontal"
-
         >
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-
-
+            android:orientation="horizontal"
+            >
             <RadioButton
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:id="@+id/rb_scanRfid"
                 android:checked="true"
-                android:text="RFID"
+                android:text="耳标RFID"
                 />
             <RadioButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/rb_scanCode"
-                           android:text="条形码"
+                android:text="耳标条形码"
+                />
+
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:id="@+id/layout_two_time_distribution"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/rg_scan_storage"
+            >
+
+
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_scan_distribute_Rfid"
+                android:checked="true"
+                android:text="耳标RFID"
+                />
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/rb_scan_distribute_Code"
+                android:text="耳标条形码"
+                />
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/rb_packageCode"
+                android:text="包号条形码"
                 />
         </RadioGroup>
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:id="@+id/layout_one_time_distribution"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/rg_scan_package"
+            >
+            <RadioButton
+                android:checked="true"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/rb_package_serialNo"
+                android:text="包号序列号"
+                />
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_case_serialNo"
+                android:text="箱号序列号"
+                />
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

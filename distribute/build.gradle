@@ -40,4 +40,6 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     compile project(':base-res')
+
+    compile project(':pickerview')
 }

@@ -25,7 +25,7 @@ public class MethodEnum {
     public static final String GETSTORAGEINFOBYDEPTID="/Storage/GetStorageinfoByDeptID";
     //获取栏位信息 可以根据RFID 或者序列号
     public static final String GETSTOCKINFOBYDEPTID="/Animal/GetStockInfoByDeptID";
-    //部门出库检查
+    //库存查询接口
     public static final String GETSTORAGEINFOBYOUT="/Storage/GetStorageinfoByOut";
     //提交分发耳标（栏位，畜种）
     public static final String POSTADDDISTRIBUTE="/Animal/PostAddDistribute";
@@ -69,4 +69,10 @@ public class MethodEnum {
     public static final String POSTADDBOXPACKAGE="/Basics/PostAddBoxPackage";
     //查询箱包记录
     public static final String GETQELBOXPACKAGE="/Basics/GetQelBoxPackage";
+    //获取地区信息
+    public static final String GETREGINFO="/Basics/GetReginfo";
+    //获取箱包详情记录
+    public static final String GETBOXPACKAGEINFO="/Basics/GetBoxPackageInfo";
+    //一次分发提交接口
+    public static final String POSTADDDISTRIBUTEONE="/Animal/PostAddDistributeOne";
 }

@@ -21,6 +21,7 @@ import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
 import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
+import com.kymjs.app.base_res.utils.http.OkHttpUtils;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.tools.MD5;
 import com.kymjs.app.base_res.utils.tools.NetUtil;
@@ -135,6 +136,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("userName", etAccountNumber.getText().toString());
                 map.put("userPwd", MD5.ganerateMD5(etPassword.getText().toString() + "H@S#J$2%0&1*8$"));
+                map.put("deviceNo", OkHttpUtils.getMacAddress(mContext));
                 map.put("Platform", 2);
                 InteractiveDataUtil.interactiveMessage(LoginActivity.this, map, handler, MethodEnum.LOGINSIGNIN, InteractiveEnum.POST);
                 break;

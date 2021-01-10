@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="45dp"
+        android:background="@drawable/user_setting_bg"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@color/btn_save_bg"
+            >
+
+
+            <EditText
+
+                android:id="@+id/et_old_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/user_pwd_input_bg"
+                android:hint="@string/PleaseEnterTheOriginalPassword"
+                android:textSize="@dimen/input_text_size"
+                android:textColorHint="@color/user_setting_hint_color"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@color/btn_save_bg"
+            >
+
+
+            <EditText
+
+                android:background="@drawable/user_pwd_input_bg"
+                android:id="@+id/et_new_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/input_text_size"
+                android:hint="@string/PleaseEnterANewPassword"
+                android:textColorHint="@color/user_setting_hint_color"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@color/btn_save_bg"
+            >
+
+
+            <EditText
+                android:background="@drawable/user_pwd_input_bg"
+                android:id="@+id/et_re_new_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/input_text_size"
+                android:hint="@string/PleaseInputAgain"
+                android:textColorHint="@color/user_setting_hint_color"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="58dp"
+            android:background="@color/btn_save_bg"
+            >
+            <Button
+                android:textAllCaps="false"
+                android:id="@+id/btn_reset_pwd_save"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="@string/save"
+                android:textSize="15dp"
+                android:background="@drawable/change_password_save"
+                android:textColor="@color/btn_save_bg"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@color/btn_save_bg"
+            >
+            <Button
+                android:textAllCaps="false"
+                android:id="@+id/btn_quit_pwd_setting"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="@string/cancel"
+                android:textSize="15dp"
+                android:background="@drawable/change_password_back"
+                android:textColor="@color/change_password_back_bg"
+
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

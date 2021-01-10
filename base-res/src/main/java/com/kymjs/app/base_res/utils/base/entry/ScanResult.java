@@ -41,6 +41,15 @@ public class ScanResult {
 
     private String StockSerialNo;
 
+    private Integer Package;
+
+    public Integer getPackage() {
+        return Package;
+    }
+
+    public void setPackage(Integer aPackage) {
+        Package = aPackage;
+    }
 
     public String getStockSerialNo() {
         return StockSerialNo;

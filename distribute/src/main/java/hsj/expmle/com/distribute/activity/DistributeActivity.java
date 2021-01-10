@@ -43,31 +43,24 @@ public class DistributeActivity extends BaseModelActivity {
     public String getFragmentTitle() {
         return "分发操作";
     }
-
     @Override
     public boolean isOpenUHFModel() {
         return true;
     }
-
     @Override
     public boolean isSingle() {
         return false;
     }
-
     @Override
     public int getLayoutId() {
         return R.layout.distribute_activity_main;
     }
-
     @Override
     public void initPresenter() {
-
     }
-
     @Override
     public void initView() {
         initView(views);
-
         //获取fragment管理器
         FragmentManager fragmentManager = getSupportFragmentManager();
         //把fragment集合中的数据添加到适配器中
@@ -80,7 +73,6 @@ public class DistributeActivity extends BaseModelActivity {
         final StepperIndicator indicator =findViewById(R.id.stepper_indicator);
         //分页标题和pagerView绑定一下
         indicator.setViewPager(pager, false);
-
     }
 
     private void initView(ArrayList<Fragment> views) {
@@ -104,18 +96,28 @@ public class DistributeActivity extends BaseModelActivity {
     public void handleTriggerPress(boolean pressed) {
 
     }
-
+    /*扫描条码*/
     @Override
     public void scanCode(String code) {
-
+        if(pagerAdapter.getCurrentFragment() instanceof ScanResultFragment){
+            ScanResultFragment fragment  =(ScanResultFragment)  pagerAdapter.getCurrentFragment();
+            fragment.scanSerialNo(code);
+        }
     }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //判断是否打开扫描RFID并且RFID对象已初始化，并且当前的fragment页面是结果页面
         if (isOpenUHFModel() && device!=null && pagerAdapter.getCurrentFragment() instanceof ScanResultFragment){
             Log.d("scanCode", "onKeyDown: ");
-            device.onKeyDown(keyCode,event,1,isSingle());
+            ScanResultFragment scanResultFragment = (ScanResultFragment) pagerAdapter.getCurrentFragment();
+            int scanType=2;
+            //判断当期是否为扫描RFID模块
+            if(scanResultFragment.scantype == ScanResultFragment.SCANTYPE.SCANDISTRIBUTERFID){
+                scanType=1;
+            }
+            Log.d("scanCode", "onKeyDown: "+scanType);
+
+            device.onKeyDown(keyCode,event,scanType,isSingle());
         }
 
         return super.onKeyDown(keyCode, event);

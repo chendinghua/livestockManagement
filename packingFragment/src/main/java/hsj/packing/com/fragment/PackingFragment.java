@@ -2,6 +2,7 @@ package hsj.packing.com.fragment;
 import android.os.Message;
 import android.view.View;
 import com.alibaba.fastjson.JSON;
+import com.kymjs.app.base_res.utils.base.entry.packing.PackingTask;
 import com.kymjs.app.base_res.utils.fragment.BaseresTaskFragment;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
@@ -13,7 +14,6 @@ import com.kymjs.app.base_res.utils.utils.Utils;
 import com.lwy.paginationlib.PaginationListView;
 import java.util.HashMap;
 import hsj.packing.com.activity.PickingActivity;
-import hsj.packing.com.entry.PackingTask;
 /**  箱包管理
  * Created by 16486 on 2020/12/31.
  */

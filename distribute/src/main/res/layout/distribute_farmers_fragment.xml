@@ -1,33 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:asv="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="20dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            >
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
             <TextView
                 android:gravity="center"
-                android:text="分发部门类型"
+                android:text="地区"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
 
                 android:layout_marginRight="50dp"
                 />
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_location"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:hint="请选择地区"
+                ></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:id="@+id/distribute_textview2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="分发部门类型" />
+
+
             <Spinner
                 android:gravity="center"
                 android:id="@+id/sp_distribute_farmers_dept_name"
@@ -40,18 +64,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:orientation="horizontal"
+            android:layout_marginTop="20dp"
             >
+
             <TextView
+                android:id="@+id/distribute_textview3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"
+
                 android:gravity="center"
-                android:text="养殖户"
+                android:text="部门" />
+
+            <EditText
+
+                android:id="@+id/et_farmers_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
-                android:layout_marginRight="50dp"
-                />
+                android:hint="请输入" />
             <Spinner
                 android:gravity="center"
                 android:id="@+id/sp_distribute_farmers_name"
@@ -64,7 +97,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             >
             <TextView
@@ -82,7 +116,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"></Spinner>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -108,17 +141,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="2.5"
             android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
             >
+
             <TextView
-                android:gravity="center"
+                android:id="@+id/distribute_textview"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginRight="50dp"
-                android:text="数量"
-                />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="数量" />
 
             <EditText
                 android:id="@+id/asv_receive_single_number"
@@ -138,7 +174,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="5"
         android:padding="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -146,11 +182,12 @@
         android:orientation="vertical"
         >
         <TextView
+            android:id="@+id/tv_dept_title_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:text="养殖户信息"
+            android:text="部门信息"
             />
         <LinearLayout
             android:layout_width="match_parent"

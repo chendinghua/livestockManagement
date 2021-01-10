@@ -10,6 +10,8 @@ import com.kymjs.app.base_res.utils.Activity.BaseresScanResultActivity;
 import com.kymjs.app.base_res.utils.adapter.AutoAdapter;
 import com.kymjs.app.base_res.utils.base.entry.ScanResult;
 import com.kymjs.app.base_res.utils.base.entry.ViewEntry.BottomViewList;
+import com.kymjs.app.base_res.utils.base.entry.packing.PackingTask;
+import com.kymjs.app.base_res.utils.base.entry.packing.PickCommitEntry;
 import com.kymjs.app.base_res.utils.dialog.ProgressDialog;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
 import com.kymjs.app.base_res.utils.http.HandlerUtilsCallback;
@@ -28,8 +30,6 @@ import java.util.List;
 import devicelib.dao.Device;
 import devicelib.dao.ResponseHandlerInterface;
 import devicelib.factory.DeviceFactory;
-import hsj.packing.com.entry.PackingTask;
-import hsj.packing.com.entry.PickCommitEntry;
 /*
 * 装包装箱操作
 * */
