@@ -3,6 +3,7 @@ package com.kymjs.app.base_res.utils.tools;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.kymjs.app.base_res.utils.base.entry.currencyEntry.MapEntry;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,8 +69,10 @@ public class JSONAnalysis {
     }
 
 
-    public List<HashMap<String,String>> getAnalysisEntry(String result,ANALYSIS analysis){
-        List<HashMap<String,String>> lists = new ArrayList<>();
+    public List<MapEntry> getAnalysisEntry(String result,ANALYSIS analysis){
+       List<MapEntry> mapList= new ArrayList<>();
+
+
 
         Set<Map.Entry<String,Object>> entrySet  = JSON.parseObject(result).entrySet();
         Iterator<Map.Entry<String,Object>> it = entrySet.iterator();
@@ -81,19 +84,6 @@ public class JSONAnalysis {
                 Iterator<Map.Entry<String,Object>> dataIterator = dataSet.iterator();
                 while(dataIterator.hasNext()){
                     Map.Entry<String,Object> dataMap = dataIterator.next();
-                   /* if(dataMap.getKey().endsWith("Items")){
-                        Log.d("resultKeyOrValueEntry", "dataMap          key="+dataMap.getKey()+"     dataMap="+dataMap.getValue());
-                        HashMap<String,String>     hashItems = new HashMap<>();
-                        Set<Map.Entry<String,Object>> hashSet =     JSON.parseObject(map.getValue().toString()).entrySet();
-                        Iterator<Map.Entry<String,Object>> hashIterator = hashSet.iterator();
-                        while(hashIterator.hasNext()){
-                            Map.Entry<String,Object>  hashMap = hashIterator.next();
-                            hashItems.put(hashMap.getKey(),hashMap.getValue().toString());
-                        }
-                        lists.add(hashItems);
-
-                    }*/
-
                     Set<Map.Entry<String,Object>> keyValueSet =   JSON.parseObject( dataMap.getValue().toString()).entrySet();
                     Iterator<Map.Entry<String,Object>> keyValueIterator = keyValueSet.iterator();
                     HashMap<String,String> tempMap  = new HashMap<>();
@@ -107,17 +97,26 @@ public class JSONAnalysis {
                     }
                     //判断当前有效数据添加到集合中
                     if(analysis.getIndex().equals(tempMap.get("key"))){
+                        List<HashMap<String,String>> lists = new ArrayList<>();
+                        MapEntry entry = new MapEntry();
                         Log.d("validDataMapItem", "getAnalysisEntry: key: "+tempMap.get("key")+"   value"+tempMap.get("Value"));
-                        Set<Map.Entry<String,Object>> validDataSet =    JSON.parseObject(tempMap.get("Value")).entrySet();
+                        entry.setTitle(tempMap.get("Name"));
+                   //   List< HashMap<String,Object>> mapSet =   JSON.parseArray(tempMap.get("value"),  HashMap<String,Object>().getClass());
+                        for (int i =0;i<JSON.parseArray(tempMap.get("Value")).size();i++){
+                            Set<Map.Entry<String,Object>> validDataSet =      JSON.parseArray(tempMap.get("Value")).getJSONObject(i).entrySet();
+                            HashMap<String,String> validDataMap = new HashMap<>();
+                            Iterator<Map.Entry<String,Object>> validDataIterator = validDataSet.iterator();
+                            while(validDataIterator.hasNext()) {
+                                Map.Entry<String, Object> validDataKeyValueMap = validDataIterator.next();
+                                validDataMap.put(validDataKeyValueMap.getKey(),validDataKeyValueMap.getValue().toString());
+                                Log.d("validDataMap", "getAnalysisEntry:  key:"+validDataKeyValueMap.getKey()+"   value"+validDataKeyValueMap.getValue().toString());
 
-                        HashMap<String,String> validDataMap = new HashMap<>();
-                        Iterator<Map.Entry<String,Object>> validDataIterator = validDataSet.iterator();
-                        while(validDataIterator.hasNext()) {
-                            Map.Entry<String, Object> validDataKeyValueMap = validDataIterator.next();
-                            validDataMap.put(validDataKeyValueMap.getKey(),validDataKeyValueMap.getValue().toString());
-                            Log.d("validDataMap", "getAnalysisEntry:  key:"+validDataKeyValueMap.getKey()+"   value"+validDataKeyValueMap.getValue().toString());
+                            }
+                            lists.add(validDataMap);
+
                         }
-                        lists.add(validDataMap);
+                        entry.setTempList(lists);
+                        mapList.add(entry);
 
                     }
 
@@ -126,7 +125,8 @@ public class JSONAnalysis {
                 break;
             }
         }
-        return lists;
+
+        return mapList;
 
     }
 

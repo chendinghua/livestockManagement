@@ -1,5 +1,8 @@
 package com.kymjs.app.activity.home.entry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2019/2/27/027.
  */
@@ -14,6 +17,7 @@ public class RightInfo {
     private String ActionBtn;       //跳转页面图标
     private String ActionUrl;
     private String Remark;
+
 
     public String getActionForm() {
         return ActionForm;

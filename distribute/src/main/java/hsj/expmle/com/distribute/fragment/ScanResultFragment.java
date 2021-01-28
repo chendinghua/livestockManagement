@@ -1,23 +1,20 @@
 package hsj.expmle.com.distribute.fragment;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.IdRes;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.R;
 import com.kymjs.app.base_res.R2;
 import com.kymjs.app.base_res.utils.Rule.LabelRule;
 import com.kymjs.app.base_res.utils.adapter.AutoAdapter;
+import com.kymjs.app.base_res.utils.base.distribute.entry.DataInfo;
+import com.kymjs.app.base_res.utils.base.distribute.entry.PackageInfo;
 import com.kymjs.app.base_res.utils.base.entry.ScanResult;
 import com.kymjs.app.base_res.utils.base.entry.ViewEntry.BottomViewList;
 import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
@@ -36,18 +33,11 @@ import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.kymjs.app.base_res.utils.view.powerView.Baseres_PowerSettingView;
 import com.kymjs.app.base_res.utils.view.slide.SlideCutListView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import hsj.expmle.com.distribute.activity.DistributeActivity;
-import hsj.expmle.com.distribute.entry.DataInfo;
-import hsj.expmle.com.distribute.entry.PackageInfo;
-
 /**
  * 猪耳标分发接取页面
  * Created by 16486 on 2020/10/23.
@@ -90,6 +80,8 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     RadioGroup rgScanStorage;
     @BindView(R2.id.rg_scan_storage)
     RadioGroup rgScanPackage;
+    @BindView(R2.id.rb_case_Code)
+    RadioButton rbCaseCode;
 
     int actionUrl;
 
@@ -103,6 +95,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
         SCANDISTRIBUTERFID,         //二次分发扫描耳标RFID
         SCANDISTRIBUTECODE,         //二次分发扫描耳标序列号
         SCANPACKCODE,               //二次分发扫描包号
+        SCANCASECODE,               //二次分发扫描箱号
         SCANCASESERIALNO,           //一次分发扫描箱号
         SCANPACKAGESERIALNO         //一次分发扫描包号
 
@@ -123,6 +116,9 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
         //返回上一步
         if (Integer.parseInt(view.getTag().toString()) == 0) {
             if (activity instanceof DistributeActivity) {
+                tempList.clear();
+                tempSerialNoList.clear();
+                packTagList.clear();
                 tagList.clear();
                 updateCommitStatus();
                 DistributeActivity distributeActivity = activity;
@@ -152,25 +148,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                 }
                 storageMap.put("DataInfo",dataInfos);
                 InteractiveDataUtil.interactiveMessage(activity,storageMap,handlerUtils,MethodEnum.POSTADDDISTRIBUTE,InteractiveEnum.POST);
-
             }
-
-
-          /*  StringBuffer rfidBuffer = new StringBuffer();
-            for (int i = 0; i < tagList.size(); i++) {
-                if (tagList.size() - 1 == i) {
-                    rfidBuffer.append(tagList.get(i).getRfidNo());
-                } else {
-                    rfidBuffer.append(tagList.get(i).getRfidNo() + ",");
-                }
-            }
-            HashMap<String, Object> commitMap = new HashMap<>();
-            commitMap.put("ProductID", activity.farmersProductId);
-            commitMap.put("Num", activity.scanCount);
-            commitMap.put("FarmersID", activity.farmersId);
-            commitMap.put("RFIDStr", rfidBuffer.toString());
-            commitMap.put("Type", activity.farmersProductTypeId);
-            InteractiveDataUtil.interactiveMessage(activity, commitMap, handlerUtils, MethodEnum.POSTADDDISTRIBUTE, InteractiveEnum.POST);*/
         }
     }
     public void scanCode(String code) {
@@ -248,7 +226,10 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                         UIHelper.ToastMessage(activity,"当前条码无效");
                     }
                     break;
+                case SCANCASECODE:            //二次分发箱号扫描
 
+
+                    break;
             }
         }
 
@@ -356,11 +337,13 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
         layoutScanResultTitle.setVisibility(View.GONE);
         //判断当前为二次分发
         if(actionUrl==2){
+            rbScanDistributeRfid.setChecked(true);
             scantype= SCANTYPE.SCANDISTRIBUTERFID;
             twoTimeDistribute.setVisibility(View.VISIBLE);
             layoutOneTimeDistribution.setVisibility(View.GONE);
             //判断当前为一次分发
         }else{
+            rbPackageCode.setChecked(true);
             scantype=SCANTYPE.SCANPACKAGESERIALNO;
             twoTimeDistribute.setVisibility(View.GONE);
             layoutOneTimeDistribution.setVisibility(View.VISIBLE);
@@ -427,11 +410,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                                         packageInfos.get(i).setIsFocus("true");
                                     }
                                     packTagList.add(packageInfos.get(i));
-
-
                                 }
-
-
                             }
                             updateCommitStatus();
                         }
@@ -553,6 +532,9 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                 break;
             case R2.id.rb_scan_distribute_Rfid:
                 scantype = SCANTYPE.SCANDISTRIBUTERFID;
+                break;
+            case R2.id.rb_case_Code:
+                scantype=SCANTYPE.SCANCASECODE;
                 break;
         }
     }

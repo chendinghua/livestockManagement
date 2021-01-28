@@ -65,7 +65,7 @@ public abstract class BaseFragment<T extends Activity> extends  Fragment {
     //初始化view
     protected abstract void initView();
 
-
+    //是否加载页面
     protected  abstract boolean isLoad();
 
     /**

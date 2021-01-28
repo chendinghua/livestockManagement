@@ -168,15 +168,18 @@ public abstract class BaseresTaskFragment extends BaseFragment implements Fragme
     protected boolean isLoad() {
         return true;
     }
-
-
     protected abstract String  setBtnTaskAdd();
     //是否显示筛选布局
     protected abstract boolean isShowQueryCriteria();
 
     private void loadData(int pageIndex, int pageSize){
         HashMap<String,Object> map = new HashMap<>();
-        map.put("taskType", SPUtils.getSharedStringData(activity,"actionUrl"));
+        if( "hsj.expmle.com.distribute.DistributeFragment".equals(SPUtils.getSharedStringData(activity,"ActionForm"))){
+
+            map.put("taskType",2);
+        }else {
+            map.put("taskType", SPUtils.getSharedStringData(activity, "actionUrl"));
+        }
            map.put("status",spQueryCriteriaTaskStatus.getTag());
         map.put("DeptID",SPUtils.getSharedIntData(activity,"DeptID"));
         map.put("pageIndex", pageIndex);

@@ -63,5 +63,4 @@ dependencies {
     compile files('libs/jxl.jar')
 
 
-
 }

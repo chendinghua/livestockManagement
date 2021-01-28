@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 
 import com.kymjs.app.base_res.utils.base.BaseActivity;
 import com.kymjs.app.base_res.utils.base.BaseModelActivity;
+import com.kymjs.app.base_res.utils.tools.UIHelper;
 import com.kymjs.app.base_res.utils.view.viewPager.CustomNoScrollViewPager;
 import com.kymjs.app.base_res.utils.view.viewPager.ReceivePagerAdapter;
 import com.kymjs.app.base_res.utils.view.viewPager.stepperindicator.StepperIndicator;
@@ -114,6 +115,10 @@ public class DistributeActivity extends BaseModelActivity {
             //判断当期是否为扫描RFID模块
             if(scanResultFragment.scantype == ScanResultFragment.SCANTYPE.SCANDISTRIBUTERFID){
                 scanType=1;
+            }else if( scanResultFragment.scantype == ScanResultFragment.SCANTYPE.SCANCASECODE){
+
+                UIHelper.ToastMessage(mContext,"当前模块未开放");
+                return false;
             }
             Log.d("scanCode", "onKeyDown: "+scanType);
 

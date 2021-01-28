@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     private Context mContext;
      List<RightInfo> rightInfos;
+
     DrawerLayout drawer;
 
     String currentFragment="";
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mContext = this;
         builder = new VaccineDialog.Builder(mContext);
         Toolbar toolbar = getToolbar();
@@ -93,11 +96,31 @@ public class MainActivity extends AppCompatActivity
         rightInfos  =  JSON.parseArray(SPUtils.getSharedStringData(mContext,"rightList"),RightInfo.class);
         //
         for (int i =0;i<rightInfos.size();i++){
-            if(rightInfos.get(i).getParentID()!=0) {
+            if(rightInfos.get(i).getParentID()==0) {
+                for (int j =0;j<rightInfos.size();j++){
+                    if(rightInfos.get(j).getParentID() == rightInfos.get(i).getID()){
+                     SubMenu subMenu = navigationView.getMenu().
+                                addSubMenu(rightInfos.get(j).getName());
+                        for (int k=0;k<rightInfos.size();k++){
+                                if(rightInfos.get(k).getParentID() == rightInfos.get(j).getID()){
+
+                                    subMenu   .add(rightInfos.get(k).getName()) .setTitleCondensed("" + k);
+
+                                }
+                        }
+
+                    }
+
+                }
+
+
+
+             //   navigationView.getMenu().getItem(0).setTitle("hello");
+              //  navigationView.getMenu().addSubMenu("hello");
                 //设置标题
-                navigationView.getMenu().add(rightInfos.get(i).getName())
+             /*   navigationView.getMenu().add(rightInfos.get(i).getName())
                         //传入每一列的选中时的下标
-                        .setTitleCondensed("" + i);
+                        .setTitleCondensed("" + i);*/
             }
         }
         handlerUtils = new HandlerUtils(mContext, new HandlerUtilsCallback() {
@@ -161,7 +184,9 @@ public class MainActivity extends AppCompatActivity
 
       String actionForm = rightInfo.getActionForm();
         getToolbar().setTitle(rightInfo.getName());
+
         SPUtils.setSharedStringData(mContext,"actionUrl",rightInfo.getActionUrl());
+        SPUtils.setSharedStringData(mContext,"ActionForm",rightInfo.getActionForm());
         Log.d("MainActivity", "onNavigationItemSelected:  "+actionForm );
         if(!"".equals(actionForm) ){
 

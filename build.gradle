@@ -36,22 +36,14 @@ buildscript {
 }
 
 allprojects {
+    System.properties['com.android.build.gradle.overrideVersionCheck'] = 'true'
     repositories {
-
-     /*   jcenter()
-        mavenCentral()*/
-       /* maven { url 'http://repo1.maven.org/maven2' }
-        maven { url 'https://jitpack.io' }
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }*/
-
         maven {
             url "https://maven.aliyun.com/repository/google"
         }
         maven {
             url "https://maven.aliyun.com/repository/jcenter"
         }
-
-        maven { url 'https://jitpack.io' }
     }
 }
 

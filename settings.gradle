@@ -23,4 +23,5 @@ include ':app',
         ':packingFragment',/*箱包管理*/
         ':HomeManagement',/*首页管理*/
         ':wheelview',/*地区联动lib*/
-        ':pickerview'/*地区联动lib*/
+        ':pickerview'/*,地区联动lib*/
+        //':MPChartLib'

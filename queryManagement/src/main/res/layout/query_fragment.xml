@@ -2,13 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        >
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:hint="请扫描靠近RFID"
+            android:enabled="false"
+            android:focusable="false"
+            android:id="@+id/et_input_rfid"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:id="@+id/btn_query"
+            android:text="查询"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:id="@+id/layout_query_content"
+        android:orientation="vertical"
+        ></LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:orientation="vertical"
         android:id="@+id/layout_inventory_result"
-        android:visibility="gone"
         >
         <com.kymjs.app.base_res.utils.view.kyindicator.KyIndicator
             android:id="@+id/kyIndicator"
@@ -17,5 +51,26 @@
         <android.support.v4.view.ViewPager android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:id="@+id/layout_page_info"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="总数量："
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_page_count"
+            />
+
     </LinearLayout>
 </LinearLayout>

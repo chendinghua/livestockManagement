@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.neenbedankt.android-apt'
 def configInfo = rootProject.ext.android
 
 android {
@@ -7,11 +9,11 @@ android {
 
     defaultConfig {
         minSdkVersion configInfo.minSdkVersion
-        targetSdkVersion 24
+        targetSdkVersion configInfo.targetSdkVersion
         //    applicationId "hsj.expmle.com.userinfoconfig"
         versionCode 1
         versionName "1.0"
-        resourcePrefix "userinfoconfig_"
+        resourcePrefix "home_"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -24,14 +26,16 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile('com.android.support:appcompat-v7:24+') { exclude group: 'com.android.support' }
-
-   // compile 'com.android.support:appcompat-v7:24+'
+    // compile 'com.android.support:appcompat-v7:24+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile project (':base-res')
+    compile project(':base-res')
+    compile files('libs/hellocharts-library-1.5.8.jar')
+
+   // compile project(':MPChartLib')
 }

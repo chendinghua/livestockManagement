@@ -144,6 +144,10 @@ public class SpinnerTools {
 
 
 
+
+
+
+
     //首字母转大写，转小写就加32
     public static String upperCase(String str) {
         char[] ch = str.toCharArray();

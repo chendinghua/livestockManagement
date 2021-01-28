@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KyIndicator  extends HorizontalScrollView {
-	private List<View> tabs;
+	private List<View> tabs = new ArrayList<>();
 	private OnSelectedListener onSelectedListener;
 	private boolean barVisibility = true;//是否显示滚动条
 	private int barHeight = dip2px(this.getContext(), 3);//滚动条高度

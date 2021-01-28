@@ -17,14 +17,14 @@
     app:unselected_color="@color/indicator_rect_unselected"
     />
 
-    <!--<com.lwy.paginationlib.PaginationIndicator-->
-        <!--android:id="@+id/indicator"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:number_tip_count="5"-->
-        <!--app:rect_size="30dp"-->
-        <!--app:selected_color="@color/indicator_rect_selected"-->
-        <!--app:text_size="14sp"-->
-        <!--app:unselected_color="@color/indicator_rect_unselected"/>-->
+    <com.lwy.paginationlib.PaginationIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:number_tip_count="5"
+        app:rect_size="30dp"
+        app:selected_color="@color/indicator_rect_selected"
+        app:text_size="14sp"
+        app:unselected_color="@color/indicator_rect_unselected"/>
 
 </LinearLayout>

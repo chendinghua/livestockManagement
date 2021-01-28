@@ -75,9 +75,20 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/rb_case_Code"
+                android:text="包号条形码"
+                />
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:id="@+id/rb_packageCode"
                 android:text="包号条形码"
                 />
+
+
+
         </RadioGroup>
 
 

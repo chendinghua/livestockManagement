@@ -9,6 +9,8 @@
         android:layout_weight="5"
         android:gravity="center_vertical"
         android:orientation="vertical"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,6 +34,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
                 android:hint="请选择地区"
+                android:background="@drawable/distribute_layout_corners"
                 ></TextView>
         </LinearLayout>
 
@@ -52,13 +55,15 @@
                 android:text="分发部门类型" />
 
 
-            <Spinner
+            <TextView
+
+                android:background="@drawable/distribute_layout_corners"
                 android:gravity="center"
                 android:id="@+id/sp_distribute_farmers_dept_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
-                ></Spinner>
+                ></TextView>
 
         </LinearLayout>
         <LinearLayout
@@ -85,13 +90,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:hint="请输入" />
-            <Spinner
+            <TextView
+                android:background="@drawable/distribute_layout_corners"
                 android:gravity="center"
                 android:id="@+id/sp_distribute_farmers_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
-                ></Spinner>
+                ></TextView>
 
         </LinearLayout>
         <LinearLayout
@@ -109,12 +115,13 @@
                 android:layout_weight="1"
                 android:layout_marginRight="50dp"
                 />
-            <Spinner
+            <TextView
                 android:gravity="center"
                 android:id="@+id/sp_distribute_farmers_Product"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"></Spinner>
+                android:background="@drawable/distribute_layout_corners"
+                android:layout_weight="1.5"></TextView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,12 +138,12 @@
                 android:layout_weight="1"
                 android:layout_marginRight="50dp"
                 />
-            <Spinner
+            <TextView
                 android:gravity="center"
                 android:id="@+id/sp_distribute_farmers_Product_type"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"></Spinner>
+                android:layout_weight="1.5"></TextView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -180,6 +187,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/distribute_layout_corners"
         android:orientation="vertical"
+        android:layout_marginTop="20dp"
         >
         <TextView
             android:id="@+id/tv_dept_title_info"

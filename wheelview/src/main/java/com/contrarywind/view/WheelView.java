@@ -23,6 +23,9 @@ import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.timer.InertiaTimerTask;
 import com.contrarywind.timer.MessageHandler;
 import com.contrarywind.timer.SmoothScrollTimerTask;
+import com.kymjs.app.base_res.utils.base.distribute.entry.ProductInfo;
+import com.kymjs.app.base_res.utils.base.entry.DicInfo;
+import com.kymjs.app.base_res.utils.base.entry.Farmer.Farmers;
 import com.kymjs.app.base_res.utils.base.entry.location.LocationEntry;
 import com.kymjs.app.base_res.utils.base.entry.packing.PackingTask;
 
@@ -620,6 +623,12 @@ public class WheelView extends View {
             return ((LocationEntry)item).getName();
         }else if(item instanceof PackingTask.PackingTaskItems){
             return ((PackingTask.PackingTaskItems)item).getCode();
+        }else if(item instanceof ProductInfo){
+            return ((ProductInfo)item).getProductName();
+        }else if( item instanceof DicInfo){
+            return ((DicInfo)item).getName();
+        }else if(item instanceof Farmers){
+            return ((Farmers)item).getName();
         }
         return item.toString();
     }

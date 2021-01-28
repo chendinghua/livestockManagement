@@ -75,4 +75,6 @@ public class MethodEnum {
     public static final String GETBOXPACKAGEINFO="/Basics/GetBoxPackageInfo";
     //一次分发提交接口
     public static final String POSTADDDISTRIBUTEONE="/Animal/PostAddDistributeOne";
+    //查询首页信息
+    public static final String GETINDEX="/Basics/GetIndex";
 }

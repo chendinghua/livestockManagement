@@ -16,8 +16,10 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.tools.OptionPickerTools;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.kymjs.app.base_res.utils.base.BaseFragment;
+import com.kymjs.app.base_res.utils.base.distribute.entry.ProductInfo;
 import com.kymjs.app.base_res.utils.base.entry.DicInfo;
 import com.kymjs.app.base_res.utils.base.entry.Farmer.Farmers;
 import com.kymjs.app.base_res.utils.base.entry.location.LocationEntry;
@@ -46,24 +48,24 @@ import butterknife.Unbinder;
 import hsj.expmle.com.distribute.R;
 import hsj.expmle.com.distribute.R2;
 import hsj.expmle.com.distribute.activity.DistributeActivity;
-import hsj.expmle.com.distribute.entry.ProductInfo;
 
 /**
  * 耳标分发输入分发部门信息页面
  * Created by 16486 on 2020/10/23.
  */
 public class FarmersFragment extends BaseFragment {
+    //部门名称
     @BindView(R2.id.sp_distribute_farmers_name)
-    Spinner spFarmersName;
-
+    TextView spFarmersName;
+    //畜种选择
     @BindView(R2.id.sp_distribute_farmers_Product)
-    Spinner spFarmersProduct;
-
+    TextView spFarmersProduct;
+    //
     @BindView(R2.id.sp_distribute_farmers_Product_type)
-    Spinner spFarmersProductType;
-
+    TextView spFarmersProductType;
+    //部门选择
     @BindView(R2.id.sp_distribute_farmers_dept_name)
-    Spinner spFarmersDeptName;
+    TextView spFarmersDeptName;
 
 
     @BindView(R2.id.asv_receive_single_number)
@@ -112,6 +114,8 @@ public class FarmersFragment extends BaseFragment {
     String currentLoginCityIndex;
     String currentLoginCountyIndex;
 
+    boolean loadView=true;
+
 
     @Override
     protected int getLayoutResource() {
@@ -130,12 +134,10 @@ public class FarmersFragment extends BaseFragment {
         deptMap.put("groupName", "DeptType");
         final   List<DicInfo>  deptList = new ArrayList<>();
 
-
-        deptList.addAll( SpinnerTools.change(activity, spFarmersDeptName, deptMap, MethodEnum.GETDICBYGROUPNAME, DicInfo.class, "Name", "Value", new SpinnerPorts<DicInfo>() {
+        //部门选择
+        deptList.addAll( OptionPickerTools.optionsPickerChange(activity, spFarmersDeptName, deptMap, MethodEnum.GETDICBYGROUPNAME, DicInfo.class, "Name", "Value", new SpinnerPorts<DicInfo>() {
             @Override
             public void selectChangeData(DicInfo data) {
-
-
                 spFarmersDeptData=data;
                 if(!isLoadFarmersName) {
 
@@ -144,6 +146,9 @@ public class FarmersFragment extends BaseFragment {
                     countyIndex=currentLoginCountyIndex;
 
                     loadFarmersNameInfo(currentLoginProvinceIndex,currentLoginCityIndex,currentLoginCountyIndex, etFarmersName.getText().toString(), -1);
+                    if(!loadView){
+                        loadView=true;
+                    }
                     isLoadFarmersName=true;
                 }else{
 //                    tvDeptTitleInfo.setText(deptList.get(spFarmersDeptName.getSelectedItemPosition()).getName()+"信息:");
@@ -151,16 +156,19 @@ public class FarmersFragment extends BaseFragment {
                 }
 
             }
-        }, false));
+        }, false,"请选择",loadView));
 
 
         //初始化畜种信息
-        SpinnerTools.change(activity, spFarmersProduct, null, MethodEnum.PRODCTINFO, ProductInfo.class, "Name", "ID", null, false);
+       // SpinnerTools.change(activity, spFarmersProduct, null, MethodEnum.PRODCTINFO, ProductInfo.class, "Name", "ID", null, false);
+        OptionPickerTools.optionsPickerChange(activity, spFarmersProduct, null, MethodEnum.PRODCTINFO, ProductInfo.class, "Name", "ID", null, false,"请选择",loadView);
+
+
 
         HashMap<String, Object> dicMap = new HashMap<>();
         dicMap.put("groupName", "storagetype");
         //初始化分发类型
-        SpinnerTools.change(activity, spFarmersProductType,
+        OptionPickerTools.optionsPickerChange(activity, spFarmersProductType,
                 dicMap, MethodEnum.GETDICBYGROUPNAME, DicInfo.class, "Name", "Value", new SpinnerPorts<DicInfo>() {
                     @Override
                     public void selectChangeData(DicInfo data) {
@@ -170,7 +178,7 @@ public class FarmersFragment extends BaseFragment {
                             spFarmersProduct.setEnabled(true);
                         }
                     }
-                }, false);
+                }, false,"请选择",loadView);
 
 
         HandlerUtils handlerUtils = new HandlerUtils(activity, new HandlerUtilsCallback() {
@@ -226,9 +234,10 @@ public class FarmersFragment extends BaseFragment {
                             }
                         }
                         pvOptions = new OptionsPickerBuilder(activity, new OnOptionsSelectListener() {
+                            //地区选择
                             @Override
                             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-
+                                loadView=true;
                                 provinceIndex=provinceLocationItems.get(options1).getID();
                                 cityIndex=cityLocationItems.get(options1).get(options2).getID();
                                 countyIndex=countyLocationItems.get(options1).get(options2).get(options3).getID();
@@ -323,6 +332,7 @@ public class FarmersFragment extends BaseFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                loadView=true;
                 loadFarmersNameInfo(provinceIndex,cityIndex,countyIndex,etFarmersName.getText().toString(),SPUtils.getSharedIntData(activity,"Type"));
             }
 
@@ -346,11 +356,12 @@ public class FarmersFragment extends BaseFragment {
         map.put("AdressCounty", adressCounty);
         map.put("TempType",tempType);
         map.put("DeptName",deptName);
-        SpinnerTools.change(activity, spFarmersName, map, MethodEnum.FARMERSALLLISTBYID, Farmers.class, "Name", "ID", new SpinnerPorts<Farmers>() {
+        OptionPickerTools.optionsPickerChange(activity, spFarmersName, map, MethodEnum.FARMERSALLLISTBYID, Farmers.class, "Name", "ID", new SpinnerPorts<Farmers>() {
             //显示养殖户基本信息
             @Override
             public void selectChangeData(Farmers data) {
                 if (data != null) {
+                    loadView=true;
                     tvDistributeName.setText(data.getName());
                     tvDistributePhone.setText(data.getPhone());
                     tvDistributeEmail.setText(data.getEmail());
@@ -361,7 +372,7 @@ public class FarmersFragment extends BaseFragment {
                     tvDistributeAddressInfo.setText(data.getAddressInfo());
                 }
             }
-        }, false);
+        }, false,"请选择",loadView);
 
     }
 
@@ -401,14 +412,16 @@ public class FarmersFragment extends BaseFragment {
                 }
                 break;
             case R2.id.btn_farmers_next:
-                if (activity instanceof DistributeActivity) {
-
+                if (activity instanceof DistributeActivity && !"".equals(spFarmersName.getTag().toString())) {
+                    loadView=false;
                     DistributeActivity distributeActivity = (DistributeActivity) activity;
                     distributeActivity.scanCount = NumberUtils.getNumberData(asvReceiveSingleNumber.getText().toString());
                     distributeActivity.farmersId = Integer.parseInt(spFarmersName.getTag().toString());
                     distributeActivity.farmersProductId = Integer.parseInt(spFarmersProduct.getTag().toString());
                     distributeActivity.farmersProductTypeId = Integer.parseInt(spFarmersProductType.getTag().toString());
                     distributeActivity.pager.setCurrentItem(distributeActivity.pager.getCurrentItem() + 1);
+                }else{
+                    UIHelper.ToastMessage(activity,"部门信息不能为空");
                 }
                 break;
         }

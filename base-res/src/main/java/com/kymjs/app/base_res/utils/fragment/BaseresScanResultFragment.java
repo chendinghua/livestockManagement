@@ -45,6 +45,9 @@ public abstract  class BaseresScanResultFragment<T1 extends Activity> extends Ba
     protected  int currentCount;
     protected  int errorCount;
 
+
+
+
     @Override
     public void initView() {
         layoutBottomOperation = activity.findViewById(R.id.layout_bottom_operation);
