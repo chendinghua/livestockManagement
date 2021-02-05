@@ -6,7 +6,7 @@ import android.view.View;
  * Created by Administrator on 2019/2/22/022.
  */
 /***
- * 个人中心页面
+ * 耳标管理
  */
 public class LabelFragment extends Fragment implements View.OnClickListener{
 

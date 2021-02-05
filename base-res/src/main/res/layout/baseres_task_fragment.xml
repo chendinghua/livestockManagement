@@ -18,6 +18,7 @@
             android:id="@+id/et_query_criteria_content"
             android:hint="请输入任务内容"
             android:textSize="@dimen/baseres_et_text_size"
+            android:enabled="false"
             />
 
         <Spinner
@@ -53,4 +54,27 @@
         android:layout_weight="1"
         android:id="@+id/btn_task_add"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:id="@+id/layout_task_bottom"
+        android:visibility="gone"
+        >
+        <Button
+            android:id="@+id/btn_operation1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/btn_operation2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 </LinearLayout>

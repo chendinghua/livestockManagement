@@ -9,7 +9,7 @@
         android:id="@+id/tv_action_url_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"
+        android:src="@mipmap/ic_launcher"
         android:layout_marginStart="7.5dp"
         android:layout_marginTop="20dp"
         android:layout_alignParentStart="true" />

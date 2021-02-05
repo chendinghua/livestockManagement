@@ -2,6 +2,9 @@ package com.kymjs.app.activity.home.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,21 +38,27 @@ import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
+import com.kymjs.app.base_res.utils.utils.SharedPreferencesMenu;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.kymjs.router.FragmentRouter;
 import com.kymjs.router.RouterList;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
 import hsj.expmle.com.prevention.activity.PreventionActivity;
+import hsj.expmle.com.updateVersion.ParseXmlService;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Context mContext;
-     List<RightInfo> rightInfos;
+    List<RightInfo> rightInfos;
 
     DrawerLayout drawer;
 
@@ -66,11 +75,79 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mContext = this;
         builder = new VaccineDialog.Builder(mContext);
         Toolbar toolbar = getToolbar();
         setSupportActionBar(toolbar);
+
+
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        Log.d("updateInfo", "onCreate: "+SPUtils.getSharedBooleanData(mContext,"isUpdate"));
+        //判断当前版本是否更新
+        if(!SPUtils.getSharedBooleanData(mContext,"isUpdate")) {
+            SPUtils.setSharedBooleanData(mContext, "isUpdate", true);
+            final Handler handler = new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                    InputStream inStream =  (InputStream) msg.obj;
+                    // 把version.xml放到网络上，然后获取文件信息
+                    // 解析XML文件。 由于XML文件比较小，因此使用DOM方式进行解析
+                    ParseXmlService service = new ParseXmlService();
+                    HashMap<String,String> mHashMap=null;
+                    try {
+
+                        mHashMap = service.parseXml(inStream);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (null != mHashMap)
+                    {
+                        int serviceCode = Integer.valueOf(mHashMap.get("version"));
+                        String name = mHashMap.get("name");
+                        PackageManagerHook.hook(mContext,serviceCode,name);
+                        Log.d("updateInfo", "handleMessage:    updateCode   "+serviceCode  +"    name :"+name);
+
+                    }
+                    super.handleMessage(msg);
+                }
+            };
+
+            new Thread(){
+
+                @Override
+                public void run() {
+                    InputStream inStream = null;
+                    try {
+                        //	String versionUrl =	mContext.getResources().getString(R.string.downloadUpdateNewVersionUrl);
+                        SharedPreferences sp =	mContext.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
+                        String versionUrl =sp.getString("updateUrl", SharedPreferencesMenu.updateUrl);
+                        //	URL url = new URL("http://10.10.1.69/HSJ.AutoUpdate/PDA/version.xml");
+                        URL url = new URL(versionUrl);
+                        inStream =	url.openStream();
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                        Log.d("installLog", "run: "+e.getMessage());
+                    }
+                    Message msg= new Message();
+                    msg.obj = inStream;
+                    handler.sendMessage(msg);
+                }
+
+            }.start();
+
+
+
+        }
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -94,33 +171,27 @@ public class MainActivity extends AppCompatActivity
         tvUserName.setText(SPUtils.getSharedStringData(mContext,"userName"));
 
         rightInfos  =  JSON.parseArray(SPUtils.getSharedStringData(mContext,"rightList"),RightInfo.class);
-        //
         for (int i =0;i<rightInfos.size();i++){
             if(rightInfos.get(i).getParentID()==0) {
                 for (int j =0;j<rightInfos.size();j++){
-                    if(rightInfos.get(j).getParentID() == rightInfos.get(i).getID()){
-                     SubMenu subMenu = navigationView.getMenu().
+                    if(rightInfos.get(j).getParentID() == rightInfos.get(i).getID() && rightInfos.get(j).getRightType()==1){
+                        SubMenu subMenu = navigationView.getMenu().
                                 addSubMenu(rightInfos.get(j).getName());
                         for (int k=0;k<rightInfos.size();k++){
-                                if(rightInfos.get(k).getParentID() == rightInfos.get(j).getID()){
+                            if(rightInfos.get(k).getParentID() == rightInfos.get(j).getID()){
 
-                                    subMenu   .add(rightInfos.get(k).getName()) .setTitleCondensed("" + k);
-
-                                }
+                                subMenu   .add(""+rightInfos.get(k).getName())
+                                        .setIcon(mContext.getDrawable(getBitmapIdByName(mContext,rightInfos.get(k).getActionBtn())))
+                                        .setTitleCondensed(rightInfos.get(k).getName()+":" + rightInfos.get(k).getActionForm()+":"+rightInfos.get(k).getActionUrl()+" ");
+                            }
                         }
-
+                    }else if(rightInfos.get(j).getParentID() == rightInfos.get(i).getID() && rightInfos.get(j).getRightType()==0){
+                        navigationView.getMenu().add(rightInfos.get(j).getName())
+                                .setIcon(mContext.getDrawable(getBitmapIdByName(mContext,rightInfos.get(j).getActionBtn())))
+                                //传入每一列的选中时的下标
+                                .setTitleCondensed(rightInfos.get(j).getName()+":" + rightInfos.get(j).getActionForm()+":"+rightInfos.get(j).getActionUrl()+" ");
                     }
-
                 }
-
-
-
-             //   navigationView.getMenu().getItem(0).setTitle("hello");
-              //  navigationView.getMenu().addSubMenu("hello");
-                //设置标题
-             /*   navigationView.getMenu().add(rightInfos.get(i).getName())
-                        //传入每一列的选中时的下标
-                        .setTitleCondensed("" + i);*/
             }
         }
         handlerUtils = new HandlerUtils(mContext, new HandlerUtilsCallback() {
@@ -128,7 +199,7 @@ public class MainActivity extends AppCompatActivity
             public void handlerExecutionFunction(Message msg) {
                 //显示
                 if(MethodEnum.POSTVACCINELIST.equals(msg.getData().getString("method"))){
-                final  List<VaccineInfo> vaccineInfoList =   JSON.parseArray( JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data")).getString("Result") ,VaccineInfo.class);
+                    final  List<VaccineInfo> vaccineInfoList =   JSON.parseArray( JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data")).getString("Result") ,VaccineInfo.class);
                     Log.d("vaccineInfoList", "handlerExecutionFunction: "+vaccineInfoList.size());
                     /*疫苗列表信息大于0*/
                     if(vaccineInfoList.size()>0){
@@ -159,7 +230,7 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-       getSupportFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_main,
                         FragmentRouter.getFragment(RouterList.MEMORY_FRAG_MAIN))
@@ -171,7 +242,31 @@ public class MainActivity extends AppCompatActivity
         vaccineMap.put("pageIndex",1);
         vaccineMap.put("pageSize",50);
         InteractiveDataUtil.interactiveMessage(this,vaccineMap,handlerUtils, MethodEnum.POSTVACCINELIST, InteractiveEnum.GET);
+        initLoadFragment();
+    }
 
+    private void initLoadFragment() {
+        String defualtFragmentName= "hsj.home.com.fragment.HomeFragment";
+        getToolbar().setTitle("首页");
+
+        SPUtils.setSharedStringData(mContext,"actionUrl","");
+        SPUtils.setSharedStringData(mContext,"ActionForm",defualtFragmentName);
+        Log.d("MainActivity", "onNavigationItemSelected:  "+defualtFragmentName);
+        if(!"".equals(defualtFragmentName) ) {
+            FragmentRouter.replaceFragment(this, R.id.content_main, defualtFragmentName);
+            currentFragment = defualtFragmentName;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+    public int getBitmapIdByName(Context context , String name) {
+        if("".equals(name) || name==null){
+            return R.drawable.destroy;
+        }
+        ApplicationInfo appInfo = context.getApplicationInfo();
+        // int resID = getResources().getIdentifier(name, "drawable", appInfo.packageName);
+        // return BitmapFactory.decodeResource(getResources(), resID);
+        return getResources().getIdentifier(name, "drawable", appInfo.packageName);
     }
 
 
@@ -179,7 +274,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(MenuItem item) {
-      RightInfo rightInfo = rightInfos.get( Integer.parseInt(  item.getTitleCondensed().toString()));
+        //下标0  Name  下标1  ActionForm  下标2  ActionUrl
+        String [] selectParam = item.getTitleCondensed().toString().split(":");
+
+      /*RightInfo rightInfo = rightInfos.get( Integer.parseInt(  item.getTitleCondensed().toString()));
 
 
       String actionForm = rightInfo.getActionForm();
@@ -194,8 +292,23 @@ public class MainActivity extends AppCompatActivity
 
             FragmentRouter.replaceFragment(this,R.id.content_main,actionForm);
             currentFragment = actionForm;
-        }
+        }*/
 
+
+
+
+        getToolbar().setTitle(selectParam[0]);
+
+        SPUtils.setSharedStringData(mContext,"actionUrl",selectParam[2].trim());
+        SPUtils.setSharedStringData(mContext,"ActionForm",selectParam[1]);
+        Log.d("MainActivity", "onNavigationItemSelected:  "+selectParam[1] );
+        if(!"".equals(selectParam[1]) ){
+
+
+
+            FragmentRouter.replaceFragment(this,R.id.content_main,selectParam[1]);
+            currentFragment = selectParam[1];
+        }
 
 
         drawer.closeDrawer(GravityCompat.START);
@@ -223,17 +336,17 @@ public class MainActivity extends AppCompatActivity
                 //隐藏导航栏
                 mDrawer.closeMenu();
             }else {*/
-                if ((System.currentTimeMillis() - mExitTime) > 2000) {
-                    Object mHelperUtils;
-                    Toast.makeText(this,R.string.exitSystem, Toast.LENGTH_SHORT).show();
-                    mExitTime = System.currentTimeMillis();
-                } else {
-                    Intent home = new Intent(Intent.ACTION_MAIN);
-                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    home.addCategory(Intent.CATEGORY_HOME);
-                    startActivity(home);
-                }
-          //  }
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Object mHelperUtils;
+                Toast.makeText(this,R.string.exitSystem, Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(home);
+            }
+            //  }
             return true;
         }
         return super.onKeyDown(keyCode, event);

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.kymjs.app.R;
 import com.kymjs.app.base_res.utils.ui.clearEdit.ClearEditText;
+import com.kymjs.app.base_res.utils.utils.SharedPreferencesMenu;
 
 
 /**  设置访问路径页面
@@ -35,9 +36,9 @@ public class  SettingActionUrlActivity extends Activity {
         editor = sp.edit();
         initUI();
         //获取接口路径
-        etInputActionUrl.setText(sp.getString("actionUrl","http://192.168.1.122/iis/api"));
+        etInputActionUrl.setText(sp.getString("actionUrl",SharedPreferencesMenu.actionUrl));
         //获取版本更新路径
-        etInputUpdateUrl.setText(sp.getString("updateUrl","http://http://img.rfid-barcode.com/PDA/AnimalRFID/upload/version.xml"));
+        etInputUpdateUrl.setText(sp.getString("updateUrl", SharedPreferencesMenu.updateUrl));
     }
 
     private void initUI() {

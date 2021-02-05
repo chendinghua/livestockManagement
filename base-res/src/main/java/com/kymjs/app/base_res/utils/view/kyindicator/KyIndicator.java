@@ -82,6 +82,12 @@ public class KyIndicator  extends HorizontalScrollView {
 			}					
 		});
 	}
+	public void clearTab(){
+		if(tabs != null)
+		tabs.clear();
+		removeAllViews();
+	}
+
 	/**
 	 * 设置当前tab
 	 */

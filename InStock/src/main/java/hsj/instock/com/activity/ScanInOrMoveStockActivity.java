@@ -269,10 +269,7 @@ public class ScanInOrMoveStockActivity extends BaseModelActivity implements Slid
 
     @OnClick({R2.id.btn_scan_in_or_move_stock_commit})
     public void onViewClicked(View view) {
-       /* RCaster rcaster = new RCaster(R.class, R2.class);
 
-        switch (rcaster.cast(view.getId())) {
-        }*/
         //添加入库
        if(operationStatus==3) {
 

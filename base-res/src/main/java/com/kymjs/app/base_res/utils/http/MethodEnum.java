@@ -77,4 +77,6 @@ public class MethodEnum {
     public static final String POSTADDDISTRIBUTEONE="/Animal/PostAddDistributeOne";
     //查询首页信息
     public static final String GETINDEX="/Basics/GetIndex";
+    //根据箱号查询库存信息
+    public static final String GETBOXINFO="/Basics/GetBoxInfo";
 }

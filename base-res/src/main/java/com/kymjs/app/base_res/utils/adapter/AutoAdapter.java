@@ -32,6 +32,8 @@ public class AutoAdapter<T> extends BaseAdapter {
     private List<String> param = new ArrayList<>();
     private int fixedLength=-1;                //设置固定长度默认为-1则表示不设置固定长度
 
+    private String[] titles;
+
     public AutoAdapter(Context context, List<T> list, String... param) {
         this.context = context;
         this.list = list;
@@ -41,6 +43,19 @@ public class AutoAdapter<T> extends BaseAdapter {
         Log.d("autoAdapter", "AutoAdapter: "+ Arrays.toString(param));
 
     }
+
+    public AutoAdapter(Context context, List<T> list,String[] titles, String... param) {
+        this.context = context;
+        this.list = list;
+        this.titles=titles;
+        for (String s : param) {
+            this.param.add(s);
+        }
+        Log.d("autoAdapter", "AutoAdapter: "+ Arrays.toString(param));
+
+    }
+
+
     public AutoAdapter(Context context, List<T> list, int fixedLength, String... param) {
         this.context = context;
         this.list = list;
@@ -80,6 +95,31 @@ public class AutoAdapter<T> extends BaseAdapter {
         // 从要显示的条目布局中 获得指定的组件
 
         LinearLayout layoutAuto = view.findViewById(R.id.layout_auto);
+
+      /*  if(titles!=null){
+            for(String title:titles){
+
+                TextView tvTitle = new TextView(view.getContext());
+                tvTitle.setText(title);
+
+
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
+
+                //设置固定宽度
+                if(fixedLength!=-1){
+                    lp.width = ((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fixedLength,context.getResources().getDisplayMetrics()));
+                }
+                tvTitle.setLayoutParams(lp);
+
+                tvTitle.setGravity(Gravity.CENTER);
+                tvTitle.setMaxLines(2);
+                tvTitle.setEllipsize(TextUtils.TruncateAt.END);
+                layoutAuto.addView(tvTitle);
+
+            }
+
+        }*/
+
 
         Object model= list.get(position);
 

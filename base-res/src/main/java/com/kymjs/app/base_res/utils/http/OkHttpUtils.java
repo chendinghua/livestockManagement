@@ -44,8 +44,8 @@ import okhttp3.Response;
 
 public class OkHttpUtils {
     public final static int READ_TIMEOUT = 10;
-    public final static int CONNECT_TIMEOUT = 60;
-    public final static int WRITE_TIMEOUT = 60;
+    public final static int CONNECT_TIMEOUT = 10;
+    public final static int WRITE_TIMEOUT = 10;
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final byte[] LOCKER = new byte[0];
     private static OkHttpUtils mInstance;
@@ -102,7 +102,7 @@ public class OkHttpUtils {
         Log.d("url", "getData: "+url);
         //1 构造Request
         Request.Builder builder = new Request.Builder();
-        Request request = builder.get().url(url)
+        Request request = builder.get().url(url).tag(context)
                 .addHeader("content-type", "application/json;charset:utf-8")
                 .addHeader("UserID",new Integer(SPUtils.getSharedIntData(context,"UserID")).toString())
                 .addHeader("DeptID",new Integer(SPUtils.getSharedIntData(context,"DeptID")).toString())
@@ -253,7 +253,7 @@ public class OkHttpUtils {
         /*  .addHeader("UserID",new Integer(SPUtils.getSharedIntData(context,"UserID")).toString())
                 .addHeader("DeptID",new Integer(SPUtils.getSharedIntData(context,"DeptID")).toString())*/
         Request request = new Request.Builder()
-                .url(url)
+                .url(url).tag(context)
                 .addHeader("content-type", "application/json;charset:utf-8")
              //   .addHeader("Host","<calculated when request is sent>")
                 .addHeader("UserID",new Integer(SPUtils.getSharedIntData(context,"UserID")).toString())

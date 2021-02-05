@@ -6,6 +6,13 @@ def configInfo = rootProject.ext.android
 android {
     compileSdkVersion configInfo.compileSdkVersion
     buildToolsVersion configInfo.buildToolsVersion
+    aaptOptions {
+
+        cruncherEnabled = false
+
+        useNewCruncher = false
+
+    }
     defaultConfig {
 
         multiDexEnabled  true

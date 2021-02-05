@@ -19,13 +19,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions{
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        // as noted by @Vishnuvathsan you may also need to include
+        // variations on the file name. It depends on your dependencies.
+        // Some other common variations on notice and license file names
+        exclude 'META-INF/notice'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license'
+        exclude 'META-INF/license.txt'
+
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-  /*  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
-    })*/
+    })
    compile 'com.android.support:appcompat-v7:24+'
     testCompile 'junit:junit:4.12'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
@@ -66,7 +78,7 @@ dependencies {
     //OpenCV
     compile project(':openCVLibrary330')
 
-  //  compile project(':MPChartLib')
+    compile project(':MPChartLib')
 
   //  compile project(':pickerview')
      }

@@ -1,7 +1,20 @@
 package hsj.packing.com.fragment;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.TextView;
+
 import com.alibaba.fastjson.JSON;
+import com.kymjs.app.base_res.utils.adapter.AutoAdapter;
 import com.kymjs.app.base_res.utils.base.entry.packing.PackingTask;
 import com.kymjs.app.base_res.utils.fragment.BaseresTaskFragment;
 import com.kymjs.app.base_res.utils.http.HandlerUtils;
@@ -12,14 +25,24 @@ import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.lwy.paginationlib.PaginationListView;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import devicelib.dao.Device;
+import devicelib.dao.ResponseHandlerInterface;
+import devicelib.factory.DeviceFactory;
 import hsj.packing.com.activity.PickingActivity;
+import hsj.packing.com.entry.PackInfo;
+import hsj.packing.com.entry.PickingItemInfo;
+
 /**  箱包管理
  * Created by 16486 on 2020/12/31.
  */
 public class PackingFragment extends BaseresTaskFragment  implements View.OnClickListener{
     private  PaginationListView.Adapter<PackingTask.PackingTaskItems> packAdapter;
-  //  Device device;
+    Device device;
     @Override
     public void initFragmentActivityView() {
         btnTaskAdd.setOnClickListener(this);
@@ -38,7 +61,34 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
             public void onPerPageCountChanged(int perPageCount) {
             }
         });
-       /* device =new DeviceFactory(activity, new ResponseHandlerInterface() {
+
+        packAdapter.setOnItemClickListener(new PaginationListView.Adapter.OnItemClickListener<PackingTask.PackingTaskItems>(){
+            @Override
+            public void onItemClick(View view, PackingTask.PackingTaskItems item, int position) {
+                HashMap<String,Object> map = new HashMap<String, Object>();
+                map.put("ID",item.getId());
+                map.put("Type",SPUtils.getSharedStringData(activity,"actionUrl"));
+                map.put("Code",item.getCode());
+                map.put("QelType",1);
+
+                InteractiveDataUtil.interactiveMessage(activity,map,handlerUtils,MethodEnum.GETBOXPACKAGEINFO,InteractiveEnum.GET);
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+
+
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        device =new DeviceFactory(activity, new ResponseHandlerInterface(){
             @Override
             public void handleTagdata(String rfid) {
             }
@@ -47,10 +97,36 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
             }
             @Override
             public void scanCode(String code) {
+                etQueryCriteriaContent.setText(code);
             }
         }).getDevice();
-        device.onPause();*/
+        device.initUHF();
+        device.onPause();
+        rootView.setFocusable(true);//这个和下面的这个命令必须要设置了，才能监听back事件。
+        rootView.setFocusableInTouchMode(true);
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                    Log.d("onKeyCode", "onKey: " + i);
+                    device.onKeyDown(i, keyEvent, 2, false);
+                    return true;
+                }
+                return false;
+            }
+        });
+        loadData(packAdapter.getCurrentPagePos(), packAdapter.getPerPageCount());
+
+        super.onResume();
     }
+
+    @Override
+    public void onDestroy() {
+        if(device!=null)
+            device.destroy();
+        super.onDestroy();
+    }
+
     @Override
     public String[] getArrayTitle() {
         return new String[]{"ID","编号","创建时间","箱包类型","创建人"};
@@ -79,7 +155,7 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
     @Override
     public void onClick(View v) {
         if(v.getId() == btnTaskAdd.getId()) {
-            Utils.gotoActivity(activity, PickingActivity.class,null,null);
+            Utils.gotoActivity(activity, PickingActivity.class,null,device);
         }else if(v.getId() == btnQueryCriteria.getId()){
             isLoadData=true;
             loadData(packAdapter.getCurrentPagePos(), packAdapter.getPerPageCount());
@@ -98,9 +174,79 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
                     packAdapter.setDatas(Integer.parseInt(msg.getData().getString("bindDate")), packingTask.getResult());
                     lvTaskInfo.setState(PaginationListView.SUCCESS);
                 }
+            }else if(MethodEnum.GETBOXPACKAGEINFO.equals(msg.getData().getString("method"))){
+
+
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                if(Integer.parseInt( SPUtils.getSharedStringData(activity,"actionUrl"))==1) {
+                    LinearLayout linearLayout = new LinearLayout(activity);
+
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    linearLayout.setLayoutParams(lp);
+                    initLinerLayoutData(linearLayout, new String []{"库存id","RFID","序列号"});
+
+                    builder.setCustomTitle(linearLayout);
+
+                    List<PickingItemInfo> pickingItemInfos = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), PickingItemInfo.class);
+
+                    AutoAdapter<PickingItemInfo> adapter = new AutoAdapter<>(activity, pickingItemInfos,
+
+                            "StorageID", "RfidNo", "SerialNo");
+                    builder.setAdapter(adapter,null);
+                }else{
+                    LinearLayout linearLayout = new LinearLayout(activity);
+
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    linearLayout.setLayoutParams(lp);
+                    initLinerLayoutData(linearLayout,   new String []{"包号id","包号编号","标签数量","包号状态"});
+
+                    builder.setCustomTitle(linearLayout);
+
+
+                    List<PackInfo> packInfos = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), PackInfo.class);
+                    AutoAdapter<PackInfo> adapter = new AutoAdapter<>(activity, packInfos,
+
+                            "ID", "BoxCode", "Num","StatusName");
+                    builder.setAdapter(adapter,null);
+                }
+
+                builder.setCancelable(false);//不允许被某些方式取消,比如按对话框之外的区域或者是返回键
+                builder.show();
+
             }
         }
     });
+
+    public void initLinerLayoutData(LinearLayout layout,String [] titles){
+
+        for(String title:titles){
+
+            TextView tvTitle = new TextView(activity);
+            tvTitle.setText(title);
+
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
+
+            tvTitle.setLayoutParams(lp);
+
+            tvTitle.setGravity(Gravity.CENTER);
+            tvTitle.setMaxLines(2);
+            tvTitle.setEllipsize(TextUtils.TruncateAt.END);
+            layout.addView(tvTitle);
+
+        }
+
+    }
 
 
     private void loadData(int pageIndex, int pageSize){

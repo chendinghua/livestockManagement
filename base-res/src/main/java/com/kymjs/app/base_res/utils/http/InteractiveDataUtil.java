@@ -8,11 +8,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.PopupWindow;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.kymjs.app.base_res.utils.tools.ShowLoadingDialog;
+import com.kymjs.app.base_res.utils.utils.SharedPreferencesMenu;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -39,7 +42,7 @@ public class InteractiveDataUtil {
         final PopupWindow popupWindow = new PopupWindow();
 
         SharedPreferences sp = activity.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
-        final String path = sp.getString("actionUrl","http://192.168.1.122/iis/api");
+        final String path = sp.getString("actionUrl", SharedPreferencesMenu.actionUrl);
         handler.setContext(activity);
    /*  final Runnable startRunnable = new Runnable() {
           @Override
@@ -64,8 +67,10 @@ public class InteractiveDataUtil {
             public void handleMessage(Message msg) {
 
                 super.handleMessage(msg);
-                if(popupWindow!=null)
+                if(popupWindow!=null) {
                     popupWindow.dismiss();
+                    Log.d("onKeyBack", "handleMessage:     dismiss" );
+                }
             }
         };
 
@@ -162,9 +167,11 @@ public class InteractiveDataUtil {
      * @param bindDate  绑定处理的数据
      */
     public static void interactiveMessage(final Activity activity, final HashMap<String,Object> params, final Handler handler, final String method, final String interactiveType, final String bindDate ){
+
+
         final PopupWindow popupWindow = new PopupWindow();
         SharedPreferences sp = activity.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
-        final String path = sp.getString("actionUrl","http://192.168.1.122/iis/api ");
+        final String path = sp.getString("actionUrl",SharedPreferencesMenu.actionUrl);
         final Handler loadHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
@@ -177,8 +184,19 @@ public class InteractiveDataUtil {
 
 
         if(activity instanceof Activity){
-            ShowLoadingDialog.show(popupWindow, activity);
-
+          View view =  ShowLoadingDialog.show(popupWindow, activity);
+            view.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                   /* if(keyCode==KeyEvent.KEYCODE_BACK){
+                        loadHandler.sendMessage(new Message());
+                        Log.d("onKeyBack", "onKey: ");
+                    }*/
+                    Log.d("onKeyBack", "onKey: ");
+                    //do something...
+                    return true;
+                }
+            });
         }
 
         new Thread(new Runnable() {
@@ -186,7 +204,6 @@ public class InteractiveDataUtil {
             public  void run() {
                 Message msg = new Message();
                 Bundle bundle = new Bundle();
-                try {
                     String result = "";
                     try {
                         OkHttpUtils httpUtils = OkHttpUtils.getInstance();
@@ -241,9 +258,7 @@ public class InteractiveDataUtil {
 
                         loadHandler.sendMessage(new Message());
                     }
-                }catch (Exception e){
 
-                }
                 }
 
         }).start();

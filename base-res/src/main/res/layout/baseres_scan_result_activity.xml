@@ -22,14 +22,14 @@
                 android:layout_height="match_parent"
                 android:id="@+id/rb_scanRfid"
                 android:checked="true"
-                android:text="耳标RFID"
+                android:text="RFID"
                 />
             <RadioButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/rb_scanCode"
-                android:text="耳标条形码"
+                android:text="条形码"
                 />
 
 
@@ -76,7 +76,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/rb_case_Code"
-                android:text="包号条形码"
+                android:text="箱号条形码"
                 />
 
             <RadioButton

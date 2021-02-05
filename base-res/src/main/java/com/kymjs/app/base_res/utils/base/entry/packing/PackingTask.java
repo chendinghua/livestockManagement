@@ -47,6 +47,7 @@ public class PackingTask extends PageInfo{
         //装箱状态
         private String packingStatus;
 
+
         public PackingTaskItems() {
         }
 

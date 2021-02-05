@@ -43,6 +43,8 @@ public class PickingActivity extends BaseresScanResultActivity implements Respon
     List<PackingTask.PackingTaskItems> packingTagList = new ArrayList<>();
 
 
+    List<String> tempList=  new ArrayList<>();
+
     Button btnCommit;
     Button btnPre;
     //获取类型1为装包  2为装箱
@@ -58,18 +60,35 @@ public class PickingActivity extends BaseresScanResultActivity implements Respon
         }
         powerSettingView.setListener(device, ProgressDialog.createDialog(mContext), 2);
         initListener();
-        adapter = new AutoAdapter<>(mContext,tagList,"StorageID", "RfidNo", "SerialNo", "StorageStatusName","IsEnabledName");
-        packingAdapter = new AutoAdapter<PackingTask.PackingTaskItems>(mContext,packingTagList,"Id","Code","CreateDate","TypeName");
+        adapter = new AutoAdapter<>(mContext,tagList,"StorageID", "RfidNo", "SerialNo", "StorageStatusName","IsEnabledName","packageStatus");
+        packingAdapter = new AutoAdapter<PackingTask.PackingTaskItems>(mContext,packingTagList,"Id","Code","CreateDate","TypeName","packingStatus");
         lvList.setAdapter(pickType==1?adapter:packingAdapter);
         lvList.setRemoveListener(new SlideCutListView.RemoveListener() {
             @Override
             public void removeItem(SlideCutListView.RemoveDirection direction, int position) {
-                if(pickType==1) {
-                    tagList.remove(position);
-                }else{
-                    packingTagList.remove(position);
-                }
-                updateCommitStatus();
+                  int removeIndex = -1;
+                    if (pickType == 1) {
+
+                        if(tagList.size()>position) {
+
+                            if ((removeIndex = ForcehUtils.getStrListIndex(tempList, tagList.get(position).getRfidNo())) != -1
+                                    || (removeIndex = ForcehUtils.getStrListIndex(tempList, tagList.get(position).getSerialNo())) != -1) {
+                                tempList.remove(removeIndex);
+                            }
+                        }
+
+                        tagList.remove(position);
+                    } else {
+                        if(packingTagList.size()>position) {
+                            if ((removeIndex = ForcehUtils.getStrListIndex(tempList, packingTagList.get(position).getCode())) != -1
+                                    ) {
+                                tempList.remove(removeIndex);
+                            }
+                            packingTagList.remove(position);
+                        }
+                    }
+                    updateCommitStatus();
+
             }
         });
         updateCommitStatus();
@@ -82,7 +101,7 @@ public class PickingActivity extends BaseresScanResultActivity implements Respon
     @Override
     public String[] getArrayTitle() {
         pickType =Integer.parseInt(SPUtils.getSharedStringData(mContext,"actionUrl"));
-        return pickType==1?new String[]{"库存编号", "RFID", "序列号", "库存状态","启用状态"}: new String[]{"ID","包号","创建时间","箱包类型"};
+        return pickType==1?new String[]{"库存编号", "RFID", "序列号", "库存状态","启用状态","包号状态"}: new String[]{"ID","包号","创建时间","箱包类型","装箱状态"};
     }
     /*********************
      * 子类实现
@@ -205,8 +224,8 @@ public class PickingActivity extends BaseresScanResultActivity implements Respon
             if (MethodEnum.GETSTORAGEINFOBYOUT.equals(msg.getData().getString("method"))) {
                 final ScanResult scanResult = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
                 if (scanResult != null) {
-                    //判断当前分发标签状态是未启用  1：启用  2：未激活
-                    if (scanResult.getIsEnabled() == 2) {
+                    //判断当前分发标签状态是未启用  1：启用  2：未激活  并且未装包
+                    if (scanResult.getIsEnabled() == 2 && scanResult.getPackageID()==0) {
                         scanResult.setIsFocus("true");
                     } else {
                         scanResult.setIsFocus("false");
@@ -219,6 +238,7 @@ public class PickingActivity extends BaseresScanResultActivity implements Respon
             }else if(MethodEnum.POSTADDBOXPACKAGE.equals(msg.getData().getString("method"))){
                 UIHelper.ToastMessage(mContext,"数据提交成功");
                 Utils.activityFinish(PickingActivity.this,device);
+                //扫描包号   装箱
             }else if(MethodEnum.GETQELBOXPACKAGE.equals(msg.getData().getString("method"))){
                 PackingTask packingTask =   JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"),PackingTask.class);
                 if(packingTask!=null){
@@ -292,44 +312,55 @@ public class PickingActivity extends BaseresScanResultActivity implements Respon
      * 扫描处理数据
      * @param rfid
      */
-    private void initListData(String rfid,SCANTYPE type){
-        int index ;
-        //判断当前扫描类型为条码并且当前处理的装箱管理
-        if(type== SCANTYPE.PACKINGCODE && pickType==2){
-            if( (index=ForcehUtils.getListIndex(packingTagList,type.getType(),rfid))!=-1){
-                if("true".equals(packingTagList.get(index).getIsFocus())){
-                    device.playSound(1);
-                }else{
-                    device.playSound(2);
+    private void initListData(String rfid,SCANTYPE type) {
+
+        if (ForcehUtils.getStrListIndex(tempList, rfid) == -1) {
+                tempList.add(rfid);
+            int index;
+            //判断当前扫描类型为条码并且当前处理的装箱管理
+            if (type == SCANTYPE.PACKINGCODE && pickType == 2) {
+                if ((index = ForcehUtils.getListIndex(packingTagList, type.getType(), rfid)) != -1) {
+                    if ("true".equals(packingTagList.get(index).getIsFocus())) {
+                        device.playSound(1);
+                    } else {
+                        device.playSound(2);
+                    }
+                } else {
+                    HashMap<String, Object> packingMap = new HashMap<>();
+                    packingMap.put("Code", rfid);
+                    packingMap.put("Type", 1);
+                    packingMap.put("pageIndex", 1);
+                    packingMap.put("pageSize", 1);
+                    InteractiveDataUtil.interactiveMessage(this, packingMap, handler, MethodEnum.GETQELBOXPACKAGE, InteractiveEnum.GET);
                 }
-            }else {
-                HashMap<String, Object> packingMap = new HashMap<>();
-                packingMap.put("Code", rfid);
-                packingMap.put("Type", 1);
-                packingMap.put("pageIndex", 1);
-                packingMap.put("pageSize", 1);
-                InteractiveDataUtil.interactiveMessage(this, packingMap, handler, MethodEnum.GETQELBOXPACKAGE, InteractiveEnum.GET);
+            } else {
+
+                if ((index = ForcehUtils.getListIndex(tagList, type.getType(), rfid)) != -1) {
+                    if ("true".equals(tagList.get(index).getIsFocus())) {
+                        device.playSound(1);
+                    } else {
+                        device.playSound(2);
+                    }
+                } else {
+                    HashMap<String, Object> map = new HashMap<>();
+                    switch (type) {
+                        case RFID:
+                            map.put("RFID", rfid);
+                            break;
+                        case CODE:
+                            map.put("RFID", "");
+                            map.put("SerialNo", rfid);
+                            break;
+                    }
+                    InteractiveDataUtil.interactiveMessage(this, map, handler, MethodEnum.GETSTORAGEINFOBYOUT, InteractiveEnum.GET);
+                }
             }
         }else{
-
-            if( (index=ForcehUtils.getListIndex(tagList,type.getType(),rfid))!=-1){
-                if("true".equals(tagList.get(index).getIsFocus())){
-                    device.playSound(1);
-                }else{
-                    device.playSound(2);
-                }
-            }else {
-                HashMap<String, Object> map = new HashMap<>();
-                switch (type) {
-                    case RFID:
-                        map.put("RFID", rfid);
-                        break;
-                    case CODE:
-                        map.put("RFID", "");
-                        map.put("SerialNo", rfid);
-                        break;
-                }
-                InteractiveDataUtil.interactiveMessage(this, map, handler, MethodEnum.GETSTORAGEINFOBYOUT, InteractiveEnum.GET);
+            int index=-1;
+            if((index=ForcehUtils.getListIndex(tagList,"RfidNo",rfid))!=-1 && "true".equals(tagList.get(index).getIsFocus())){
+                device.playSound(1);
+            }else{
+                device.playSound(2);
             }
         }
     }

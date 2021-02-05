@@ -5,8 +5,8 @@ package com.kymjs.app.base_res.utils.base.entry;
  */
 
 public class PageInfo {
-    private int PageCurrent;            //当前页
     private int PageSize;               //每页数量
+    private int PageCurrent;            //当前页
     private int RowsCount;              //总数量
     private int PageCount;              //总页数
     public int getPageCurrent() {

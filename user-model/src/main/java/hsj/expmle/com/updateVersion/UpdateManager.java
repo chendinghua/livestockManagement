@@ -20,6 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.kymjs.app.base_res.utils.utils.SPUtils;
+import com.kymjs.app.base_res.utils.utils.SharedPreferencesMenu;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,6 +33,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import hsj.expmle.com.R;
+import hsj.expmle.com.activity.AboutInfoActivity;
 
 /**
  *@author coolszy
@@ -100,6 +104,9 @@ public class UpdateManager
 				} else
 				{
 					Toast.makeText(mContext, R.string.user_model_soft_update_no, Toast.LENGTH_LONG).show();
+
+
+
 				}
 				super.handleMessage(msg);
 			}
@@ -113,7 +120,7 @@ public class UpdateManager
 				try {
 			//	String versionUrl =	mContext.getResources().getString(R.string.downloadUpdateNewVersionUrl);
 					SharedPreferences sp =	mContext.getSharedPreferences("setting_action_url_config", Context.MODE_PRIVATE);
-					String versionUrl =sp.getString("updateUrl","http://img.rfid-barcode.com/PDA/AnimalRFID/upload/version.xml");
+					String versionUrl =sp.getString("updateUrl", SharedPreferencesMenu.updateUrl);
 					//	URL url = new URL("http://10.10.1.69/HSJ.AutoUpdate/PDA/version.xml");
 					URL url = new URL(versionUrl);
 					 	 inStream =	url.openStream();
@@ -169,6 +176,8 @@ public class UpdateManager
 		if (null != mHashMap)
 		{
 			int serviceCode = Integer.valueOf(mHashMap.get("version"));
+			Log.d("updateInfo", "isUpdate: serviceCode: "+serviceCode +" versionCode: "+versionCode);
+
 			// 版本判断
 			if (serviceCode > versionCode)
 			{
@@ -349,6 +358,7 @@ public class UpdateManager
 	 */
 	private void installApk()
 	{
+		SPUtils.setSharedBooleanData(mContext,"isUpdate",false);
 		File apkfile = new File(mSavePath, mHashMap.get("name"));
 		if (!apkfile.exists())
 		{
@@ -358,5 +368,6 @@ public class UpdateManager
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setDataAndType(Uri.parse("file://" + apkfile.toString()), "application/vnd.android.package-archive");
 		mContext.startActivity(i);
+		((AboutInfoActivity)mContext).finish();
 	}
 }

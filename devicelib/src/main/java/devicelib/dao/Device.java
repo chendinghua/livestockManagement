@@ -12,6 +12,11 @@ public interface Device {
      */
     public void initUHF();
     //设置声音模块
+    /**
+     * 播放提示音
+     *
+     * @param id 成功1，失败2
+     */
     public void playSound(int id);
 
     /***

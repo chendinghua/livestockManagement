@@ -43,6 +43,30 @@ public class ScanResult {
 
     private Integer Package;
 
+    private Integer PackageID;
+
+
+
+    private String packageStatus;
+
+
+    public Integer getPackageID() {
+        return PackageID;
+    }
+
+    public void setPackageID(Integer packageID) {
+        PackageID = packageID;
+        setPackageStatus(packageID==0?"未包装":"已包装");
+    }
+
+    public String getPackageStatus() {
+        return packageStatus;
+    }
+
+    public void setPackageStatus(String packageStatus) {
+        this.packageStatus = packageStatus;
+    }
+
     public Integer getPackage() {
         return Package;
     }

@@ -227,8 +227,15 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                     }
                     break;
                 case SCANCASECODE:            //二次分发箱号扫描
-
-
+                    if(code.startsWith(LabelRule.PackageRule)) {
+                        tempSerialNoList.add(code);
+                        HashMap<String, Object> caseMap = new HashMap<>();
+                        caseMap.put("Code", code);
+                        caseMap.put("QelType", 2);
+                        InteractiveDataUtil.interactiveMessage(activity, caseMap, handlerUtils, MethodEnum.GETBOXINFO, InteractiveEnum.GET);
+                    }else{
+                        UIHelper.ToastMessage(activity,"当前条码无效");
+                    }
                     break;
             }
         }
@@ -257,7 +264,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
         }
         return index;
     }
-
+    //更新标题和提交按钮状态
     private void updateCommitStatus() {
         currentCount = 0;
         errorCount = 0;
@@ -333,7 +340,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     @Override
     public void initFragmentActivityView() {
         deptId =  SPUtils.getSharedIntData(activity,"DeptID");
-        actionUrl =  Integer.parseInt( SPUtils.getSharedStringData(activity,"actionUrl"));
+        actionUrl =  SPUtils.getSharedIntData(activity,"OperationType");
         layoutScanResultTitle.setVisibility(View.GONE);
         //判断当前为二次分发
         if(actionUrl==2){
@@ -449,6 +456,25 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                                 packTagList.add(packageInfoItems);
                         updateCommitStatus();
                     }
+                }else if(MethodEnum.GETBOXINFO.equals(msg.getData().getString("method"))){
+                    List<ScanResult> scanResults = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
+                    if(scanResults!=null && scanResults.size()>0){
+                        for (int i =0;i<scanResults.size();i++) {
+                            //判断当前包里面
+                            if (ForcehUtils.getListStatusCount(tagList, "RfidNo", scanResults.get(i).getRfidNo()) == 0) {
+                                //判断当前分发标签状态是未启用  1：启用  2：未激活
+                                if (scanResults.get(i).getIsEnabled() == 2   && scanResults.get(i).getProductID()==activity.farmersProductId) {
+                                    scanResults.get(i).setIsFocus("true");
+                                } else {
+                                    scanResults.get(i).setIsFocus("false");
+                                }
+                                tempList.add(scanResults.get(i).getRfidNo());
+                                tagList.add(scanResults.get(i));
+                            }
+                        }
+                    }
+                    updateCommitStatus();
+
                 }
             }
         }, new HandlerUtilsErrorCallback() {

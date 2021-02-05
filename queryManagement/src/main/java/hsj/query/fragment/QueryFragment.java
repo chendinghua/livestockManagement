@@ -102,17 +102,25 @@ public class QueryFragment extends BaseFragment implements ResponseHandlerInterf
         return true;
     }
 
-
+    @Override
+    public void onDestroy() {
+        if(device!=null)
+            device.destroy();
+        super.onDestroy();
+    }
 
     @OnClick(R2.id.btn_query)
     public void onViewClicked() {
         if(!Utils.isStrEmpty(etInputRfid.getText())) {
             HashMap<String, Object> map = new HashMap<>();
-            map.put("RfidNo", "A20201201175608000000003");
+            map.put("RfidNo", etInputRfid.getText());
             InteractiveDataUtil.interactiveMessage(activity, map, new HandlerUtils(activity, new HandlerUtilsCallback() {
                 @Override
                 public void handlerExecutionFunction(Message msg) {
                     mapList.clear();
+                    yIndicator.clearTab();
+                    fragmentList.clear();
+
                     JSONAnalysis jsonAnalysis = JSONAnalysis.getInstance();
                     //获取键值对对象
                     Set<Map.Entry<String, Object>> keyValueSet = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data")).getJSONObject("Map").entrySet();

@@ -115,11 +115,11 @@ public class DistributeActivity extends BaseModelActivity {
             //判断当期是否为扫描RFID模块
             if(scanResultFragment.scantype == ScanResultFragment.SCANTYPE.SCANDISTRIBUTERFID){
                 scanType=1;
-            }else if( scanResultFragment.scantype == ScanResultFragment.SCANTYPE.SCANCASECODE){
+            }/*else if( scanResultFragment.scantype == ScanResultFragment.SCANTYPE.SCANCASECODE){
 
                 UIHelper.ToastMessage(mContext,"当前模块未开放");
                 return false;
-            }
+            }*/
             Log.d("scanCode", "onKeyDown: "+scanType);
 
             device.onKeyDown(keyCode,event,scanType,isSingle());

@@ -57,13 +57,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     public void initPresenter() {
 
     }
-
     @Override
     public void initView() {
-
-
         btnLogin.setOnClickListener(this);
         tvSystemSetting.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        etAccountNumber.setText( SPUtils.getSharedStringData(mContext, "SuccessUserName"));
+        etPassword.setText("");
+
     }
 
     HandlerUtils handler = new HandlerUtils(mContext, new HandlerUtilsCallback() {
@@ -71,8 +77,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         public void handlerExecutionFunction(Message msg) {
             if (MethodEnum.LOGINSIGNIN.equals(msg.getData().getString("method"))) {
                 //点击记住密码把用户名和密码保存到本地文件里面
+                SPUtils.setSharedStringData(mContext, "SuccessUserName", etAccountNumber.getText().toString());
 
-                Toast.makeText(mContext, "登陆成功", Toast.LENGTH_LONG).show();
+
+
+                Toast.makeText(mContext, "登录成功", Toast.LENGTH_LONG).show();
                 JSONObject data = JSON.parseObject(msg.getData().getString("result")).getJSONObject("Data");
                 //存储用户名
                 SPUtils.setSharedStringData(mContext, "userName", data.getString("Name"));

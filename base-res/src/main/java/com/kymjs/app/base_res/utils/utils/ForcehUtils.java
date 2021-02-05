@@ -15,6 +15,22 @@ import java.util.List;
 
 public class ForcehUtils {
 
+
+    public static  int getStrListIndex(List<String> list ,String valueName){
+        int  index = -1;
+        for (int i =0;i<list.size();i++) {
+            if(valueName.equals(list.get(i))){
+                index=i;
+                break;
+            }
+        }
+
+
+        return index;
+    }
+
+
+
     public static <T> int getListIndex(List<T> list ,String pramName,String valueName){
         int  index = -1;
         for (int i =0;i<list.size();i++){

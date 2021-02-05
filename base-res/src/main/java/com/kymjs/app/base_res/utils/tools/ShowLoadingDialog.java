@@ -19,14 +19,15 @@ import com.kymjs.app.base_res.R;
 public class ShowLoadingDialog {
 
     static Handler resultHandler;
-    public static void show(final PopupWindow popupWindow, final Activity activity){
+    public static View show(final PopupWindow popupWindow, final Activity activity){
+        View view=null;
         try {
 
 
             popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
             popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
             popupWindow.setFocusable(false);
-            View view = LayoutInflater.from(activity).inflate(R.layout.baseres_popup,null);
+           view  = LayoutInflater.from(activity).inflate(R.layout.baseres_popup,null);
             popupWindow.setContentView(view);
             popupWindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER,0,0);
             resultHandler = new Handler(){
@@ -43,6 +44,7 @@ public class ShowLoadingDialog {
             e.printStackTrace();
         }
         //     new Handler().postDelayed(runnable,10000);
+        return view;
     }
 
     static Runnable runnable = new Runnable() {
