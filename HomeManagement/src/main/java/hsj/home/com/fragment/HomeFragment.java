@@ -1,6 +1,7 @@
 package hsj.home.com.fragment;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSON;
@@ -57,7 +59,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initView() {
         layoutHome = rootView.findViewById(R.id.layout_home);
-
+        ivNullData = rootView.findViewById(R.id.iv_null_data);
         layoutHome.removeAllViews();
         setPieDatas();
     }
@@ -67,6 +69,8 @@ public class HomeFragment extends BaseFragment {
     }
 
    LinearLayout layoutHome;
+    ImageView ivNullData;
+    int totalCount=0;
 
     /**
      * 设置相关数据
@@ -76,6 +80,7 @@ public class HomeFragment extends BaseFragment {
         InteractiveDataUtil.interactiveMessage(activity, null, new HandlerUtils(activity, new HandlerUtilsCallback() {
             @Override
             public void handlerExecutionFunction(Message msg) {
+                totalCount=0;
               //  List<HomeEntry> entries = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), HomeEntry.class);
                 HashMap<String,String> tempMap = new HashMap<>();
                 //获取键值对对象
@@ -86,13 +91,21 @@ public class HomeFragment extends BaseFragment {
                     tempMap.put(keyValueMap.getKey(), keyValueMap.getValue().toString());
                 }
 
-                List<MapEntry> entries =      JSONAnalysis.getInstance().getAnalysisEntry(msg.getData().getString("result"), JSONAnalysis.ANALYSIS.ITEMS);
+                List<MapEntry> entries =      JSONAnalysis.getInstance().getAnalysisEntry(activity,msg.getData().getString("result"), JSONAnalysis.ANALYSIS.ITEMS);
                 Log.d("entryDatas", "handlerExecutionFunction: "+entries.toString());
                 for (MapEntry entry:entries) {
 
                     setData(entry, tempMap);
                 }
-
+                Log.d("json", "setData:  loadingTotalCount   "+totalCount);
+                if(totalCount==0){
+            ImageView nullDataImage = new ImageView(activity );
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,1200);
+            nullDataImage.setLayoutParams(layoutParams);
+            nullDataImage.setBackground(getResources().getDrawable(R.drawable.bg_null_data,null));
+            layoutHome.addView(nullDataImage);
+                 //   ivNullData.setVisibility(View.VISIBLE);
+                }
 
             }
         }), MethodEnum.GETINDEX, InteractiveEnum.GET);
@@ -107,6 +120,8 @@ public class HomeFragment extends BaseFragment {
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
+
+
         List<HashMap<String, String>> datas = entry.getTempList();
 
         if(datas.size()>0){
@@ -120,6 +135,8 @@ public class HomeFragment extends BaseFragment {
                 Map.Entry<String, String> entryNet = entryIterator.next();
              float current =   Float.parseFloat( entryNet.getValue().toString());
                 count+=current;
+
+                totalCount+=current;
                 entries.add(new PieEntry(  current, map.get(entryNet.getKey())));
             }
             if(count==0){
@@ -177,6 +194,8 @@ public class HomeFragment extends BaseFragment {
 
         chart1.invalidate();
 
-        layoutHome.addView(chart1);
+       //     ivNullData.setVisibility(View.GONE);
+            layoutHome.addView(chart1);
+
     }
 }

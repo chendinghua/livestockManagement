@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="145.5dp"
                 android:layout_height="32dp"
-                android:src="@drawable/user_model_bg_hsj_logo"
+                android:src="@drawable/logo"
                 android:background="@color/user_model_btn_save_bg"
                 />
 

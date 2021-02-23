@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.kymjs.app.base_res.utils.tools.AnnotateUtil;
 import com.kymjs.app.base_res.utils.tools.RCaster;
+import com.kymjs.app.base_res.utils.utils.LogUtils;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 
@@ -98,7 +99,7 @@ public class UserInformationFragment extends Fragment{
     public void onClickListener(View v) {
         RCaster rcaster = new RCaster(R.class,R2.class);
 
-        Log.d("fragmentOnClick:", "onClick: "+v.getId() +"    "+rcaster.cast(v.getId())+"           "+R2.id.btn_param_setting);
+        LogUtils.d(activity,"fragmentOnClick:", "onClick: "+v.getId() +"    "+rcaster.cast(v.getId())+"           "+R2.id.btn_param_setting);
 
         switch (rcaster.cast(v.getId())) {
             //设置pda的rfid功率

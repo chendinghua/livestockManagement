@@ -79,6 +79,8 @@ dependencies {
     compile project(':openCVLibrary330')
 
     compile project(':MPChartLib')
+    //车牌控件
+    compile project(':licenseplateview')
 
   //  compile project(':pickerview')
      }

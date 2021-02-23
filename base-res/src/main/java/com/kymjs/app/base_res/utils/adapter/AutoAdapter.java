@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kymjs.app.base_res.R;
+import com.kymjs.app.base_res.utils.utils.LogUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -63,7 +64,7 @@ public class AutoAdapter<T> extends BaseAdapter {
             this.param.add(s);
         }
         this.fixedLength=fixedLength;
-        Log.d("autoAdapter", "AutoAdapter: "+ Arrays.toString(param));
+        LogUtils.d(context,"autoAdapter", "AutoAdapter: "+ Arrays.toString(param));
 
     }
 

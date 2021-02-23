@@ -79,4 +79,6 @@ public class MethodEnum {
     public static final String GETINDEX="/Basics/GetIndex";
     //根据箱号查询库存信息
     public static final String GETBOXINFO="/Basics/GetBoxInfo";
+    //车辆车牌库存信息
+    public static final String GETCARMESSAGE="/Animal/GetCarMessage";
 }

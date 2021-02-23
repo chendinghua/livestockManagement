@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center_horizontal"
+    android:background="@color/colorKeyboardBg"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/select_province_11_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="京"
+            />
+
+        <TextView
+            android:id="@+id/select_province_12_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="津"
+            />
+
+        <TextView
+            android:id="@+id/select_province_13_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="沪"
+            />
+
+        <TextView
+            android:id="@+id/select_province_14_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="渝"
+            />
+
+        <TextView
+            android:id="@+id/select_province_15_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="蒙"
+            />
+
+        <TextView
+            android:id="@+id/select_province_16_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="新"/>
+
+        <TextView
+            android:id="@+id/select_province_17_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="藏"
+            />
+
+        <TextView
+            android:id="@+id/select_province_18_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="宁"
+            />
+
+        <TextView
+            android:id="@+id/select_province_19_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="桂"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/select_province_22_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="黑"
+            />
+
+        <TextView
+            android:id="@+id/select_province_23_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="吉"
+            />
+
+        <TextView
+            android:id="@+id/select_province_24_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="辽"
+            />
+
+        <TextView
+            android:id="@+id/select_province_25_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="晋"
+            />
+
+        <TextView
+            android:id="@+id/select_province_26_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="冀"
+            />
+
+        <TextView
+            android:id="@+id/select_province_27_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="青"
+            />
+
+        <TextView
+            android:id="@+id/select_province_28_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="鲁"
+            />
+
+        <TextView
+            android:id="@+id/select_province_29_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="豫"
+            />
+
+        <TextView
+            android:id="@+id/select_province_210_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="苏"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/select_province_31_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="皖"
+            />
+
+        <TextView
+            android:id="@+id/select_province_32_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="浙"
+            />
+
+        <TextView
+            android:id="@+id/select_province_33_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="闽"
+            />
+
+        <TextView
+            android:id="@+id/select_province_34_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="赣"
+            />
+
+        <TextView
+            android:id="@+id/select_province_35_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="湘"
+            />
+
+        <TextView
+            android:id="@+id/select_province_36_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="鄂"
+            />
+
+        <TextView
+            android:id="@+id/select_province_37_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="粤"
+            />
+
+        <TextView
+            android:id="@+id/select_province_38_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="琼"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="5dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/select_province_41_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="甘"
+            />
+
+        <TextView
+            android:id="@+id/select_province_42_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="陕"
+            />
+
+        <TextView
+            android:id="@+id/select_province_110_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="贵"
+            />
+
+        <TextView
+            android:id="@+id/select_province_21_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="云"
+            />
+
+        <TextView
+            android:id="@+id/select_province_43_tv"
+            style="@style/license_plate_province_textStyle"
+            android:text="川"
+            />
+
+        <TextView
+            android:id="@+id/select_province_delete_tv"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:drawableRight="@drawable/icon_keyboard_delete"
+            android:text=""
+            />
+    </LinearLayout>
+
+</LinearLayout>

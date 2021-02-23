@@ -6,6 +6,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.kymjs.app.base_res.utils.utils.LogUtils;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 
 import java.io.BufferedReader;
@@ -99,7 +100,7 @@ public class OkHttpUtils {
      * @return
      */
     public Response getData(Context context ,String url) {
-        Log.d("url", "getData: "+url);
+        LogUtils.d(context,"url", "getData: "+url);
         //1 构造Request
         Request.Builder builder = new Request.Builder();
         Request request = builder.get().url(url).tag(context)
@@ -248,8 +249,8 @@ public class OkHttpUtils {
 
     public String postJson(Context context, String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
-        Log.d("JSONUrl", "postJson: "+url);
-        Log.d("JSON", "postJson: "+json);
+        LogUtils.d(context,"JSONUrl", "postJson: "+url);
+        LogUtils.d(context,"JSON", "postJson: "+json);
         /*  .addHeader("UserID",new Integer(SPUtils.getSharedIntData(context,"UserID")).toString())
                 .addHeader("DeptID",new Integer(SPUtils.getSharedIntData(context,"DeptID")).toString())*/
         Request request = new Request.Builder()

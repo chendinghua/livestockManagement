@@ -24,4 +24,7 @@ include ':app',
         ':HomeManagement',/*首页管理*/
         ':wheelview',/*地区联动lib*/
         ':pickerview',/*地区联动lib*/
-        ':MPChartLib'
+        ':MPChartLib',
+        ':licenseplateview',/*车牌输入控件*/
+        ':integratedManagement',/*综合管理 检疫站*/
+        ':ExamineManagement'/*签收模块*/

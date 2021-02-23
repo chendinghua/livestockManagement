@@ -1,9 +1,11 @@
 package com.kymjs.app.base_res.utils.tools;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.utils.base.entry.currencyEntry.MapEntry;
+import com.kymjs.app.base_res.utils.utils.LogUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,7 +71,7 @@ public class JSONAnalysis {
     }
 
 
-    public List<MapEntry> getAnalysisEntry(String result,ANALYSIS analysis){
+    public List<MapEntry> getAnalysisEntry(Context context, String result, ANALYSIS analysis){
        List<MapEntry> mapList= new ArrayList<>();
 
 
@@ -78,7 +80,7 @@ public class JSONAnalysis {
         Iterator<Map.Entry<String,Object>> it = entrySet.iterator();
         while (it.hasNext()){
             Map.Entry<String,Object> map = it.next();
-            Log.d("resultKeyOrValue", "handlerExecutionFunction: key="+map.getKey()+"     value="+map.getValue());
+            LogUtils.d(context,"resultKeyOrValue", "handlerExecutionFunction: key="+map.getKey()+"     value="+map.getValue());
             if(map.getValue()!=null && map.getKey().equals("Data")){
                 Set<Map.Entry<String,Object>> dataSet =  JSON.parseObject(map.getValue().toString()).entrySet();
                 Iterator<Map.Entry<String,Object>> dataIterator = dataSet.iterator();
@@ -99,7 +101,7 @@ public class JSONAnalysis {
                     if(analysis.getIndex().equals(tempMap.get("key"))){
                         List<HashMap<String,String>> lists = new ArrayList<>();
                         MapEntry entry = new MapEntry();
-                        Log.d("validDataMapItem", "getAnalysisEntry: key: "+tempMap.get("key")+"   value"+tempMap.get("Value"));
+                        LogUtils.d(context,"validDataMapItem", "getAnalysisEntry: key: "+tempMap.get("key")+"   value"+tempMap.get("Value"));
                         entry.setTitle(tempMap.get("Name"));
                    //   List< HashMap<String,Object>> mapSet =   JSON.parseArray(tempMap.get("value"),  HashMap<String,Object>().getClass());
                         for (int i =0;i<JSON.parseArray(tempMap.get("Value")).size();i++){
@@ -109,7 +111,7 @@ public class JSONAnalysis {
                             while(validDataIterator.hasNext()) {
                                 Map.Entry<String, Object> validDataKeyValueMap = validDataIterator.next();
                                 validDataMap.put(validDataKeyValueMap.getKey(),validDataKeyValueMap.getValue().toString());
-                                Log.d("validDataMap", "getAnalysisEntry:  key:"+validDataKeyValueMap.getKey()+"   value"+validDataKeyValueMap.getValue().toString());
+                                LogUtils.d(context,"validDataMap", "getAnalysisEntry:  key:"+validDataKeyValueMap.getKey()+"   value"+validDataKeyValueMap.getValue().toString());
 
                             }
                             lists.add(validDataMap);

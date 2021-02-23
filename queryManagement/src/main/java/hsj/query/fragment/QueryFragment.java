@@ -130,7 +130,7 @@ public class QueryFragment extends BaseFragment implements ResponseHandlerInterf
                         tempMap.put(keyValueMap.getKey(), keyValueMap.getValue().toString());
                     }
 
-                    mapList.addAll(jsonAnalysis.getAnalysisEntry(msg.getData().getString("result"), JSONAnalysis.ANALYSIS.ITEMS));
+                    mapList.addAll(jsonAnalysis.getAnalysisEntry(activity,msg.getData().getString("result"), JSONAnalysis.ANALYSIS.ITEMS));
                     if (inflate == null)
                         inflate = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     for (int i = 0; i < mapList.size(); i++) {
@@ -159,7 +159,7 @@ public class QueryFragment extends BaseFragment implements ResponseHandlerInterf
                     });
                     initListData(0);
                     posIndex=0;
-                    initLayoutContent(   jsonAnalysis.getAnalysisEntry(msg.getData().getString("result"), JSONAnalysis.ANALYSIS.ENTRY).get(0).getTempList().get(0));
+                    initLayoutContent(   jsonAnalysis.getAnalysisEntry(activity,msg.getData().getString("result"), JSONAnalysis.ANALYSIS.ENTRY).get(0).getTempList().get(0));
                 }
             }), MethodEnum.GETRFIDINFORMATION, InteractiveEnum.GET);
         }else{

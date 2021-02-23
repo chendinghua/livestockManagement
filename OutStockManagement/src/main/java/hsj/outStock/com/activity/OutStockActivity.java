@@ -114,13 +114,9 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
         btnCommit = new Button(mContext);
         btnPre = new Button(mContext);
         btnCommit.setEnabled(false);
-        btnCommit.setTag(1);
-        btnPre.setTag(2);
-
         btnCommit.setOnClickListener(this);
         btnPre.setOnClickListener(this);
         List<BottomViewList<Button>> list = new ArrayList<>();
-
         list.add(new BottomViewList<>(btnPre, "返回"));
         list.add(new BottomViewList<>(btnCommit, "提交"));
         return list;
@@ -200,7 +196,7 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
     }
     @Override
     public void onClick(View v) {
-        //提交
+        //提交   gettag会getButtonViewList()方法中默认按照集合下标添加
         if (Integer.parseInt(v.getTag().toString())  == 1) {
             Bundle  bundle = getIntent().getExtras();
             HashMap<String,Object> outStock = new HashMap<>();

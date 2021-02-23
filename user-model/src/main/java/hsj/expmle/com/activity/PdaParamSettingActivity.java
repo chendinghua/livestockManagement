@@ -27,6 +27,7 @@ import com.kymjs.app.base_res.utils.http.InteractiveDataUtil;
 import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
+import com.kymjs.app.base_res.utils.utils.LogUtils;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.kymjs.app.base_res.utils.view.addAndSubView.Baseres_AddAndSubView;
@@ -246,7 +247,7 @@ public class PdaParamSettingActivity extends Activity implements View.OnClickLis
             printMatchineNameList.clear();
             if(dicInfoList!=null){
 
-                  Log.d("url", " 设置当前控件 "+dicInfoList.get(0).getName());
+                LogUtils.d(PdaParamSettingActivity.this,"url", " 设置当前控件 "+dicInfoList.get(0).getName());
 
               for (int i = 0;i<dicInfoList.size();i++){
                   if(dicInfoList.get(i).getValue().equals(savePrintMatchName)){
@@ -254,7 +255,7 @@ public class PdaParamSettingActivity extends Activity implements View.OnClickLis
                   }
 
                   printMatchineNameList.add(dicInfoList.get(i).getName());
-                  Log.d("url", " "+dicInfoList.get(i).getName());
+                  LogUtils.d(PdaParamSettingActivity.this,"url", " "+dicInfoList.get(i).getName());
               }
               if(tvPrinterMatchine.getText().toString().trim().equals("")){
                   tvPrinterMatchine.setText(dicInfoList.get(0).getName());

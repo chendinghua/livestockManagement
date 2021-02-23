@@ -13,7 +13,12 @@
         android:id="@+id/layout_home"
         android:padding="30dp"
         >
-
+        <ImageView
+            android:id="@+id/iv_null_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_null_data"
+            />
       <!--  <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/chart1"
             android:layout_width="match_parent"

@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
         Log.d("updateInfo", "onCreate: "+SPUtils.getSharedBooleanData(mContext,"isUpdate"));
         //判断当前版本是否更新
@@ -277,26 +277,6 @@ public class MainActivity extends AppCompatActivity
         //下标0  Name  下标1  ActionForm  下标2  ActionUrl
         String [] selectParam = item.getTitleCondensed().toString().split(":");
 
-      /*RightInfo rightInfo = rightInfos.get( Integer.parseInt(  item.getTitleCondensed().toString()));
-
-
-      String actionForm = rightInfo.getActionForm();
-        getToolbar().setTitle(rightInfo.getName());
-
-        SPUtils.setSharedStringData(mContext,"actionUrl",rightInfo.getActionUrl());
-        SPUtils.setSharedStringData(mContext,"ActionForm",rightInfo.getActionForm());
-        Log.d("MainActivity", "onNavigationItemSelected:  "+actionForm );
-        if(!"".equals(actionForm) ){
-
-
-
-            FragmentRouter.replaceFragment(this,R.id.content_main,actionForm);
-            currentFragment = actionForm;
-        }*/
-
-
-
-
         getToolbar().setTitle(selectParam[0]);
 
         SPUtils.setSharedStringData(mContext,"actionUrl",selectParam[2].trim());
@@ -351,19 +331,6 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
-
-   /* @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (BuildConfig.ISAPP) {
-            return handleExitTip(keyCode);
-        }
-        return super.onKeyDown(keyCode, event);
-    }*/
-
-    /////////////////////////// show exit tip ////////////////////////////////////
-
     private boolean isOnKeyBacking;
     private Handler mMainLoopHandler = new Handler(Looper.getMainLooper());
     private Runnable onBackTimeRunnable = new Runnable() {

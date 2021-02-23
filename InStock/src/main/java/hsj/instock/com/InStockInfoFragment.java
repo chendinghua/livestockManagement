@@ -5,8 +5,6 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.alibaba.fastjson.JSON;
-import com.kymjs.app.base_res.utils.adapter.AutoAdapter;
-import com.kymjs.app.base_res.utils.base.entry.TaskInfo.TaskData;
 import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
 import com.kymjs.app.base_res.utils.dialog.stockDialog.StockDialog;
 import com.kymjs.app.base_res.utils.fragment.BaseresTaskFragment;
@@ -43,7 +41,6 @@ public class InStockInfoFragment extends BaseresTaskFragment implements View.OnC
 
     PaginationListView.Adapter<MoveStockTaskInfo.MoveStockTaskInfoList>  moveAdapter;
 
-    List<MoveStockTaskInfo> moveTagList = new ArrayList<>();
     @Override
     protected int getLayoutResource() {
         return R.layout.baseres_task_fragment;

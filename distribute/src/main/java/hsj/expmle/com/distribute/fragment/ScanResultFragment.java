@@ -130,6 +130,8 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                 HashMap<String,Object> packMap = new HashMap<>();
                 packMap.put("ProductID", activity.farmersProductId);
                 packMap.put("OutDeptID",activity.farmersId);
+                //当前任务类型  2： 分发管理  8 ：新增签收
+                packMap.put("Type",SPUtils.getSharedIntData(activity,"actionUrl"));
 
                 List<DataInfo> dataInfos  = new ArrayList<>();
                 for (int i =0;i<packTagList.size();i++){
@@ -456,6 +458,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                                 packTagList.add(packageInfoItems);
                         updateCommitStatus();
                     }
+                    //查询箱号库存信息
                 }else if(MethodEnum.GETBOXINFO.equals(msg.getData().getString("method"))){
                     List<ScanResult> scanResults = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
                     if(scanResults!=null && scanResults.size()>0){

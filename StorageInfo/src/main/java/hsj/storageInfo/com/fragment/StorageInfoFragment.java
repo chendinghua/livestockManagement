@@ -109,7 +109,7 @@ public class StorageInfoFragment extends BaseFragment {
                 if (MethodEnum.GETSTORAGEINFOBYDEPTID.equals(msg.getData().getString("method"))) {
                     StorageInfo storageInfo = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), StorageInfo.class);
                     if (storageInfo != null) {
-                        Log.d("JSONResult", "handlerExecutionFunction: " + msg.getData().getString("result") + "     " + storageInfo.getResult());
+                        com.kymjs.app.base_res.utils.utils.LogUtils.d(activity,"JSONResult", "handlerExecutionFunction: " + msg.getData().getString("result") + "     " + storageInfo.getResult());
                         if (loadNumber) {
                             loadNumber = false;
                             adapter.setDataTotalCount(storageInfo.getRowsCount());

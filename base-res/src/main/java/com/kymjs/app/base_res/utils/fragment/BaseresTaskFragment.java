@@ -160,7 +160,13 @@ public abstract class BaseresTaskFragment extends BaseFragment implements Fragme
         if(isShowQueryCriteria()) {
             loadData(adapter.getCurrentPagePos(), adapter.getPerPageCount());
         }
-        btnTaskAdd.setText(setBtnTaskAdd());
+        //判断当前返回添加的数据为空  则隐藏按钮
+        if(setBtnTaskAdd()==null){
+            btnTaskAdd.setVisibility(View.GONE);
+        }else {
+            btnTaskAdd.setVisibility(View.VISIBLE);
+            btnTaskAdd.setText(setBtnTaskAdd());
+        }
         super.onResume();
     }
     //预加载显示数据
@@ -168,6 +174,7 @@ public abstract class BaseresTaskFragment extends BaseFragment implements Fragme
     protected boolean isLoad() {
         return true;
     }
+    //当前添加按钮  如果数据为空则不显示按钮
     protected abstract String  setBtnTaskAdd();
     //是否显示筛选布局
     protected abstract boolean isShowQueryCriteria();

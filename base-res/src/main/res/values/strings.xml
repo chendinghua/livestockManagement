@@ -24,4 +24,5 @@
     <string name="baseres_uhf_msg_set_power_fail">设置功率失败</string>
     <string name="baseres_uhf_msg_set_power_succ">设置功率成功</string>
 
+    <bool name="baseres_logEnable">true</bool>
 </resources>

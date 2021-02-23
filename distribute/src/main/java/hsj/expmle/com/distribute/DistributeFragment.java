@@ -41,7 +41,7 @@ public class DistributeFragment extends BaseresTaskFragment {
 
     @Override
     protected String setBtnTaskAdd() {
-        return "新增分发";
+        return null;
     }
 
     @Override
@@ -60,9 +60,15 @@ public class DistributeFragment extends BaseresTaskFragment {
         layoutTaskBottom.setVisibility(View.VISIBLE);
         btnOperation1.setText("一次分发");
         btnOperation2.setText("二次分发");
-       if( SPUtils.getSharedIntData(activity,"DeptType")<=2){
+        //判断当前账号区域等级大于市级 则隐藏二次分发
+       if( SPUtils.getSharedIntData(activity,"Type")<=2){
            btnOperation2.setVisibility(View.GONE);
        }
+        //判断当前是新增签收功能则修改一次分发名称为 ‘新增签收’
+       if(Integer.parseInt( SPUtils.getSharedStringData(activity,"actionUrl"))==8){
+           btnOperation1.setText("新增签收");
+       }
+
      /*   btnTaskAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

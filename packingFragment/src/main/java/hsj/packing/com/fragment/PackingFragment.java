@@ -5,14 +5,11 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
-
 import com.alibaba.fastjson.JSON;
 import com.kymjs.app.base_res.utils.adapter.AutoAdapter;
 import com.kymjs.app.base_res.utils.base.entry.packing.PackingTask;
@@ -25,18 +22,14 @@ import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.lwy.paginationlib.PaginationListView;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import devicelib.dao.Device;
 import devicelib.dao.ResponseHandlerInterface;
 import devicelib.factory.DeviceFactory;
 import hsj.packing.com.activity.PickingActivity;
 import hsj.packing.com.entry.PackInfo;
 import hsj.packing.com.entry.PickingItemInfo;
-
 /**  箱包管理
  * Created by 16486 on 2020/12/31.
  */
@@ -52,6 +45,7 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
         layoutQueryCriteria.setVisibility(View.VISIBLE);
         packAdapter = new PaginationListView.Adapter(20, activity, -1, "Id", "Code", "CreateDate", "TypeName", "UserName");
         lvTaskInfo.setAdapter(packAdapter);
+        //分页控件选项事件
         lvTaskInfo.setListener(new PaginationListView.Listener() {
             @Override
             public void loadMore(int currentPagePosition, int nextPagePosition, int perPageCount, int dataTotalCount) {
@@ -61,7 +55,7 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
             public void onPerPageCountChanged(int perPageCount) {
             }
         });
-
+        //点击查询箱包查询信息
         packAdapter.setOnItemClickListener(new PaginationListView.Adapter.OnItemClickListener<PackingTask.PackingTaskItems>(){
             @Override
             public void onItemClick(View view, PackingTask.PackingTaskItems item, int position) {
@@ -70,22 +64,15 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
                 map.put("Type",SPUtils.getSharedStringData(activity,"actionUrl"));
                 map.put("Code",item.getCode());
                 map.put("QelType",1);
-
                 InteractiveDataUtil.interactiveMessage(activity,map,handlerUtils,MethodEnum.GETBOXPACKAGEINFO,InteractiveEnum.GET);
             }
-
             @Override
             public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
                 return false;
             }
         });
-
-
-
-
-
     }
-
+    //重新初始化物理按键触发扫描二维码模块
     @Override
     public void onResume() {
         device =new DeviceFactory(activity, new ResponseHandlerInterface(){
@@ -116,17 +103,14 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
             }
         });
         loadData(packAdapter.getCurrentPagePos(), packAdapter.getPerPageCount());
-
         super.onResume();
     }
-
     @Override
     public void onDestroy() {
         if(device!=null)
             device.destroy();
         super.onDestroy();
     }
-
     @Override
     public String[] getArrayTitle() {
         return new String[]{"ID","编号","创建时间","箱包类型","创建人"};
@@ -148,14 +132,14 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
         return new String[0];
     }
     /**
-     * Called when a view has been clicked.
-     *
      * @param v The view that was clicked.
      */
     @Override
     public void onClick(View v) {
+        //新增箱包信息
         if(v.getId() == btnTaskAdd.getId()) {
             Utils.gotoActivity(activity, PickingActivity.class,null,device);
+            //查询箱包信息列表
         }else if(v.getId() == btnQueryCriteria.getId()){
             isLoadData=true;
             loadData(packAdapter.getCurrentPagePos(), packAdapter.getPerPageCount());
@@ -164,6 +148,7 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
     HandlerUtils handlerUtils = new HandlerUtils(activity, new HandlerUtilsCallback() {
         @Override
         public void handlerExecutionFunction(Message msg) {
+            //初始化箱包信息列表
             if(MethodEnum.GETQELBOXPACKAGE.equals(msg.getData().getString("method"))){
                 PackingTask packingTask =   JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"),PackingTask.class);
                 if(packingTask!=null){
@@ -174,81 +159,68 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
                     packAdapter.setDatas(Integer.parseInt(msg.getData().getString("bindDate")), packingTask.getResult());
                     lvTaskInfo.setState(PaginationListView.SUCCESS);
                 }
+                //查看箱包信息详情
             }else if(MethodEnum.GETBOXPACKAGEINFO.equals(msg.getData().getString("method"))){
-
-
-
                 final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
                 });
+                //箱号信息列表详情
                 if(Integer.parseInt( SPUtils.getSharedStringData(activity,"actionUrl"))==1) {
                     LinearLayout linearLayout = new LinearLayout(activity);
-
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                     linearLayout.setLayoutParams(lp);
                     initLinerLayoutData(linearLayout, new String []{"库存id","RFID","序列号"});
-
                     builder.setCustomTitle(linearLayout);
-
                     List<PickingItemInfo> pickingItemInfos = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), PickingItemInfo.class);
-
                     AutoAdapter<PickingItemInfo> adapter = new AutoAdapter<>(activity, pickingItemInfos,
-
                             "StorageID", "RfidNo", "SerialNo");
                     builder.setAdapter(adapter,null);
+                    //包号信息列表详情
                 }else{
                     LinearLayout linearLayout = new LinearLayout(activity);
-
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                     linearLayout.setLayoutParams(lp);
                     initLinerLayoutData(linearLayout,   new String []{"包号id","包号编号","标签数量","包号状态"});
-
                     builder.setCustomTitle(linearLayout);
-
-
                     List<PackInfo> packInfos = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), PackInfo.class);
                     AutoAdapter<PackInfo> adapter = new AutoAdapter<>(activity, packInfos,
-
                             "ID", "BoxCode", "Num","StatusName");
                     builder.setAdapter(adapter,null);
                 }
-
                 builder.setCancelable(false);//不允许被某些方式取消,比如按对话框之外的区域或者是返回键
                 builder.show();
-
             }
         }
     });
-
+    /**
+     * 初始化箱包信息信息标题
+     * @param layout 标题控件
+     * @param titles 标题内容
+     */
     public void initLinerLayoutData(LinearLayout layout,String [] titles){
-
         for(String title:titles){
-
             TextView tvTitle = new TextView(activity);
             tvTitle.setText(title);
-
-
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
-
             tvTitle.setLayoutParams(lp);
-
             tvTitle.setGravity(Gravity.CENTER);
             tvTitle.setMaxLines(2);
             tvTitle.setEllipsize(TextUtils.TruncateAt.END);
             layout.addView(tvTitle);
-
         }
-
     }
 
-
+    /**
+     * 初始化列表信息
+     * @param pageIndex 当期页
+     * @param pageSize 当前显示数量
+     */
     private void loadData(int pageIndex, int pageSize){
         HashMap<String,Object> packingMap = new HashMap<>();
         packingMap.put("Code",etQueryCriteriaContent.getText());
@@ -256,8 +228,5 @@ public class PackingFragment extends BaseresTaskFragment  implements View.OnClic
         packingMap.put("pageIndex", pageIndex);
         packingMap.put("pageSize", pageSize);
         InteractiveDataUtil.interactiveMessage(activity,packingMap,handlerUtils,MethodEnum.GETQELBOXPACKAGE, InteractiveEnum.GET,"" + pageIndex);
-
-
-
     }
 }
