@@ -5,7 +5,7 @@
         android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
       <!--  <activity android:name=".activity.MainActivity"></activity>-->
-
+<activity android:name=".activity.ExamineActivity"></activity>
     </application>
 
 </manifest>

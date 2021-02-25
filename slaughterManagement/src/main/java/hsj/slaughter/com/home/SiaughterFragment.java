@@ -63,7 +63,7 @@ public class SiaughterFragment extends BaseresTaskFragment {
 
     @Override
     protected String setBtnTaskAdd() {
-        return "";
+        return null;
     }
 
     @Override

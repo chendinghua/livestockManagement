@@ -10,7 +10,7 @@ include ':app',
         ':prevention',/*,疫苗模块*/
         ':StorageInfo',/* 库存管理*/
         ':FieldManagement', /* 库位管理*/
-        ':InStock',/*入库管理*/
+        ':InStock',/*入库管理 和移栏管理*/
         ':paginationlib',/*分页布局*/
         ':MedicalRecords',/*就诊管理*/
         ':destroyManagement',/*销毁管理*/

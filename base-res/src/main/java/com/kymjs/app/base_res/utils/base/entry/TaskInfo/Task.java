@@ -26,7 +26,25 @@ public class Task{
     private String OpTime;
     private Integer Num;
 
+    private String OpDeptName;
 
+    private String CretaeDeptName;
+
+    public String getCretaeDeptName() {
+        return CretaeDeptName;
+    }
+
+    public void setCretaeDeptName(String cretaeDeptName) {
+        CretaeDeptName = cretaeDeptName;
+    }
+
+    public String getOpDeptName() {
+        return OpDeptName;
+    }
+
+    public void setOpDeptName(String opDeptName) {
+        OpDeptName = opDeptName;
+    }
 
     public Integer getID() {
         return ID;

@@ -11,6 +11,7 @@ import com.kymjs.app.base_res.utils.utils.Utils;
 import com.lwy.paginationlib.PaginationListView;
 
 import examine.expmle.com.R;
+import examine.expmle.com.activity.ExamineActivity;
 
 /** 签收页面
  * Created by 16486 on 2021/2/23.
@@ -23,7 +24,9 @@ public class ExamineFragment extends BaseresTaskFragment {
             public void onItemClick(View view, TaskData.TaskDataList taskDataList, int position) {
                 /*当前任务状态 为未处理和处理中则跳转到签收处理页面*/
                 if(taskDataList.getStatus()==2 || taskDataList.getStatus()==6) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("taskId",taskDataList.getID());
+                    Utils.gotoActivity(activity, ExamineActivity.class,bundle,null);
                 /*其他跳转到任务详情页面*/
                 }else{
                     Bundle bundle = new Bundle();
@@ -42,7 +45,7 @@ public class ExamineFragment extends BaseresTaskFragment {
 
     @Override
     public String[] getArrayTitle() {
-        return       new String[]{"ID","创建时间","数量","操作人"};
+        return       new String[]{"ID","创建时间","箱包数量","创建人","任务状态"};
     }
 
     @Override
@@ -63,6 +66,6 @@ public class ExamineFragment extends BaseresTaskFragment {
     @Override
     protected String[] getTaskDataList() {
         return
-                new String[]{"ID", "CreatorTime","Num","UserName"};
+                new String[]{"ID", "CreatorTime","Num","UserName","StatusName"};
     }
 }

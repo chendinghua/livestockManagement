@@ -184,7 +184,7 @@ public class FarmersFragment extends BaseFragment {
         HandlerUtils handlerUtils = new HandlerUtils(activity, new HandlerUtilsCallback() {
             @Override
             public void handlerExecutionFunction(Message msg) {
-                if (MethodEnum.GETREGINFO.equals(msg.getData().getString("method"))) {
+                if (MethodEnum.GETREGINFOS.equals(msg.getData().getString("method"))) {
                     List<LocationEntry> entries = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), LocationEntry.class);
                     if (entries != null) {
                         final List<LocationEntry> provinceLocationItems = new ArrayList<>();
@@ -312,8 +312,11 @@ public class FarmersFragment extends BaseFragment {
 
 
         HashMap<String, Object> locationMap = new HashMap<>();
-        locationMap.put("Type", -1);
+       /* locationMap.put("Type", -1);
         InteractiveDataUtil.interactiveMessage(activity, locationMap, handlerUtils, MethodEnum.GETREGINFO, InteractiveEnum.GET);
+*/
+       locationMap.put("DeptType",SPUtils.getSharedIntData(activity,"DeptType"));
+        InteractiveDataUtil.interactiveMessage(activity, locationMap, handlerUtils, MethodEnum.GETREGINFOS, InteractiveEnum.GET);
 
         HashMap<String,Object> packageMap = new HashMap<>();
         packageMap.put("Type",-1);
@@ -356,7 +359,8 @@ public class FarmersFragment extends BaseFragment {
         map.put("AdressCounty", adressCounty);
         map.put("TempType",tempType);
         map.put("DeptName",deptName);
-        OptionPickerTools.optionsPickerChange(activity, spFarmersName, map, MethodEnum.FARMERSALLLISTBYID, Farmers.class, "Name", "ID", new SpinnerPorts<Farmers>() {
+        //FARMERSALLLISTBYID
+        OptionPickerTools.optionsPickerChange(activity, spFarmersName, map, MethodEnum.DEPTLISTBYID, Farmers.class, "Name", "ID", new SpinnerPorts<Farmers>() {
             //显示养殖户基本信息
             @Override
             public void selectChangeData(Farmers data) {

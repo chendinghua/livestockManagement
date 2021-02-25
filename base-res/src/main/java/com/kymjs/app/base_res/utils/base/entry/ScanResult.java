@@ -49,6 +49,40 @@ public class ScanResult {
 
     private String packageStatus;
 
+    private String Code;
+
+    @Override
+    public String toString() {
+        return "ScanResult{" +
+                "StorageID=" + StorageID +
+                ", RfidNo='" + RfidNo + '\'' +
+                ", SerialNo='" + SerialNo + '\'' +
+                ", Status=" + Status +
+                ", BirthTime='" + BirthTime + '\'' +
+                ", IsEnabled=" + IsEnabled +
+                ", ProductID=" + ProductID +
+                ", DeptID=" + DeptID +
+                ", StorageStatusName='" + StorageStatusName + '\'' +
+                ", IsEnabledName='" + IsEnabledName + '\'' +
+                ", ProductName='" + ProductName + '\'' +
+                ", DeptName='" + DeptName + '\'' +
+                ", IsFocus='" + IsFocus + '\'' +
+                ", StockID=" + StockID +
+                ", StockSerialNo='" + StockSerialNo + '\'' +
+                ", Package=" + Package +
+                ", PackageID=" + PackageID +
+                ", packageStatus='" + packageStatus + '\'' +
+                ", Code='" + Code + '\'' +
+                '}';
+    }
+
+    public String getCode() {
+        return Code;
+    }
+
+    public void setCode(String code) {
+        Code = code;
+    }
 
     public Integer getPackageID() {
         return PackageID;

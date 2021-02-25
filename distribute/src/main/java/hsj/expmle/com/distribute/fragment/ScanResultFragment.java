@@ -15,6 +15,7 @@ import com.kymjs.app.base_res.utils.Rule.LabelRule;
 import com.kymjs.app.base_res.utils.adapter.AutoAdapter;
 import com.kymjs.app.base_res.utils.base.distribute.entry.DataInfo;
 import com.kymjs.app.base_res.utils.base.distribute.entry.PackageInfo;
+import com.kymjs.app.base_res.utils.base.distribute.entry.PackageInfoItems;
 import com.kymjs.app.base_res.utils.base.entry.ScanResult;
 import com.kymjs.app.base_res.utils.base.entry.ViewEntry.BottomViewList;
 import com.kymjs.app.base_res.utils.base.entry.stock.StockInfo;
@@ -29,6 +30,7 @@ import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.RCaster;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
 import com.kymjs.app.base_res.utils.utils.ForcehUtils;
+import com.kymjs.app.base_res.utils.utils.LogUtils;
 import com.kymjs.app.base_res.utils.utils.SPUtils;
 import com.kymjs.app.base_res.utils.utils.Utils;
 import com.kymjs.app.base_res.utils.view.powerView.Baseres_PowerSettingView;
@@ -55,9 +57,9 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     List<ScanResult> tagList = new ArrayList<>();
     List<String> tempList = new ArrayList<>();
 
-    AutoAdapter<PackageInfo.PackageInfoItems> packAdapter;
+    AutoAdapter<PackageInfoItems> packAdapter;
 
-    List<PackageInfo.PackageInfoItems> packTagList = new ArrayList<>();
+    List<PackageInfoItems> packTagList = new ArrayList<>();
 
     List<String> tempSerialNoList = new ArrayList<>();
 
@@ -82,8 +84,10 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     RadioGroup rgScanPackage;
     @BindView(R2.id.rb_case_Code)
     RadioButton rbCaseCode;
+    @BindView(R2.id.layout_scan_result_operation)
+    LinearLayout layoutScanResultOperation;
 
-    int actionUrl;
+    int operationType;
 
     public SCANTYPE scantype;
 
@@ -126,13 +130,12 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
             }
             //提交数据
         } else if (Integer.parseInt(view.getTag().toString()) == 1) {
-            if(actionUrl==1){
+            if(operationType==1){
                 HashMap<String,Object> packMap = new HashMap<>();
                 packMap.put("ProductID", activity.farmersProductId);
                 packMap.put("OutDeptID",activity.farmersId);
                 //当前任务类型  2： 分发管理  8 ：新增签收
-                packMap.put("Type",SPUtils.getSharedIntData(activity,"actionUrl"));
-
+                packMap.put("Type",SPUtils.getSharedStringData(activity,"actionUrl"));
                 List<DataInfo> dataInfos  = new ArrayList<>();
                 for (int i =0;i<packTagList.size();i++){
                     dataInfos.add(new DataInfo(packTagList.get(i).getPID(),packTagList.get(i).getId()));
@@ -144,6 +147,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                 storageMap.put("FarmersID",activity.farmersId);
                 storageMap.put("Type",activity.farmersProductId);
                 storageMap.put("Remark","");
+                storageMap.put("Num",tagList.size());
                 List<DataInfo> dataInfos  = new ArrayList<>();
                 for (int i =0;i<tagList.size();i++){
                     dataInfos.add(new DataInfo(tagList.get(i).getPackage(),tagList.get(i).getStorageID()));
@@ -229,12 +233,12 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                     }
                     break;
                 case SCANCASECODE:            //二次分发箱号扫描
-                    if(code.startsWith(LabelRule.PackageRule)) {
+                    if(code.startsWith(LabelRule.CaseRule)) {
                         tempSerialNoList.add(code);
                         HashMap<String, Object> caseMap = new HashMap<>();
                         caseMap.put("Code", code);
                         caseMap.put("QelType", 2);
-                        InteractiveDataUtil.interactiveMessage(activity, caseMap, handlerUtils, MethodEnum.GETBOXINFO, InteractiveEnum.GET);
+                        InteractiveDataUtil.interactiveMessage(activity, caseMap, handlerUtils, MethodEnum.GETBOXINFO, InteractiveEnum.GET,code);
                     }else{
                         UIHelper.ToastMessage(activity,"当前条码无效");
                     }
@@ -270,7 +274,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     private void updateCommitStatus() {
         currentCount = 0;
         errorCount = 0;
-        if(actionUrl==1) {
+        if(operationType==1) {
             for (int i = 0; i < packTagList.size(); i++) {
                 if ("true".equals(packTagList.get(i).getIsFocus())) {
                     currentCount++;
@@ -296,7 +300,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
         } else {
             btnCommit.setEnabled(false);
         }
-        if(actionUrl==1) {
+        if(operationType==1) {
             packAdapter.notifyDataSetChanged();
         }else{
             adapter.notifyDataSetChanged();
@@ -312,7 +316,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     @Override
     public void removeItem(SlideCutListView.RemoveDirection direction, int position) {
         int index = -1;
-        if(actionUrl==1){
+        if(operationType==1){
             //移除当前包号临时数据
             if ((index = isExtenData(tempSerialNoList, packTagList.get(position).getCode())) != -1) {
                 tempSerialNoList.remove(index);
@@ -325,27 +329,31 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
 
             packTagList.remove(position);
         }else {
+                LogUtils.d(activity,"removeItem", "removeItem: "+tagList.get(position).toString());
 
             if ((index = isExtenData(tempList, tagList.get(position).getRfidNo())) != -1) {
                 tempList.remove(index);
             }
+            //移除扫描耳标序列号信息的临时数据
             if ((index = isExtenData(tempSerialNoList, tagList.get(position).getSerialNo())) != -1) {
+                tempSerialNoList.remove(index);
+            }
+            //语出扫描包号的临时数据
+            if ((index = isExtenData(tempSerialNoList, tagList.get(position).getCode())) != -1) {
                 tempSerialNoList.remove(index);
             }
 
             tagList.remove(position);
         }
-
         updateCommitStatus();
     }
-
     @Override
     public void initFragmentActivityView() {
+        layoutScanResultOperation.setVisibility(View.GONE);
         deptId =  SPUtils.getSharedIntData(activity,"DeptID");
-        actionUrl =  SPUtils.getSharedIntData(activity,"OperationType");
-        layoutScanResultTitle.setVisibility(View.GONE);
+
         //判断当前为二次分发
-        if(actionUrl==2){
+        if(operationType==2){
             rbScanDistributeRfid.setChecked(true);
             scantype= SCANTYPE.SCANDISTRIBUTERFID;
             twoTimeDistribute.setVisibility(View.VISIBLE);
@@ -405,18 +413,18 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                     //箱包详情  主要查询第二次分发的包号数据里面的库存集合信息    和查询第一次箱号里面的包号集合信息
                 }else if(MethodEnum.GETBOXPACKAGEINFO.equals(msg.getData().getString("method"))){
                     //当前是一次分发返回查询的箱号里面的包号集合信息
-                    if(actionUrl==1){
-                        List<PackageInfo.PackageInfoItems> packageInfos = JSON.parseArray( JSON.parseObject(msg.getData().getString("result")).getString("Data"),PackageInfo.PackageInfoItems.class);
+                    if(operationType==1){
+                        List<PackageInfoItems> packageInfos = JSON.parseArray( JSON.parseObject(msg.getData().getString("result")).getString("Data"),PackageInfoItems.class);
                         if(packageInfos!=null && packageInfos.size()>0) {
                             for (int i = 0; i < packageInfos.size(); i++) {
-
+                                //判断当前已添加到临时数组
                                 if (isExtenData(tempSerialNoList, packageInfos.get(i).getCode()) == -1) {
                                     tempSerialNoList.add(packageInfos.get(i).getCode());
                                     //判断当前部门库存数量和  部门id是否为当前部门
-                                    if(packageInfos.get(i).getDeptNum()>0 && packageInfos.get(i).getOpDeptID()==deptId){
+                                    if(packageInfos.get(i).getDeptNum()>0 && packageInfos.get(i).getOpDeptID()==deptId && packageInfos.get(i).getStatus()!=3){
                                         packageInfos.get(i).setIsFocus("true");
                                     }else{
-                                        packageInfos.get(i).setIsFocus("true");
+                                        packageInfos.get(i).setIsFocus("false");
                                     }
                                     packTagList.add(packageInfos.get(i));
                                 }
@@ -424,7 +432,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                             updateCommitStatus();
                         }
                      //当前为二次分发返回查询的库存集合信息
-                    }else if(actionUrl==2){
+                    }else if(operationType==2){
                        List<ScanResult> scanResults = JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
                         if(scanResults!=null && scanResults.size()>0){
                             for (int i =0;i<scanResults.size();i++) {
@@ -447,12 +455,12 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                 }else if(MethodEnum.GETQELBOXPACKAGE.equals(msg.getData().getString("method"))){
                    PackageInfo packageInfo = JSON.parseObject( JSON.parseObject(msg.getData().getString("result")).getString("Data"),PackageInfo.class);
                     if(packageInfo!=null && packageInfo.getResult().size()>0) {
-                        PackageInfo.PackageInfoItems  packageInfoItems =  packageInfo.getResult().get(0);
+                        PackageInfoItems  packageInfoItems =  packageInfo.getResult().get(0);
                         //判断当前部门库存数量和  部门id是否为当前部门
-                                if(packageInfoItems.getDeptNum()>0  && packageInfoItems.getOpDeptID()==deptId){
+                                if(packageInfoItems.getDeptNum()>0  && packageInfoItems.getOpDeptID()==deptId && packageInfoItems.getStatus()!=3){
                                     packageInfoItems.setIsFocus("true");
                                 }else{
-                                    packageInfoItems.setIsFocus("true");
+                                    packageInfoItems.setIsFocus("false");
                                 }
                                 packageInfoItems.setBoxCode(msg.getData().getString("bindDate"));
                                 packTagList.add(packageInfoItems);
@@ -471,6 +479,7 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                                 } else {
                                     scanResults.get(i).setIsFocus("false");
                                 }
+                                scanResults.get(i).setCode(msg.getData().getString("bindDate"));
                                 tempList.add(scanResults.get(i).getRfidNo());
                                 tagList.add(scanResults.get(i));
                             }
@@ -510,12 +519,12 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
                 }
             }
         });
-        adapter = new AutoAdapter<ScanResult>(activity, tagList, "RfidNo", "SerialNo", "IsEnabledName", "DeptName");
+        adapter = new AutoAdapter<>(activity, tagList, "RfidNo", "SerialNo", "IsEnabledName", "DeptName");
 
 
-        packAdapter  = new AutoAdapter<PackageInfo.PackageInfoItems>(activity,packTagList,"ID","Code","DeptNum","CreateDate");
+        packAdapter  = new AutoAdapter<>(activity,packTagList,"ID","Code","DeptNum","CreateDate","StatusName");
 
-        if(actionUrl==1){
+        if(operationType==1){
             lvScanResult.setAdapter(packAdapter);
         }else {
             lvScanResult.setAdapter(adapter);
@@ -571,7 +580,8 @@ public class ScanResultFragment extends BaseresScanResultFragment<DistributeActi
     //初始化标题数据
     @Override
     public String[] getArrayTitle() {
-        return new String[]{"RFID", "序列号", "状态", "部门信息"};
+        operationType =  SPUtils.getSharedIntData(activity,"OperationType");
+        return  (operationType==1)?new String[]{"编号", "包号", "库存数量", "创建时间","箱包状态"}: new String[]{"RFID", "序列号", "状态", "部门信息"};
     }
 
     //初始化底部数据

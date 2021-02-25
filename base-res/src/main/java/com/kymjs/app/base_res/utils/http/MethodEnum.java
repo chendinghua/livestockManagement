@@ -15,6 +15,8 @@ public class MethodEnum {
     public static final String GETDICBYGROUPNAME="/common/getdiclistbygroupname";
     //获取养殖场信息
     public static final String FARMERSALLLISTBYID="/Basics/DeptAllListById";
+    //查询部门信息
+    public static final String DEPTLISTBYID="/Basics/DeptListById";
     //获取畜种信息
     public static final String PRODCTINFO="/Product/ProductInfo";
     //校验库位RFID数据是否有效
@@ -71,6 +73,9 @@ public class MethodEnum {
     public static final String GETQELBOXPACKAGE="/Basics/GetQelBoxPackage";
     //获取地区信息
     public static final String GETREGINFO="/Basics/GetReginfo";
+    //获取地区信息
+    public static final String GETREGINFOS="/Basics/GetReginfos";
+
     //获取箱包详情记录
     public static final String GETBOXPACKAGEINFO="/Basics/GetBoxPackageInfo";
     //一次分发提交接口
@@ -81,4 +86,8 @@ public class MethodEnum {
     public static final String GETBOXINFO="/Basics/GetBoxInfo";
     //车辆车牌库存信息
     public static final String GETCARMESSAGE="/Animal/GetCarMessage";
+    //查询耳标签收详情
+    public static final String GETEXAMINEINFO="/Basics/GetExamineInfo";
+    //提交耳标签收
+    public static final String POSTEXAMINE="/Animal/PostExamine";
 }

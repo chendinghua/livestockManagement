@@ -55,7 +55,7 @@ public abstract  class BaseresScanResultFragment<T1 extends Activity> extends Ba
         tvScanResultCurrentCount = activity.findViewById(R.id.tv_scan_result_current_count);
         tvScanResultErrorCount = activity.findViewById(R.id.tv_scan_result_error_count);
         powerSettingView = activity.findViewById(R.id.psv_scan_result);
-        layoutScanResultTitle = activity.findViewById(R.id.layout_scan_result_operation);
+        layoutScanResultTitle = activity.findViewById(R.id.layout_scan_result_title);
 
 
         //获取标题数据集合

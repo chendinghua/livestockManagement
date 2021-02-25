@@ -135,7 +135,9 @@ public class HomeFragment extends BaseFragment {
                 Map.Entry<String, String> entryNet = entryIterator.next();
              float current =   Float.parseFloat( entryNet.getValue().toString());
                 count+=current;
-
+                if(current==0){
+                    continue;
+                }
                 totalCount+=current;
                 entries.add(new PieEntry(  current, map.get(entryNet.getKey())));
             }

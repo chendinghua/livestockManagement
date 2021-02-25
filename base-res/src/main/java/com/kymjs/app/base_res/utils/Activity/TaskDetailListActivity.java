@@ -92,13 +92,19 @@ public class TaskDetailListActivity extends BaseActivity {
                 if (MethodEnum.GETTASKINFO.equals( msg.getData().getString("method"))){
                     boolean isShowInventory = false;
                     String [] param=null;
+                    //3、耳标入栏 4、耳标出栏 5屠宰场入库
                     if(taskType==3 || taskType==4 || taskType==5) {
                         isShowInventory = true;
                         param = new String[]{"TaskDetailInfoID", "RfidNo", "SerialNo", "ProductName", "DeptName"};
+                    //1、库存导入 2、畜种耳标分发 6、栏位标签分发
                     }else if(taskType==1 || taskType==2 || taskType == 6) {
 
                         param = new String[]{"StorageID","RfidNo","SerialNo","ProjectName","opDeptID"};
                         isShowInventory=false;
+                    }else if(taskType==8){
+                        param = new String[]{"ID","TaskTypeName","CretaeDeptName","OpDeptName","CreatorTime"};
+
+
                     }
                     final Task taskInfo = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"),
                             isShowInventory?TaskInventoryInfo.class : TaskInfo.class );
