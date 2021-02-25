@@ -27,7 +27,11 @@ import com.kymjs.app.base_res.utils.view.expandlib.ExpandLayout;
 import com.kymjs.app.base_res.utils.view.expandlib.LogUtils;
 import com.lwy.paginationlib.PaginationListView;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import hsj.storageInfo.com.R;
@@ -75,6 +79,8 @@ public class StorageInfoFragment extends BaseFragment {
     protected int getLayoutResource() {
         return R.layout.storageinfo_fragment;
     }
+
+
     @Override
     protected void initView() {
 
@@ -133,8 +139,8 @@ public class StorageInfoFragment extends BaseFragment {
                 }
             }
         });
-        SelectDateTime.initCurrentTime( tvStorageInfoInTime);
-        SelectDateTime.initCurrentTime(tvStorageInfoOutTime);
+        tvStorageInfoOutTime.setText(  SelectDateTime.getTomoData());
+        SelectDateTime.initCurrentTime(tvStorageInfoInTime);
     }
     @Override
     protected boolean isLoad() {
@@ -235,4 +241,5 @@ public class StorageInfoFragment extends BaseFragment {
         storageInfoSelectMap.put("pageSize",pageSize);
         InteractiveDataUtil.interactiveMessage(activity,storageInfoSelectMap,handlerUtils,MethodEnum.GETSTORAGEINFOBYDEPTID, InteractiveEnum.GET,""+pageIndex);
     }
+
 }

@@ -90,4 +90,6 @@ public class MethodEnum {
     public static final String GETEXAMINEINFO="/Basics/GetExamineInfo";
     //提交耳标签收
     public static final String POSTEXAMINE="/Animal/PostExamine";
+    //获取销毁列表信息
+    public static final String GETDESTROYLIST ="/Basics/GetDestroyLst";
 }

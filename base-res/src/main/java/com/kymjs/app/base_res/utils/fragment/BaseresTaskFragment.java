@@ -32,6 +32,7 @@ import com.lwy.paginationlib.PaginationListView;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import wang.relish.widget.vehicleedittext.VehicleKeyboardHelper;
 
 /**
  * Created by 16486 on 2020/11/23.
@@ -65,6 +66,8 @@ public abstract class BaseresTaskFragment extends BaseFragment implements Fragme
         btnTaskAdd =  rootView.findViewById(R.id.btn_task_add);
         layoutQueryCriteria = rootView.findViewById(R.id.layout_query_criteria);
         etQueryCriteriaContent = rootView.findViewById(R.id.et_query_criteria_content);
+
+
         spQueryCriteriaTaskStatus = rootView.findViewById(R.id.sp_query_criteria_task_status);
         btnQueryCriteria = rootView.findViewById(R.id.btn_query_criteria);
         layoutTaskAutoTitle.removeAllViews();

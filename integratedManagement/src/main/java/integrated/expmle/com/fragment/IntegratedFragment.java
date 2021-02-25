@@ -124,10 +124,10 @@ public class IntegratedFragment extends Fragment implements LicensePlateView.Inp
                     temp.setRfidNo(rfid);
                     temp.setIsFocus("error");
                     tagList.add(0, temp);
-                    updateTitle(true);
+
                 }
 
-
+                updateTitle(true);
             }
 
             @Override

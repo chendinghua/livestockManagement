@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.neenbedankt.android-apt'
+def configInfo = rootProject.ext.android
+android {
+    compileSdkVersion configInfo.compileSdkVersion
+    buildToolsVersion configInfo.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion configInfo.minSdkVersion
+        targetSdkVersion 29
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    /*compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }*/
+}
+
+dependencies {
+ /*   compile 'com.jakewharton:butterknife:8.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.0'
+    //butterknife 空引用
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile deps.appcompat*/
+    compile deps.appcompat
+
+
+    compile 'com.jakewharton:butterknife:8.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.0'
+    //butterknife 空引用
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+   /* compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile('com.android.support:appcompat-v7:24+') { exclude group: 'com.android.support' }
+    compile 'com.jakewharton:butterknife:8.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.0'
+    //butterknife 空引用
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    // compile 'com.android.support:appcompat-v7:24+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile files('libs/annotation-1.2.0-beta01.jar')
+
+    compile files('libs/annotation.jar')
+    compile files('libs/constraintLayout.jar')*/
+}
+
+apply from: '../gradle/upload_to_maven.gradle'

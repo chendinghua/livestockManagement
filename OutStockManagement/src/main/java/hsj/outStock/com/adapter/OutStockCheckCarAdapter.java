@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import java.util.List;
 import hsj.outStock.com.R;
 import hsj.outStock.com.entry.OutStockCarList;
+import wang.relish.widget.vehicleedittext.VehicleKeyboardHelper;
 
 /**
  * Created by 16486 on 2020/12/7.
@@ -103,8 +104,7 @@ public class OutStockCheckCarAdapter extends BaseAdapter {
         ImageView addCarInfo  = view.findViewById(R.id.iv_add_car_info);
         ImageView removeCarInfo  = view.findViewById(R.id.iv_remove_car_info);
 
-
-
+        VehicleKeyboardHelper.bind(etCar);
 
         final OutStockCarList outStock =  tagList.get(position);
         if(outStock!=null){

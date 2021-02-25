@@ -27,4 +27,5 @@ include ':app',
         ':MPChartLib',
         ':licenseplateview',/*车牌输入控件*/
         ':integratedManagement',/*综合管理 检疫站*/
-        ':ExamineManagement'/*签收模块*/
+        ':ExamineManagement',/*签收模块*/
+        ':keyBoard'/*EditText车牌输入控件*/

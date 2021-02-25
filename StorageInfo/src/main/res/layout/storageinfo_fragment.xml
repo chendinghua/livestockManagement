@@ -118,7 +118,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="入栏时间"
+                        android:text="入栏开始时间"
                         android:gravity="center"
                         />
                     <TextView
@@ -145,7 +145,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="出栏时间"
+                        android:text="入栏结束时间"
                         android:gravity="center"
                         />
                     <TextView

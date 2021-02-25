@@ -6,6 +6,15 @@ def configInfo = rootProject.ext.android
 android {
     compileSdkVersion configInfo.compileSdkVersion
     buildToolsVersion configInfo.buildToolsVersion
+
+    packagingOptions {
+        exclude 'AndroidManifest.xml'
+        exclude 'lint.xml'
+        exclude 'project.properties'
+        exclude 'proguard-project.txt'
+        exclude 'ic_launcher-web.png'
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
     aaptOptions {
 
         cruncherEnabled = false

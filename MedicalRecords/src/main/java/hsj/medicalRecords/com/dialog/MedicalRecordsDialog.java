@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.kymjs.app.base_res.utils.selectSpinner.tools.SpinnerTools;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import hsj.medicalRecords.com.R;
@@ -58,7 +61,6 @@ public class MedicalRecordsDialog extends Dialog {
 
         private View layout;
         private MedicalRecordsDialog dialog;
-
 
 
 
@@ -153,13 +155,21 @@ public class MedicalRecordsDialog extends Dialog {
             return dialog;
         }
         //就诊原因
-        AutoCompleteTextView autoCompleteTextView;
+        EditText autoCompleteTextView;
         //病情描述
         EditText etCondition;
+
+        //就诊病因下拉列表
+        Spinner spMedical;
 
         public String getMedical(){
 
             return autoCompleteTextView.getText().toString();
+        }
+
+        public Spinner getSpMedical(){
+
+            return spMedical;
         }
 
         public String getCondition(){
@@ -187,16 +197,37 @@ public class MedicalRecordsDialog extends Dialog {
             }
             autoCompleteTextView = layout.findViewById(R.id.auto_medical_list);
             etCondition = layout.findViewById(R.id.et_medicalrecords_Condition);
-
+            spMedical = layout.findViewById(R.id.sp_medical);
             if(scanResult!=null){
                 ((TextView)layout.findViewById(R.id.tv_medicalrecords_serialNo)).setText(scanResult.getSerialNo());
 
                 ((TextView)layout.findViewById(R.id.tv_medicalrecords_productName)).setText(scanResult.getProductName());
 
             }
+            autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-         //   SpinnerTools.change((Activity) mContext,spMedical,null, MethodEnum.GETMEDICALRLIST, MedicalRList.class,"Illness","ID",null);
-            InteractiveDataUtil.interactiveMessage((Activity) mContext,null,new HandlerUtils(mContext, new HandlerUtilsCallback() {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    spMedical.setTag("");
+                    HashMap<String,Object> spMedicalMap = new HashMap<>();
+                    spMedicalMap.put("Name",charSequence.toString());
+
+                    SpinnerTools.change((Activity) mContext,spMedical,spMedicalMap, MethodEnum.GETMEDICALRLIST, MedicalRList.class,"Name","ID",null,false);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+
+            SpinnerTools.change((Activity) mContext,spMedical,null, MethodEnum.GETMEDICALRLIST, MedicalRList.class,"Name","ID",null,false);
+         /*   InteractiveDataUtil.interactiveMessage((Activity) mContext,null,new HandlerUtils(mContext, new HandlerUtilsCallback() {
                 @Override
                 public void handlerExecutionFunction(Message msg) {
                     List<MedicalRList> medicalRLists =   JSON.parseArray(JSON.parseObject(msg.getData().getString("result")).getString("Data"),MedicalRList.class);
@@ -210,7 +241,7 @@ public class MedicalRecordsDialog extends Dialog {
 
                 }
             }),MethodEnum.GETMEDICALRLIST, InteractiveEnum.GET);
-
+*/
 
             dialog.setContentView(layout);
             dialog.setCancelable(true);     //用户可以点击手机Back键取消对话框显示

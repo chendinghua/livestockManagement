@@ -28,6 +28,7 @@ import com.kymjs.app.base_res.utils.view.dateTime.SelectDateTime;
 import com.lwy.paginationlib.PaginationListView;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -79,6 +80,8 @@ public class MedicalRecordsFragment extends BaseFragment {
         return R.layout.medicalrecords_fragment;
     }
 
+
+
     @Override
     protected void initView() {
         builder =new MedicalRecordsDialog.Builder(activity);
@@ -103,8 +106,8 @@ public class MedicalRecordsFragment extends BaseFragment {
         SearchAdapter<String> autoadapter = new SearchAdapter<String>(activity,android.R.layout.simple_dropdown_item_1line,str,SearchAdapter.ALL);
         autoCompleteTextView.setAdapter(autoadapter);*/
 
-
-        SelectDateTime.initCurrentTime( tvStorageInfoEndTime);
+        tvStorageInfoEndTime.setText(SelectDateTime.getTomoData());
+     //   SelectDateTime.initCurrentTime( tvStorageInfoEndTime);
         SelectDateTime.initCurrentTime(tvStorageInfoStartTime);
 
         adapter = new PaginationListView.Adapter(20, activity, -1, "ID", "Illness", "RfidNo", "DiagnosisTime", "Status");
@@ -151,15 +154,21 @@ public class MedicalRecordsFragment extends BaseFragment {
                                .setPositiveButton("确认", new View.OnClickListener() {
                                    @Override
                                    public void onClick(View v) {
-                                    //添加就诊信息
-                                       HashMap<String,Object> hashMap = new HashMap<>();
-                                       hashMap.put("MedicalRID",0);
-                                       hashMap.put("MedicalRecord",builder.getMedical());
-                                       hashMap.put("StorageID",scanResult.getStorageID());
-                                       hashMap.put("StockID",scanResult.getStockID());
-                                       hashMap.put("Condition",builder.getCondition());
-                                       hashMap.put("Status",1);                 //治疗状态  1治疗中  0为康复  2死亡 -9删除
-                                       InteractiveDataUtil.interactiveMessage(activity,hashMap,handlerUtils,MethodEnum.POSTMEDICAL,InteractiveEnum.POST);
+                                       //判断当前疾病是否为空
+                                       if(builder.getSpMedical()!=null && !"".equals(builder.getSpMedical().getTag())) {
+
+                                           //添加就诊信息
+                                           HashMap<String, Object> hashMap = new HashMap<>();
+                                           hashMap.put("MedicalRID", builder.getSpMedical().getTag());
+                                         //  hashMap.put("MedicalRecord", builder.getMedical());
+                                           hashMap.put("StorageID", scanResult.getStorageID());
+                                           hashMap.put("StockID", scanResult.getStockID());
+                                           hashMap.put("Condition", builder.getCondition());
+                                           hashMap.put("Status", 1);                 //治疗状态  1治疗中  0为康复  2死亡 -9删除
+                                           InteractiveDataUtil.interactiveMessage(activity, hashMap, handlerUtils, MethodEnum.POSTMEDICAL, InteractiveEnum.POST);
+                                       }else{
+                                           UIHelper.ToastMessage(activity,"当前疾病名称不能为空");
+                                       }
                                    }
                                })
                                .setNegativeButton("取消", new View.OnClickListener() {

@@ -16,6 +16,7 @@ import com.kymjs.app.base_res.utils.http.InteractiveEnum;
 import com.kymjs.app.base_res.utils.http.MethodEnum;
 import com.kymjs.app.base_res.utils.tools.UIHelper;
 import com.kymjs.app.base_res.utils.view.ScanRfidDialog;
+import com.lwy.paginationlib.PaginationListView;
 
 import java.util.HashMap;
 
@@ -33,6 +34,8 @@ public class DestroyManagementFragment extends BaseresTaskFragment implements Vi
     StorageDialog mDialog;
     StorageDialog.Builder builder;
 
+  //  protected PaginationListView.Adapter<TaskData.TaskDataList> adapter;
+
     @Override
     public void initFragmentActivityView() {
         builder = new StorageDialog.Builder(activity);
@@ -43,7 +46,7 @@ public class DestroyManagementFragment extends BaseresTaskFragment implements Vi
                 if(MethodEnum.GETSTORAGEINFOBYOUT.equals(msg.getData().getString("method"))){
                     final ScanResult scanResult = JSON.parseObject(JSON.parseObject(msg.getData().getString("result")).getString("Data"), ScanResult.class);
                     //判断需要销毁的标签状态为非未删除  并且健康状态不是死亡和销毁
-                    if(scanResult!=null && scanResult.getStatus()!=-9 ) {
+                    if(scanResult!=null && scanResult.getStatus()==1 && scanResult.getIsEnabled()==1) {
                         mDialog = builder.setMessage("请确认销毁耳标信息").
                                 initScanResult(scanResult).
                                 setPositiveButton("销毁", new View.OnClickListener() {

@@ -29,6 +29,8 @@ import com.kymjs.app.base_res.utils.view.slide.SlideCutListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -250,9 +252,13 @@ public class OutStockCheckCarActivity extends BaseActivity implements OutStockCh
         carAdapter.notifyDataSetChanged();
         updateTitle();
     }
+    String strPattern ="^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{0,1}$";
 
 
     public boolean isCheckCarInfo(OutStockCarList carInfo) {
+        Pattern pattern = Pattern.compile(strPattern);
+
+        Matcher matcher = pattern.matcher(carInfo.getCar());
         boolean isCheck = true;
         if (carInfo == null) {
             isCheck = false;
@@ -260,7 +266,11 @@ public class OutStockCheckCarActivity extends BaseActivity implements OutStockCh
         } else if (isCheckOutStockCarList(carInfo)) {
             isCheck = false;
             UIHelper.ToastMessage(mContext, "车辆或者驾驶员信息为空");
-        } else if (device != null && device.isLoop()) {
+        }else if(!matcher.matches()){
+            isCheck=false;
+            UIHelper.ToastMessage(mContext,"车牌信息无效");
+        }
+        else if (device != null && device.isLoop()) {
             isCheck = false;
             UIHelper.ToastMessage(mContext, "请停止标签读取操作");
         } else if (getSuccessList(2).size() == 0) {
@@ -410,14 +420,7 @@ public class OutStockCheckCarActivity extends BaseActivity implements OutStockCh
 
                     //获取最后一条数据
                     View lvViewItem = lvOutStockCheckCarList.getChildAt(lvOutStockCheckCarList.getChildCount()-1);
-               /*     EditText etOperName = lvViewItem.findViewById(R.id.et_out_stock_check_OPERName);
-                    EditText etOperTelPhone = lvViewItem.findViewById(R.id.et_out_stock_check_OPERTelphone);
-                    EditText etCar = lvViewItem.findViewById(R.id.et_out_stock_check_Car);
-                    OutStockCarList outStockCarList = new OutStockCarList();
-                    outStockCarList.setCar(etCar.getText().toString());
-                    outStockCarList.setOPERName(etOperName.getText().toString());
-                    outStockCarList.setOPERTelphone(etOperTelPhone.getText().toString());*/
-               OutStockCarList outStockCarList = getOutStockCarList(lvViewItem);
+                    OutStockCarList outStockCarList = getOutStockCarList(lvViewItem);
                     if(!isCheckOutStockCarList(outStockCarList)   && getSuccessList(1).size()>0) {
                         outStockCarList.setInfo(getSuccessList(1));
                         tempOutList.add(outStockCarList);

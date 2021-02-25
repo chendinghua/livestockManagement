@@ -29,7 +29,8 @@ import devicelib.factory.DeviceFactory;
  * 基类
  */
 
-public abstract class BaseModelActivity extends FragmentActivity implements ResponseHandlerInterface {
+public abstract class
+BaseModelActivity extends FragmentActivity implements ResponseHandlerInterface {
 
     public Context mContext;
     private Unbinder mUnbinder;

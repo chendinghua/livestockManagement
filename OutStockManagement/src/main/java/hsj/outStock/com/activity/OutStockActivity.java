@@ -196,6 +196,11 @@ public class OutStockActivity extends BaseresScanResultActivity implements Respo
     }
     @Override
     public void onClick(View v) {
+        if(device!=null && device.isLoop()){
+            UIHelper.ToastMessage(mContext,"请停止扫描RFID数据");
+            return;
+        }
+
         //提交   gettag会getButtonViewList()方法中默认按照集合下标添加
         if (Integer.parseInt(v.getTag().toString())  == 1) {
             Bundle  bundle = getIntent().getExtras();

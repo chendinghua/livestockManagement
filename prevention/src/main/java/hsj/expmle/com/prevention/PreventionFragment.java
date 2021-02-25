@@ -45,6 +45,13 @@ public class PreventionFragment extends BaseresTaskFragment {
     }*/
 
     @Override
+    public void onResume() {
+        loadData(adapter.getCurrentPagePos(), adapter.getPerPageCount());
+        super.onResume();
+
+    }
+
+    @Override
     public void initFragmentActivityView() {
         adapter = new PaginationListView.Adapter(20, activity, -1, "StorageCount","VaccineName","ProductName");
         lvTaskInfo.setAdapter(adapter);
@@ -124,7 +131,7 @@ public class PreventionFragment extends BaseresTaskFragment {
 
     @Override
     protected String setBtnTaskAdd() {
-        return "";
+        return null;
     }
 
     @Override
